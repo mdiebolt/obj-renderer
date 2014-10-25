@@ -40,7 +40,8 @@ Renderer
       texture = new THREE.Texture()
 
       loadPalette "bartender", texture
-      loadObj "bartender", texture
+      #loadObj "bartender", texture
+      loadObj "robo_sheriff, texture"
       
       particles = ParticleSystem
         scene: scene
