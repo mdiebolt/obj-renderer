@@ -47,6 +47,23 @@ windowHalfX = window.innerWidth / <span class="number">2</span>
 windowHalfY = window.innerHeight / <span class="number">2</span>
 aspectRatio = window.innerWidth / window.innerHeight
 
+<span class="function"><span class="title">addLights</span></span> = (scene) -&gt;
+  ambient = <span class="keyword">new</span> THREE.AmbientLight <span class="number">0x101030</span>
+  scene.add ambient
+
+  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span> 
+  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> 
+  scene.add directionalLight     
+
+<span class="function"><span class="title">addCube</span></span> = (scene) -&gt;
+  geometry = <span class="keyword">new</span> THREE.CubeGeometry(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>)
+  material = <span class="keyword">new</span> THREE.MeshNormalMaterial()
+
+  cube = <span class="keyword">new</span> THREE.Mesh geometry, material 
+  cube.position.y = -<span class="number">5</span>
+
+  scene.add cube
+
 <span class="function"><span class="title">init</span></span> = -&gt;
   container = document.createElement <span class="string">"div"</span>
   document.body.appendChild container
@@ -56,17 +73,9 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   scene = <span class="keyword">new</span> THREE.Scene()
 
-  ambient = <span class="keyword">new</span> THREE.AmbientLight <span class="number">0x101030</span>
-  scene.add ambient
+  addLights scene
+  addCube scene
 
-  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span> 
-  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> 
-  scene.add directionalLight 
-
-  cube = <span class="keyword">new</span> THREE.Mesh(<span class="keyword">new</span> THREE.CubeGeometry(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>), <span class="keyword">new</span> THREE.MeshNormalMaterial()) 
-  cube.position.y = -<span class="number">5</span>
-
-  scene.add cube
 
   manager = <span class="keyword">new</span> THREE.LoadingManager()
   manager.<span class="function"><span class="title">onProgress</span></span> = (item, loaded, total) -&gt;
