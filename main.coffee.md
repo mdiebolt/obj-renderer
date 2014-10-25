@@ -12,12 +12,13 @@ Renderer
 
     windowHalfX = window.innerWidth / 2
     windowHalfY = window.innerHeight / 2
+    aspectRatio = window.innerWidth / window.innerHeight
 
     init = ->
       container = document.createElement "div"
       document.body.appendChild container
 
-      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
+      camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)
       camera.position.z = 100
 
       scene = new THREE.Scene()
