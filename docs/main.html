@@ -66,6 +66,35 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   scene.add cube
 
+<span class="function"><span class="title">loadPalette</span></span> = (name) -&gt;
+  loader = <span class="keyword">new</span> THREE.ImageLoader(manager)
+  loader.crossOrigin = <span class="literal">true</span>
+  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/<span class="subst">#{name}</span>.png?doot2"</span>, (image) -&gt;
+    texture.image = image
+    texture.needsUpdate = <span class="literal">true</span>
+
+<span class="function"><span class="title">loadObj</span></span> = (name) -&gt;
+  <span class="function"><span class="title">onProgress</span></span> = (xhr) -&gt;
+    <span class="keyword">if</span>  xhr.lengthComputable 
+      percentComplete = xhr.loaded / xhr.total * <span class="number">100</span>
+      console.log <span class="string">"<span class="subst">#{Math.round(percentComplete, <span class="number">2</span>)}</span>% downloaded"</span> 
+
+  <span class="function"><span class="title">onError</span></span> = (xhr) -&gt;
+    console.error xhr    
+
+  loader = <span class="keyword">new</span> THREE.OBJLoader(manager)
+  loader.crossOrigin = <span class="literal">true</span>
+  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/<span class="subst">#{name}</span>.obj?doot2"</span>, (object) -&gt;
+    object.traverse (child) -&gt;
+      <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh
+        child.material.map = texture
+
+        object.position.y = <span class="number">0</span>
+        scene.add object
+
+    , onProgress
+    , onError
+
 <span class="function"><span class="title">init</span></span> = -&gt;
   container = document.createElement <span class="string">"div"</span>
   document.body.appendChild container
@@ -78,39 +107,14 @@ aspectRatio = window.innerWidth / window.innerHeight
   addLights scene
   addCube scene
 
-
   manager = <span class="keyword">new</span> THREE.LoadingManager()
   manager.<span class="function"><span class="title">onProgress</span></span> = (item, loaded, total) -&gt;
       console.log item, loaded, total 
 
   texture = <span class="keyword">new</span> THREE.Texture()
 
-  <span class="function"><span class="title">onProgress</span></span> = (xhr) -&gt;
-    <span class="keyword">if</span>  xhr.lengthComputable 
-      percentComplete = xhr.loaded / xhr.total * <span class="number">100</span>
-      console.log <span class="string">"<span class="subst">#{Math.round(percentComplete, <span class="number">2</span>)}</span>% downloaded"</span> 
-
-  <span class="function"><span class="title">onError</span></span> = (xhr) -&gt;
-    console.error xhr
-
-  loader = <span class="keyword">new</span> THREE.ImageLoader(manager)
-  loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/bartender.png?doot2"</span>, (image) -&gt;
-    texture.image = image
-    texture.needsUpdate = <span class="literal">true</span>
-
-  loader = <span class="keyword">new</span> THREE.OBJLoader(manager)
-  loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/bartender.obj?doot2"</span>, (object) -&gt;
-    object.traverse (child) -&gt;
-      <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh
-        child.material.map = texture
-
-        object.position.y = <span class="number">0</span>
-        scene.add object
-
-    , onProgress
-    , onError
+  loadPalette <span class="string">"bartender"</span>
+  loadObj <span class="string">"bartender"</span>
 
   renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
   renderer.setSize window.innerWidth, window.innerHeight
