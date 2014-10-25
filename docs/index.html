@@ -36,7 +36,7 @@
             </div>
             <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
 
-{Vector3} = THREE 
+{Vector3} = THREE
 
 CUBE_SIZE = <span class="number">10</span>
 
@@ -49,7 +49,7 @@ mouseX = mouseY = <span class="number">0</span>
 
 manager = <span class="keyword">new</span> THREE.LoadingManager()
 manager.<span class="function"><span class="title">onProgress</span></span> = (item, loaded, total) -&gt;
-  console.log item, loaded, total 
+  console.log item, loaded, total
 
 windowHalfX = window.innerWidth / <span class="number">2</span>
 windowHalfY = window.innerHeight / <span class="number">2</span>
@@ -66,9 +66,7 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   addLights scene
 
-  [<span class="number">0.</span><span class="number">.10</span>].forEach (x) -&gt;
-    [<span class="number">0.</span><span class="number">.10</span>].forEach (z) -&gt;
-      addCube scene, <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
+  generateGrid(<span class="number">10</span>)
 
   texture = <span class="keyword">new</span> THREE.Texture()
 
@@ -81,6 +79,11 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   document.addEventListener <span class="string">"mousemove"</span>, onDocumentMouseMove, <span class="literal">false</span>
   window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
+
+<span class="function"><span class="title">generateGrid</span></span> = (size) -&gt;
+  [<span class="number">0.</span>..size].forEach (x) -&gt;
+    [<span class="number">0.</span>..size].forEach (z) -&gt;
+      addCube scene, <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
 
 <span class="function"><span class="title">onWindowResize</span></span> = -&gt;
     windowHalfX = window.innerWidth / <span class="number">2</span>
@@ -103,9 +106,9 @@ aspectRatio = window.innerWidth / window.innerHeight
   ambient = <span class="keyword">new</span> THREE.AmbientLight <span class="number">0x101030</span>
   scene.add ambient
 
-  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span> 
-  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> 
-  scene.add directionalLight     
+  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span>
+  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>
+  scene.add directionalLight
 
 <span class="function"><span class="title">addCube</span></span> = (scene, position) -&gt;
   geometry = <span class="keyword">new</span> THREE.CubeGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
@@ -113,7 +116,7 @@ aspectRatio = window.innerWidth / window.innerHeight
     color: <span class="number">0xfffff</span>
     wireframe: <span class="literal">true</span>
 
-  cube = <span class="keyword">new</span> THREE.Mesh geometry, material 
+  cube = <span class="keyword">new</span> THREE.Mesh geometry, material
   cube.position.x = position.x
   cube.position.y = position.y
   cube.position.z = position.z
@@ -129,12 +132,12 @@ aspectRatio = window.innerWidth / window.innerHeight
 
 <span class="function"><span class="title">loadObj</span></span> = (name, texture) -&gt;
   <span class="function"><span class="title">onProgress</span></span> = (xhr) -&gt;
-    <span class="keyword">if</span>  xhr.lengthComputable 
+    <span class="keyword">if</span>  xhr.lengthComputable
       percentComplete = xhr.loaded / xhr.total * <span class="number">100</span>
-      console.log <span class="string">"<span class="subst">#{Math.round(percentComplete, <span class="number">2</span>)}</span>% downloaded"</span> 
+      console.log <span class="string">"<span class="subst">#{Math.round(percentComplete, <span class="number">2</span>)}</span>% downloaded"</span>
 
   <span class="function"><span class="title">onError</span></span> = (xhr) -&gt;
-    console.error xhr    
+    console.error xhr
 
   loader = <span class="keyword">new</span> THREE.OBJLoader(manager)
   loader.crossOrigin = <span class="literal">true</span>
