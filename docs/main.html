@@ -36,6 +36,10 @@
             </div>
             <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
 
+{Vector3} = THREE 
+
+CUBE_SIZE = <span class="number">10</span>
+
 camera =
 scene =
 renderer =
@@ -61,7 +65,10 @@ aspectRatio = window.innerWidth / window.innerHeight
   scene = <span class="keyword">new</span> THREE.Scene()
 
   addLights scene
-  addCube scene
+
+  [<span class="number">0.</span><span class="number">.10</span>].forEach (x) -&gt;
+    [<span class="number">0.</span><span class="number">.10</span>].forEach (z) -&gt;
+      addCube scene, <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
 
   texture = <span class="keyword">new</span> THREE.Texture()
 
@@ -100,14 +107,16 @@ aspectRatio = window.innerWidth / window.innerHeight
   directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> 
   scene.add directionalLight     
 
-<span class="function"><span class="title">addCube</span></span> = (scene) -&gt;
-  geometry = <span class="keyword">new</span> THREE.CubeGeometry(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>)
+<span class="function"><span class="title">addCube</span></span> = (scene, position) -&gt;
+  geometry = <span class="keyword">new</span> THREE.CubeGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
   material = <span class="keyword">new</span> THREE.MeshBasicMaterial
     color: <span class="number">0xfffff</span>
-    wireframe: <span class="literal">false</span>
+    wireframe: <span class="literal">true</span>
 
   cube = <span class="keyword">new</span> THREE.Mesh geometry, material 
-  cube.position.y = -<span class="number">5</span>
+  cube.position.x = position.x
+  cube.position.y = position.y
+  cube.position.z = position.z
 
   scene.add cube
 
