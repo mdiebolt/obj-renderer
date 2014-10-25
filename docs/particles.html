@@ -32,7 +32,7 @@
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>A voxel particle system.</p>
+              <p>Emit voxel particles</p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript"><span class="comment"># picks a random float between -max/2 and max/2</span>
@@ -57,12 +57,12 @@
 
   particles
 
-module.<span class="function"><span class="title">exports</span></span> = (scene) -&gt;      
+module.<span class="function"><span class="title">exports</span></span> = (scene) -&gt;
   material = <span class="keyword">new</span> THREE.ParticleBasicMaterial
     color: <span class="number">0xFFFFFF</span>
     size: <span class="number">20</span>
 
-  particles = createParticles <span class="number">1800</span>    
+  particles = createParticles <span class="number">1800</span>
   particleSystem = <span class="keyword">new</span> THREE.ParticleSystem particles, material
 
   scene.add particleSystem

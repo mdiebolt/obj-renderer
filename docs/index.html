@@ -35,7 +35,7 @@
               
             </div>
             <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
-<span class="comment">#ParticleSystem = require "./particles"</span>
+ParticleSystem = require <span class="string">"./particles"</span>
 
 {Vector3} = THREE
 
@@ -73,7 +73,7 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   loadPalette <span class="string">"bartender"</span>, texture
   loadObj <span class="string">"bartender"</span>, texture
-  <span class="comment">#ParticleSystem(scene)</span>
+  ParticleSystem(scene)
 
   renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
   renderer.setSize window.innerWidth, window.innerHeight
