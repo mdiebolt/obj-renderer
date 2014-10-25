@@ -73,7 +73,11 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   loadPalette <span class="string">"bartender"</span>, texture
   loadObj <span class="string">"bartender"</span>, texture
-  ParticleSystem(scene)
+
+  particles = ParticleSystem
+    scene: scene
+
+  particles.generate(<span class="number">1800</span>)
 
   renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
   renderer.setSize window.innerWidth, window.innerHeight

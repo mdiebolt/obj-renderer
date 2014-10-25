@@ -47,11 +47,13 @@
     <span class="keyword">new</span> THREE.Vector3(x, y, z)
 
 <span class="function"><span class="title">addCube</span></span> = (scene) -&gt;
-  geometry = <span class="keyword">new</span> THREE.BoxGeometry(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>)
+  geometry = <span class="keyword">new</span> THREE.BoxGeometry(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)
   material = <span class="keyword">new</span> THREE.MeshBasicMaterial
     color: <span class="number">0xfffff</span>
 
   cube = <span class="keyword">new</span> THREE.Mesh geometry, material
+  position = randomVector3(<span class="number">500</span>)
+
   cube.position.x = position.x
   cube.position.y = position.y
   cube.position.z = position.z
@@ -59,11 +61,21 @@
   scene.add cube
 
 <span class="function"><span class="title">createParticles</span></span> = (count, scene) -&gt;
-  [<span class="number">0.</span>..count].forEach -&gt;
+  [<span class="number">0.</span>..count].map -&gt;
     addCube(scene)
 
-module.<span class="function"><span class="title">exports</span></span> = (scene) -&gt;
-  createParticles <span class="number">1800</span>, scene</code></pre>
+module.<span class="function"><span class="title">exports</span></span> = (opts={}) -&gt;
+  scene = opts.scene
+  particles = <span class="literal">null</span>
+
+  <span class="keyword">return</span> {
+    generate: (number) -&gt;
+      createParticles number, scene
+
+    update: (cb) -&gt;
+      particles?.forEach (p) -&gt;
+        cb?(p)
+  }</code></pre>
 </div>
         </li>
         
