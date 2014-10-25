@@ -2,6 +2,10 @@ Renderer
 ========
 
     require "./lib/obj_renderer"
+    
+    {Vector3} = THREE 
+
+    CUBE_SIZE = 10
 
     camera =
     scene =
@@ -28,7 +32,10 @@ Renderer
       scene = new THREE.Scene()
 
       addLights scene
-      addCube scene
+      
+      [0..10].forEach (x) ->
+        [0..10].forEach (z) ->
+          addCube scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
       
       texture = new THREE.Texture()
 
@@ -67,15 +74,17 @@ Renderer
       directionalLight.position.set 0, 0, 1 
       scene.add directionalLight     
 
-    addCube = (scene) ->
-      geometry = new THREE.CubeGeometry(10, 10, 10)
+    addCube = (scene, position) ->
+      geometry = new THREE.CubeGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
       material = new THREE.MeshBasicMaterial
         color: 0xfffff
-        wireframe: false
+        wireframe: true
       
       cube = new THREE.Mesh geometry, material 
-      cube.position.y = -5
-
+      cube.position.x = position.x
+      cube.position.y = position.y
+      cube.position.z = position.z
+      
       scene.add cube
 
     loadPalette = (name, texture) ->
