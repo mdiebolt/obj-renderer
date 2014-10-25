@@ -102,7 +102,8 @@ Renderer
     loadPalette = (name, texture) ->
       loader = new THREE.ImageLoader(manager)
       loader.crossOrigin = true
-      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.png?doot2", (image) ->
+      
+      loader.load "https://s3.amazonaws.com/distri-tactics/bartender.png?doot2", (image) ->
         texture.image = image
         texture.needsUpdate = true
 
@@ -117,7 +118,7 @@ Renderer
 
       loader = new THREE.OBJLoader(manager)
       loader.crossOrigin = true
-      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.obj?doot2", (object) ->
+      loader.load "https://s3.amazonaws.com/distri-tactics/#{name}.obj?doot2", (object) ->
         object.traverse (child) ->
           if child instanceof THREE.Mesh
             child.material.map = texture
