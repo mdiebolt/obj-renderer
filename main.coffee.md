@@ -53,7 +53,7 @@ Renderer
       loader.crossOrigin = true
       loader.load "https://s3.amazonaws.com/trinket/18894/bartender.obj?doot2", (object) ->
         object.traverse (child) ->
-          ifchild instanceof THREE.Mesh
+          if child instanceof THREE.Mesh
             child.material.map = texture
 
             object.position.y = 0
