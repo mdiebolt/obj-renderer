@@ -62,8 +62,11 @@
 
   cube
 
-<span class="function"><span class="title">createParticles</span></span> = (count, scene) -&gt;
-  [<span class="number">0.</span>..count].map -&gt;
+<span class="function"><span class="title">createParticles</span></span> = (opts={}) -&gt;
+  scene = opts.scene
+  number = opts.number
+
+  [<span class="number">0.</span>..number].map -&gt;
     addCube(scene)
 
 module.<span class="function"><span class="title">exports</span></span> = (opts={}) -&gt;
@@ -71,8 +74,11 @@ module.<span class="function"><span class="title">exports</span></span> = (opts=
   particles = <span class="literal">null</span>
 
   <span class="keyword">return</span> {
-    generate: (number) -&gt;
-      particles = createParticles number, scene
+    generate: (opts={}) -&gt;
+      particles = createParticles
+        number: opts.number
+        position: opts.position
+        scene: scene
 
     update: (cb) -&gt;
       particles?.forEach cb
