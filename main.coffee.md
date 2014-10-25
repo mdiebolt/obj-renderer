@@ -24,7 +24,9 @@ Renderer
 
     addCube = (scene) ->
       geometry = new THREE.CubeGeometry(10, 10, 10)
-      material = new THREE.MeshNormalMaterial()
+      material = new THREE.MeshBasicMaterial
+        color: 0xfffff
+        wireframe: false
       
       cube = new THREE.Mesh geometry, material 
       cube.position.y = -5
