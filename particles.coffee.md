@@ -3,23 +3,24 @@ Particles
 
 A voxel particle system.
 
-    module.exports = ->
+    module.exports = (scene) ->
       particleCount = 1800
       particles = new THREE.Geometry()
-      pMaterial = new THREE.ParticleBasicMaterial
+      material = new THREE.ParticleBasicMaterial
         color: 0xFFFFFF
         size: 20
       
-      [0...particleCount].forEach (p) ->
-        pX = Math.random() * 500 - 250
-        pY = Math.random() * 500 - 250
-        pZ = Math.random() * 500 - 250
-        particle = new THREE.Vertex(new THREE.Vector3 pX, pY, pZ)
+      [0...particleCount].forEach ->
+        x = Math.random() * 500 - 250
+        y = Math.random() * 500 - 250
+        z = Math.random() * 500 - 250
+        
+        particle = new THREE.Vertex(new THREE.Vector3 x, y, z)
       
         # add it to the geometry
         particles.vertices.push particle
       
-      
-      particleSystem = new THREE.ParticleSystem particles, pMaterial
+      particleSystem = new THREE.ParticleSystem particles, material
       
       scene.addChild particleSystem
+      
