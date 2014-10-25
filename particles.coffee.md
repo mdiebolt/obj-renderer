@@ -22,5 +22,5 @@ A voxel particle system.
       
       particleSystem = new THREE.ParticleSystem particles, material
       
-      scene.addChild particleSystem
+      scene.add particleSystem
       
