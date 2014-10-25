@@ -5,7 +5,7 @@ A voxel particle system.
 
     module.exports = (scene) ->
       particleCount = 1800
-      particles = new THREE.Geometry()
+      particles = new THREE.CubeGeometry()
       material = new THREE.ParticleBasicMaterial
         color: 0xFFFFFF
         size: 20
