@@ -33,6 +33,35 @@ Renderer
 
       scene.add cube
 
+    loadPalette = (name) ->
+      loader = new THREE.ImageLoader(manager)
+      loader.crossOrigin = true
+      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.png?doot2", (image) ->
+        texture.image = image
+        texture.needsUpdate = true
+
+    loadObj = (name) ->
+      onProgress = (xhr) ->
+        if  xhr.lengthComputable 
+          percentComplete = xhr.loaded / xhr.total * 100
+          console.log "#{Math.round(percentComplete, 2)}% downloaded" 
+
+      onError = (xhr) ->
+        console.error xhr    
+    
+      loader = new THREE.OBJLoader(manager)
+      loader.crossOrigin = true
+      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.obj?doot2", (object) ->
+        object.traverse (child) ->
+          if child instanceof THREE.Mesh
+            child.material.map = texture
+
+            object.position.y = 0
+            scene.add object
+
+        , onProgress
+        , onError
+
     init = ->
       container = document.createElement "div"
       document.body.appendChild container
@@ -45,39 +74,14 @@ Renderer
       addLights scene
       addCube scene
       
-
       manager = new THREE.LoadingManager()
       manager.onProgress = (item, loaded, total) ->
       	console.log item, loaded, total 
 
       texture = new THREE.Texture()
 
-      onProgress = (xhr) ->
-        if  xhr.lengthComputable 
-          percentComplete = xhr.loaded / xhr.total * 100
-          console.log "#{Math.round(percentComplete, 2)}% downloaded" 
-
-      onError = (xhr) ->
-        console.error xhr
-
-      loader = new THREE.ImageLoader(manager)
-      loader.crossOrigin = true
-      loader.load "https://s3.amazonaws.com/trinket/18894/bartender.png?doot2", (image) ->
-        texture.image = image
-        texture.needsUpdate = true
-
-      loader = new THREE.OBJLoader(manager)
-      loader.crossOrigin = true
-      loader.load "https://s3.amazonaws.com/trinket/18894/bartender.obj?doot2", (object) ->
-        object.traverse (child) ->
-          if child instanceof THREE.Mesh
-            child.material.map = texture
-
-            object.position.y = 0
-            scene.add object
-
-        , onProgress
-        , onError
+      loadPalette "bartender"
+      loadObj "bartender"
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
