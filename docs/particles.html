@@ -35,26 +35,36 @@
               <p>A voxel particle system.</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">module.<span class="function"><span class="title">exports</span></span> = (scene) -&gt;
-  particleCount = <span class="number">1800</span>
-  particles = <span class="keyword">new</span> THREE.BoxGeometry()
-  material = <span class="keyword">new</span> THREE.ParticleBasicMaterial
-    color: <span class="number">0xFFFFFF</span>
-    size: <span class="number">20</span>
+            <div class="content"><pre><code class="lang-coffeescript"><span class="comment"># picks a random float between -max/2 and max/2</span>
+<span class="function"><span class="title">randomFloat</span></span> = (max) -&gt;
+  Math.random() * max - max / <span class="number">2</span>
 
-  [<span class="number">0.</span>..particleCount].forEach -&gt;
-    x = Math.random() * <span class="number">500</span> - <span class="number">250</span>
-    y = Math.random() * <span class="number">500</span> - <span class="number">250</span>
-    z = Math.random() * <span class="number">500</span> - <span class="number">250</span>
+<span class="function"><span class="title">createParticles</span></span> = (count) -&gt;
+  particles = <span class="keyword">new</span> THREE.Geometry()
+
+  [<span class="number">0.</span>..count].forEach -&gt;
+    x = randomFloat(<span class="number">500</span>)
+    y = randomFloat(<span class="number">500</span>)
+    z = randomFloat(<span class="number">500</span>)
 
     particle = <span class="keyword">new</span> THREE.Vector3(x, y, z)
 
     <span class="comment"># add it to the geometry</span>
     particles.vertices.push particle
 
+  particles
+
+module.<span class="function"><span class="title">exports</span></span> = (scene) -&gt;      
+  material = <span class="keyword">new</span> THREE.ParticleBasicMaterial
+    color: <span class="number">0xFFFFFF</span>
+    size: <span class="number">20</span>
+
+  particles = createParticles <span class="number">1800</span>    
   particleSystem = <span class="keyword">new</span> THREE.ParticleSystem particles, material
 
-  scene.add particleSystem</code></pre>
+  scene.add particleSystem
+
+  particleSystem</code></pre>
 </div>
         </li>
         
