@@ -14,6 +14,23 @@ Renderer
     windowHalfY = window.innerHeight / 2
     aspectRatio = window.innerWidth / window.innerHeight
 
+    addLights = (scene) ->
+      ambient = new THREE.AmbientLight 0x101030
+      scene.add ambient
+
+      directionalLight = new THREE.DirectionalLight 0xffeedd 
+      directionalLight.position.set 0, 0, 1 
+      scene.add directionalLight     
+
+    addCube = (scene) ->
+      geometry = new THREE.CubeGeometry(10, 10, 10)
+      material = new THREE.MeshNormalMaterial()
+      
+      cube = new THREE.Mesh geometry, material 
+      cube.position.y = -5
+
+      scene.add cube
+
     init = ->
       container = document.createElement "div"
       document.body.appendChild container
@@ -23,17 +40,9 @@ Renderer
 
       scene = new THREE.Scene()
 
-      ambient = new THREE.AmbientLight 0x101030
-      scene.add ambient
-
-      directionalLight = new THREE.DirectionalLight 0xffeedd 
-      directionalLight.position.set 0, 0, 1 
-      scene.add directionalLight 
-
-      cube = new THREE.Mesh(new THREE.CubeGeometry(10, 10, 10), new THREE.MeshNormalMaterial()) 
-      cube.position.y = -5
-
-      scene.add cube
+      addLights scene
+      addCube scene
+      
 
       manager = new THREE.LoadingManager()
       manager.onProgress = (item, loaded, total) ->
