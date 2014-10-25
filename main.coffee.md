@@ -46,7 +46,7 @@ Renderer
         scene: scene
       
       particles.generate
-        number: 60
+        number: 100
         position: new Vector3(0, 0, 0)
 
       renderer = new THREE.WebGLRenderer()
