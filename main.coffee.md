@@ -3,6 +3,7 @@ Renderer
 
     require "./lib/obj_renderer"
     ParticleSystem = require "./particles"
+    particles = []
 
     {Vector3} = THREE
 
@@ -130,6 +131,10 @@ Renderer
       camera.position.y += (-mouseY - camera.position.y) * .05
 
       camera.lookAt scene.position
+
+      particles.update (p) ->
+        console.log p
+        p.position.x = p.position.x + 1
 
       renderer.render scene, camera
 

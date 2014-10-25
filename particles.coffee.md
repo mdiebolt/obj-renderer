@@ -39,7 +39,7 @@ Pick a random float between `-max / 2` and `max / 2`
     
       return {
         generate: (number) ->
-          createParticles number, scene
+          particles = createParticles number, scene
           
         update: (cb) ->
           particles?.forEach cb
