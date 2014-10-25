@@ -30,6 +30,11 @@ Renderer
       directionalLight.position.set 0, 0, 1 
       scene.add directionalLight 
 
+      cube = new THREE.Mesh(new THREE.CubeGeometry(10, 10, 10), new THREE.MeshNormalMaterial()) 
+      cube.position.y = -5
+
+      scene.add cube
+
       manager = new THREE.LoadingManager()
       manager.onProgress = (item, loaded, total) ->
       	console.log item, loaded, total 
