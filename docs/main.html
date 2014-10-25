@@ -78,7 +78,7 @@ aspectRatio = window.innerWidth / window.innerHeight
   particles = ParticleSystem
     scene: scene
 
-  particles.generate(<span class="number">1800</span>)
+  particles.generate(<span class="number">180</span>)
 
   renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
   renderer.setSize window.innerWidth, window.innerHeight
@@ -166,8 +166,7 @@ aspectRatio = window.innerWidth / window.innerHeight
   camera.lookAt scene.position
 
   particles.update (p) -&gt;
-    console.log p
-    p.position.x = p.position.x + <span class="number">1</span>
+    p.position.x = p.position.x + <span class="number">0.01</span>
 
   renderer.render scene, camera
 
