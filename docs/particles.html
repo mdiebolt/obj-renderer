@@ -33,10 +33,10 @@
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <p>Emit voxel particles</p>
+<p>Pick a random float between <code>-max / 2</code> and <code>max / 2</code></p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript"><span class="comment"># picks a random float between -max/2 and max/2</span>
-<span class="function"><span class="title">randomFloat</span></span> = (max) -&gt;
+            <div class="content"><pre><code class="lang-coffeescript"><span class="function"><span class="title">randomFloat</span></span> = (max) -&gt;
   Math.random() * max - max / <span class="number">2</span>
 
 <span class="function"><span class="title">randomVector3</span></span> = (max) -&gt;
@@ -46,28 +46,24 @@
 
     <span class="keyword">new</span> THREE.Vector3(x, y, z)
 
-<span class="function"><span class="title">createParticles</span></span> = (count) -&gt;
-  particles = <span class="keyword">new</span> THREE.Geometry()
+<span class="function"><span class="title">addCube</span></span> = (scene) -&gt;
+  geometry = <span class="keyword">new</span> THREE.BoxGeometry(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>)
+  material = <span class="keyword">new</span> THREE.MeshBasicMaterial
+    color: <span class="number">0xfffff</span>
 
+  cube = <span class="keyword">new</span> THREE.Mesh geometry, material
+  cube.position.x = position.x
+  cube.position.y = position.y
+  cube.position.z = position.z
+
+  scene.add cube
+
+<span class="function"><span class="title">createParticles</span></span> = (count, scene) -&gt;
   [<span class="number">0.</span>..count].forEach -&gt;
-    particle = randomVector3(<span class="number">500</span>)
-
-    <span class="comment"># add it to the geometry</span>
-    particles.vertices.push particle
-
-  particles
+    addCube(scene)
 
 module.<span class="function"><span class="title">exports</span></span> = (scene) -&gt;
-  material = <span class="keyword">new</span> THREE.ParticleBasicMaterial
-    color: <span class="number">0xFFFFFF</span>
-    size: <span class="number">20</span>
-
-  particles = createParticles <span class="number">1800</span>
-  particleSystem = <span class="keyword">new</span> THREE.ParticleSystem particles, material
-
-  scene.add particleSystem
-
-  particleSystem</code></pre>
+  createParticles <span class="number">1800</span>, scene</code></pre>
 </div>
         </li>
         
