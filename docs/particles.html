@@ -39,15 +39,18 @@
 <span class="function"><span class="title">randomFloat</span></span> = (max) -&gt;
   Math.random() * max - max / <span class="number">2</span>
 
+<span class="function"><span class="title">randomVector3</span></span> = (max) -&gt;
+    x = randomFloat max
+    y = randomFloat max
+    z = randomFloat max
+
+    <span class="keyword">new</span> THREE.Vector3(x, y, z)
+
 <span class="function"><span class="title">createParticles</span></span> = (count) -&gt;
   particles = <span class="keyword">new</span> THREE.Geometry()
 
   [<span class="number">0.</span>..count].forEach -&gt;
-    x = randomFloat(<span class="number">500</span>)
-    y = randomFloat(<span class="number">500</span>)
-    z = randomFloat(<span class="number">500</span>)
-
-    particle = <span class="keyword">new</span> THREE.Vector3(x, y, z)
+    particle = randomVector3(<span class="number">500</span>)
 
     <span class="comment"># add it to the geometry</span>
     particles.vertices.push particle
