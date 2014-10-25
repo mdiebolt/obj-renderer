@@ -35,24 +35,24 @@
               <p>A voxel particle system.</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">module.<span class="function"><span class="title">exports</span></span> = -&gt;
+            <div class="content"><pre><code class="lang-coffeescript">module.<span class="function"><span class="title">exports</span></span> = (scene) -&gt;
   particleCount = <span class="number">1800</span>
   particles = <span class="keyword">new</span> THREE.Geometry()
-  pMaterial = <span class="keyword">new</span> THREE.ParticleBasicMaterial
+  material = <span class="keyword">new</span> THREE.ParticleBasicMaterial
     color: <span class="number">0xFFFFFF</span>
     size: <span class="number">20</span>
 
-  [<span class="number">0.</span>..particleCount].forEach (p) -&gt;
-    pX = Math.random() * <span class="number">500</span> - <span class="number">250</span>
-    pY = Math.random() * <span class="number">500</span> - <span class="number">250</span>
-    pZ = Math.random() * <span class="number">500</span> - <span class="number">250</span>
-    particle = <span class="keyword">new</span> THREE.Vertex(<span class="keyword">new</span> THREE.Vector3 pX, pY, pZ)
+  [<span class="number">0.</span>..particleCount].forEach -&gt;
+    x = Math.random() * <span class="number">500</span> - <span class="number">250</span>
+    y = Math.random() * <span class="number">500</span> - <span class="number">250</span>
+    z = Math.random() * <span class="number">500</span> - <span class="number">250</span>
+
+    particle = <span class="keyword">new</span> THREE.Vertex(<span class="keyword">new</span> THREE.Vector3 x, y, z)
 
     <span class="comment"># add it to the geometry</span>
     particles.vertices.push particle
 
-
-  particleSystem = <span class="keyword">new</span> THREE.ParticleSystem particles, pMaterial
+  particleSystem = <span class="keyword">new</span> THREE.ParticleSystem particles, material
 
   scene.addChild particleSystem</code></pre>
 </div>
