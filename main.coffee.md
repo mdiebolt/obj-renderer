@@ -80,7 +80,7 @@ Renderer
       scene.add directionalLight
 
     addCube = (scene, position) ->
-      geometry = new THREE.CubeGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
+      geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
       material = new THREE.MeshBasicMaterial
         color: 0xfffff
         wireframe: true
