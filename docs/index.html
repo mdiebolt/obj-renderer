@@ -36,9 +36,9 @@
             </div>
             <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
 
-camera = 
-scene = 
-renderer = 
+camera =
+scene =
+renderer =
 container = <span class="literal">null</span>
 
 mouseX = mouseY = <span class="number">0</span>
@@ -46,51 +46,51 @@ mouseX = mouseY = <span class="number">0</span>
 windowHalfX = window.innerWidth / <span class="number">2</span>
 windowHalfY = window.innerHeight / <span class="number">2</span>
 
-init = () -&gt;
-  container = document.createElement( <span class="string">'div'</span> )
-  document.body.appendChild( container )
+<span class="function"><span class="title">init</span></span> = -&gt;
+  container = document.createElement <span class="string">"div"</span>
+  document.body.appendChild container
 
-  camera = <span class="keyword">new</span> THREE.PerspectiveCamera( <span class="number">45</span>, window.innerWidth / window.innerHeight, <span class="number">1</span>, <span class="number">2000</span> )
+  camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, window.innerWidth / window.innerHeight, <span class="number">1</span>, <span class="number">2000</span>)
   camera.position.z = <span class="number">100</span>
 
   scene = <span class="keyword">new</span> THREE.Scene()
 
-  ambient = <span class="keyword">new</span> THREE.AmbientLight( <span class="number">0x101030</span> )
-  scene.add( ambient )
+  ambient = <span class="keyword">new</span> THREE.AmbientLight <span class="number">0x101030</span>
+  scene.add ambient
 
-  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight( <span class="number">0xffeedd</span> )
-  directionalLight.position.set( <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> )
-  scene.add( directionalLight )
+  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span> 
+  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> 
+  scene.add directionalLight 
 
   manager = <span class="keyword">new</span> THREE.LoadingManager()
-  manager.<span class="function"><span class="title">onProgress</span></span> = ( item, loaded, total ) -&gt;
-      console.log( item, loaded, total )
+  manager.<span class="function"><span class="title">onProgress</span></span> = (item, loaded, total) -&gt;
+      console.log item, loaded, total 
 
   texture = <span class="keyword">new</span> THREE.Texture()
 
-  <span class="function"><span class="title">onProgress</span></span> = ( xhr ) -&gt;
-    <span class="keyword">if</span> ( xhr.lengthComputable )
+  <span class="function"><span class="title">onProgress</span></span> = (xhr) -&gt;
+    <span class="keyword">if</span>  xhr.lengthComputable 
       percentComplete = xhr.loaded / xhr.total * <span class="number">100</span>
-      console.log( Math.round(percentComplete, <span class="number">2</span>) + <span class="string">'% downloaded'</span> )
+      console.log <span class="string">"<span class="subst">#{Math.round(percentComplete, <span class="number">2</span>)}</span>% downloaded"</span> 
 
-  <span class="function"><span class="title">onError</span></span> = ( xhr ) -&gt;
+  <span class="function"><span class="title">onError</span></span> = (xhr) -&gt;
     console.error xhr
 
   loader = <span class="keyword">new</span> THREE.ImageLoader(manager)
   loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">'https://s3.amazonaws.com/trinket/18894/bartender.png?doot2'</span>, ( image ) -&gt;
+  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/bartender.png?doot2"</span>, (image) -&gt;
     texture.image = image
     texture.needsUpdate = <span class="literal">true</span>
 
-  loader = <span class="keyword">new</span> THREE.OBJLoader( manager )
+  loader = <span class="keyword">new</span> THREE.OBJLoader(manager)
   loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">'https://s3.amazonaws.com/trinket/18894/bartender.obj?doot2'</span>, ( object ) -&gt;
-    object.traverse ( child ) -&gt;
-      <span class="keyword">if</span> ( child <span class="keyword">instanceof</span> THREE.Mesh )    
+  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/bartender.obj?doot2"</span>, (object) -&gt;
+    object.traverse (child) -&gt;
+      <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh
         child.material.map = texture
 
         object.position.y = <span class="number">0</span>
-        scene.add( object )
+        scene.add object
 
     , onProgress
     , onError
