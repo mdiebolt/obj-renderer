@@ -2,7 +2,7 @@ Renderer
 ========
 
     require "./lib/obj_renderer"
-    #ParticleSystem = require "./particles"
+    ParticleSystem = require "./particles"
 
     {Vector3} = THREE
 
@@ -40,7 +40,7 @@ Renderer
 
       loadPalette "bartender", texture
       loadObj "bartender", texture
-      #ParticleSystem(scene)
+      ParticleSystem(scene)
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
