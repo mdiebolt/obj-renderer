@@ -45,7 +45,9 @@ Renderer
       particles = ParticleSystem
         scene: scene
       
-      particles.generate(180)
+      particles.generate
+        number: 60
+        position: new Vector3(0, 0, 0)
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
@@ -133,7 +135,12 @@ Renderer
       camera.lookAt scene.position
 
       particles.update (p) ->
-        p.position.x = p.position.x + 0.01
+        p.age ||= 0
+        p.age += 1
+        
+        scene.remove(p) if p.age > 120
+        
+        p.position.y -= 1
 
       renderer.render scene, camera
 
