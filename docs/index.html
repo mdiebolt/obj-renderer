@@ -113,7 +113,7 @@ aspectRatio = window.innerWidth / window.innerHeight
   scene.add directionalLight
 
 <span class="function"><span class="title">addCube</span></span> = (scene, position) -&gt;
-  geometry = <span class="keyword">new</span> THREE.CubeGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
+  geometry = <span class="keyword">new</span> THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
   material = <span class="keyword">new</span> THREE.MeshBasicMaterial
     color: <span class="number">0xfffff</span>
     wireframe: <span class="literal">true</span>
