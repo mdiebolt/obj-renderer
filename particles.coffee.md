@@ -15,7 +15,7 @@ A voxel particle system.
         y = Math.random() * 500 - 250
         z = Math.random() * 500 - 250
         
-        particle = new THREE.Vertex(new THREE.Vector3 x, y, z)
+        particle = new THREE.Vector3(x, y, z)
       
         # add it to the geometry
         particles.vertices.push particle
