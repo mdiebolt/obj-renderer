@@ -150,8 +150,8 @@ Renderer
         else
           z = -1
           
-        p.position.x += x
-        p.position.z += z
+        p.position.x += x * 1
+        p.position.z += z * 1
 
       renderer.render scene, camera
 
