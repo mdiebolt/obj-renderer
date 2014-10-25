@@ -45,7 +45,7 @@ Renderer
       
       loader = new THREE.ImageLoader(manager)
       loader.crossOrigin = true
-      loader.load 'https://s3.amazonaws.com/trinket/18894/data/daf12297c5c549fa199b85adbe77d626edc93184?doot2', ( image ) ->
+      loader.load 'https://s3.amazonaws.com/trinket/18894/bartender.png?doot2', ( image ) ->
         texture.image = image
         texture.needsUpdate = true
 
