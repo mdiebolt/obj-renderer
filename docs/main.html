@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>main</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="http://strd6.github.io/cdn/parallel/docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    <ul class="sections">
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="renderer">Renderer</h1>
+
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">
+</code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
+
+camera = 
+scene = 
+renderer = 
+container = <span class="literal">null</span>
+
+mouseX = mouseY = <span class="number">0</span>
+
+windowHalfX = window.innerWidth / <span class="number">2</span>
+windowHalfY = window.innerHeight / <span class="number">2</span>
+
+init = () -&gt;
+  container = document.createElement( <span class="string">'div'</span> )
+  document.body.appendChild( container )
+
+  camera = <span class="keyword">new</span> THREE.PerspectiveCamera( <span class="number">45</span>, window.innerWidth / window.innerHeight, <span class="number">1</span>, <span class="number">2000</span> )
+  camera.position.z = <span class="number">100</span>
+
+  scene = <span class="keyword">new</span> THREE.Scene()
+
+  ambient = <span class="keyword">new</span> THREE.AmbientLight( <span class="number">0x101030</span> )
+  scene.add( ambient )
+
+  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight( <span class="number">0xffeedd</span> )
+  directionalLight.position.set( <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> )
+  scene.add( directionalLight )
+
+  manager = <span class="keyword">new</span> THREE.LoadingManager()
+  manager.<span class="function"><span class="title">onProgress</span></span> = ( item, loaded, total ) -&gt;
+      console.log( item, loaded, total )
+
+  texture = <span class="keyword">new</span> THREE.Texture()
+
+  <span class="function"><span class="title">onProgress</span></span> = ( xhr ) -&gt;
+    <span class="keyword">if</span> ( xhr.lengthComputable )
+      percentComplete = xhr.loaded / xhr.total * <span class="number">100</span>
+      console.log( Math.round(percentComplete, <span class="number">2</span>) + <span class="string">'% downloaded'</span> )
+
+  <span class="function"><span class="title">onError</span></span> = ( xhr ) -&gt;
+    console.error xhr
+
+  loader = <span class="keyword">new</span> THREE.ImageLoader(manager)
+  loader.crossOrigin = <span class="literal">true</span>
+  loader.load <span class="string">'https://s3.amazonaws.com/trinket/18894/data/daf12297c5c549fa199b85adbe77d626edc93184?doot2'</span>, ( image ) -&gt;
+    texture.image = image
+    texture.needsUpdate = <span class="literal">true</span>
+
+  loader = <span class="keyword">new</span> THREE.OBJLoader( manager )
+  loader.crossOrigin = <span class="literal">true</span>
+  loader.load <span class="string">'https://s3.amazonaws.com/trinket/18894/bartender.obj?doot2'</span>, ( object ) -&gt;
+    object.traverse ( child ) -&gt;
+      <span class="keyword">if</span> ( child <span class="keyword">instanceof</span> THREE.Mesh )    
+        child.material.map = texture
+
+        object.position.y = <span class="number">0</span>
+        scene.add( object )
+
+    , onProgress
+    , onError
+
+
+  renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
+  renderer.setSize( window.innerWidth, window.innerHeight )
+  container.appendChild( renderer.domElement )
+
+  document.addEventListener( <span class="string">'mousemove'</span>, onDocumentMouseMove, <span class="literal">false</span> )
+  window.addEventListener( <span class="string">'resize'</span>, onWindowResize, <span class="literal">false</span> )
+
+<span class="function"><span class="title">onWindowResize</span></span> = -&gt;
+    windowHalfX = window.innerWidth / <span class="number">2</span>
+    windowHalfY = window.innerHeight / <span class="number">2</span>
+
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+
+    renderer.setSize( window.innerWidth, window.innerHeight )
+
+<span class="function"><span class="title">onDocumentMouseMove</span></span> = ( event ) -&gt;
+  mouseX = ( event.clientX - windowHalfX ) / <span class="number">2</span>
+  mouseY = ( event.clientY - windowHalfY ) / <span class="number">2</span>
+
+<span class="function"><span class="title">animate</span></span> = -&gt;
+  requestAnimationFrame( animate )
+  render()
+
+<span class="function"><span class="title">render</span></span> = -&gt;
+  camera.position.x += ( mouseX - camera.position.x ) * <span class="number">.05</span>
+  camera.position.y += ( - mouseY - camera.position.y ) * <span class="number">.05</span>
+
+  camera.lookAt( scene.position )
+
+  renderer.render( scene, camera )
+
+init()
+animate()</code></pre>
+</div>
+        </li>
+        
+    </ul>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js"></script><script>
+  (function() {
+  var ErrorReporter, bindUpdates, createEditor, exec, findInteractiveElements, readShebang, runners;
+
+  createEditor = function(code, shebang, section) {
+    var annotationElement, contentElement, editorElement, exampleSection, runtimeElement;
+    exampleSection = $("<li>", {
+      "class": "example"
+    });
+    annotationElement = $("<div>", {
+      "class": "annotation"
+    });
+    editorElement = $("<textarea>", {
+      "class": "annotation",
+      text: code
+    });
+    contentElement = $("<div>", {
+      "class": "content"
+    });
+    runtimeElement = $("<div>", {
+      "class": "output"
+    });
+    contentElement.append(runtimeElement);
+    annotationElement.append(editorElement);
+    exampleSection.append(annotationElement);
+    exampleSection.append(contentElement);
+    section.after(exampleSection);
+    return bindUpdates(shebang, editorElement, runtimeElement);
+  };
+
+  bindUpdates = function(shebang, editorElement, runtimeElement) {
+    return editorElement.on("keyup", function() {
+      var e, report, source;
+      report = ErrorReporter(editorElement);
+      source = editorElement.val();
+      try {
+        runners[shebang]({
+          editorElement: editorElement,
+          source: source,
+          runtimeElement: runtimeElement
+        });
+        return report.clear();
+      } catch (_error) {
+        e = _error;
+        return report(e);
+      }
+    });
+  };
+
+  readShebang = function(source) {
+    var match;
+    if (match = source.match(/^\#\! (.*)\n/)) {
+      return match[1];
+    }
+  };
+
+  ErrorReporter = function(editor) {
+    var reporter;
+    reporter = function(error) {
+      var errorParagraph;
+      if (editor.next().is("p.error")) {
+        return editor.next().text(error);
+      } else {
+        errorParagraph = $("<p>", {
+          "class": "error",
+          text: error.toString()
+        });
+        return editor.after(errorParagraph);
+      }
+    };
+    reporter.clear = function() {
+      if (editor.next().is("p.error")) {
+        return editor.next().remove();
+      }
+    };
+    return reporter;
+  };
+
+  findInteractiveElements = function() {
+    return $("blockquote > pre > code").each(function() {
+      var blockQuoteElement, code, codeElement, sectionElement, shebang;
+      codeElement = $(this);
+      code = codeElement.text();
+      if (shebang = readShebang(code)) {
+        if (!runners[shebang]) {
+          return;
+        }
+        code = code.split("\n").slice(1).join("\n");
+        blockQuoteElement = codeElement.parent().parent();
+        sectionElement = blockQuoteElement.parent().parent();
+        blockQuoteElement.remove();
+        return createEditor(code, shebang, sectionElement);
+      }
+    });
+  };
+
+  runners = {};
+
+  (typeof window !== "undefined" && window !== null ? window : global).Interactive = {
+    register: function(name, runner) {
+      runners[name] = runner;
+      findInteractiveElements();
+      return $('#container').on('keyup', 'textarea', function() {
+        $(this).height(0);
+        return $(this).height(this.scrollHeight);
+      }).find('textarea').keyup();
+    }
+  };
+
+  exec = function(_arg) {
+    var code, editorElement, runtimeElement, source;
+    source = _arg.source, code = _arg.code, editorElement = _arg.editorElement, runtimeElement = _arg.runtimeElement;
+    runtimeElement.remove();
+    editorElement.replaceWith($("<pre>", {
+      text: source
+    }));
+    return setTimeout(function() {
+      return Function(code)();
+    }, 0);
+  };
+
+  $(function() {
+    Interactive.register("setup", function(params) {
+      params.code = CoffeeScript.compile(params.source);
+      return exec(params);
+    });
+    return Interactive.register("setup-js", function(params) {
+      params.code = params.source;
+      return exec(params);
+    });
+  });
+
+}).call(this);
+
+</script><script src="package.js"></script>
+</body>
+</html>
