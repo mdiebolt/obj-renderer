@@ -78,7 +78,9 @@ aspectRatio = window.innerWidth / window.innerHeight
   particles = ParticleSystem
     scene: scene
 
-  particles.generate(<span class="number">180</span>)
+  particles.generate
+    number: <span class="number">60</span>
+    position: <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
   renderer.setSize window.innerWidth, window.innerHeight
@@ -166,7 +168,12 @@ aspectRatio = window.innerWidth / window.innerHeight
   camera.lookAt scene.position
 
   particles.update (p) -&gt;
-    p.position.x = p.position.x + <span class="number">0.01</span>
+    p.age ||= <span class="number">0</span>
+    p.age += <span class="number">1</span>
+
+    scene.remove(p) <span class="keyword">if</span> p.age &gt; <span class="number">120</span>
+
+    p.position.y -= <span class="number">1</span>
 
   renderer.render scene, camera
 
