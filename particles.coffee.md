@@ -37,7 +37,7 @@ Pick a random float between `-max / 2` and `max / 2`
       scene = opts.scene
       particles = null
     
-      return {
+      return
         generate: (number) ->
           createParticles number, scene
           
