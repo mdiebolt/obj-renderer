@@ -62,13 +62,12 @@ Renderer
         , onProgress
         , onError
 
-
       renderer = new THREE.WebGLRenderer()
-      renderer.setSize( window.innerWidth, window.innerHeight )
-      container.appendChild( renderer.domElement )
+      renderer.setSize window.innerWidth, window.innerHeight
+      container.appendChild renderer.domElement
 
-      document.addEventListener( 'mousemove', onDocumentMouseMove, false )
-      window.addEventListener( 'resize', onWindowResize, false )
+      document.addEventListener "mousemove", onDocumentMouseMove, false
+      window.addEventListener "resize", onWindowResize, false
 
     onWindowResize = ->
     	windowHalfX = window.innerWidth / 2
@@ -77,23 +76,23 @@ Renderer
     	camera.aspect = window.innerWidth / window.innerHeight
     	camera.updateProjectionMatrix()
 
-    	renderer.setSize( window.innerWidth, window.innerHeight )
+    	renderer.setSize window.innerWidth, window.innerHeight
 
-    onDocumentMouseMove = ( event ) ->
-      mouseX = ( event.clientX - windowHalfX ) / 2
-      mouseY = ( event.clientY - windowHalfY ) / 2
+    onDocumentMouseMove = (event) ->
+      mouseX = (event.clientX - windowHalfX) / 2
+      mouseY = (event.clientY - windowHalfY) / 2
 
     animate = ->
-      requestAnimationFrame( animate )
+      requestAnimationFrame animate
       render()
 
     render = ->
-      camera.position.x += ( mouseX - camera.position.x ) * .05
-      camera.position.y += ( - mouseY - camera.position.y ) * .05
+      camera.position.x += (mouseX - camera.position.x) * .05
+      camera.position.y += (-mouseY - camera.position.y) * .05
 
-      camera.lookAt( scene.position )
+      camera.lookAt scene.position
 
-      renderer.render( scene, camera )
+      renderer.render scene, camera
 
     init()
     animate()
