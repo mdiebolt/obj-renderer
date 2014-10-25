@@ -42,6 +42,5 @@ Pick a random float between `-max / 2` and `max / 2`
           createParticles number, scene
           
         update: (cb) ->
-          particles?.forEach (p) ->
-            cb?(p)
+          particles?.forEach cb
       }
