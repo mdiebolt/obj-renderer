@@ -63,6 +63,11 @@ aspectRatio = window.innerWidth / window.innerHeight
   directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> 
   scene.add directionalLight 
 
+  cube = <span class="keyword">new</span> THREE.Mesh(<span class="keyword">new</span> THREE.CubeGeometry(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>), <span class="keyword">new</span> THREE.MeshNormalMaterial()) 
+  cube.position.y = -<span class="number">5</span>
+
+  scene.add cube
+
   manager = <span class="keyword">new</span> THREE.LoadingManager()
   manager.<span class="function"><span class="title">onProgress</span></span> = (item, loaded, total) -&gt;
       console.log item, loaded, total 
