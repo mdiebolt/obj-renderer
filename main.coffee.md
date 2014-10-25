@@ -41,11 +41,11 @@ Renderer
 
       loadPalette "bartender", texture
       #loadObj "bartender", texture
-      loadObj "robo_sheriff, texture"
-      
+      loadObj "robo_sheriff", texture
+
       particles = ParticleSystem
         scene: scene
-      
+
       particles.generate
         number: 100
         position: new Vector3(0, 0, 0)
@@ -103,7 +103,7 @@ Renderer
     loadPalette = (name, texture) ->
       loader = new THREE.ImageLoader(manager)
       loader.crossOrigin = true
-      
+
       loader.load "https://s3.amazonaws.com/distri-tactics/bartender.png?doot2", (image) ->
         texture.image = image
         texture.needsUpdate = true
@@ -139,19 +139,19 @@ Renderer
       particles.update (p) ->
         p.age ||= 0
         p.age += 1
-        
+
         scene.remove(p) if p.age > 120
-        
+
         if Math.random() > 0.5
           x = 1
         else
           x = -1
-        
+
         if Math.random() > 0.5
           z = 1
         else
           z = -1
-          
+
         p.position.x += x * 1
         p.position.z += z * 1
 
