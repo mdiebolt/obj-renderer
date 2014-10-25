@@ -10,57 +10,13 @@ Renderer
 
     mouseX = mouseY = 0
 
+    manager = new THREE.LoadingManager()
+    manager.onProgress = (item, loaded, total) ->
+      console.log item, loaded, total 
+
     windowHalfX = window.innerWidth / 2
     windowHalfY = window.innerHeight / 2
     aspectRatio = window.innerWidth / window.innerHeight
-
-    addLights = (scene) ->
-      ambient = new THREE.AmbientLight 0x101030
-      scene.add ambient
-
-      directionalLight = new THREE.DirectionalLight 0xffeedd 
-      directionalLight.position.set 0, 0, 1 
-      scene.add directionalLight     
-
-    addCube = (scene) ->
-      geometry = new THREE.CubeGeometry(10, 10, 10)
-      material = new THREE.MeshBasicMaterial
-        color: 0xfffff
-        wireframe: false
-      
-      cube = new THREE.Mesh geometry, material 
-      cube.position.y = -5
-
-      scene.add cube
-
-    loadPalette = (name) ->
-      loader = new THREE.ImageLoader(manager)
-      loader.crossOrigin = true
-      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.png?doot2", (image) ->
-        texture.image = image
-        texture.needsUpdate = true
-
-    loadObj = (name) ->
-      onProgress = (xhr) ->
-        if  xhr.lengthComputable 
-          percentComplete = xhr.loaded / xhr.total * 100
-          console.log "#{Math.round(percentComplete, 2)}% downloaded" 
-
-      onError = (xhr) ->
-        console.error xhr    
-    
-      loader = new THREE.OBJLoader(manager)
-      loader.crossOrigin = true
-      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.obj?doot2", (object) ->
-        object.traverse (child) ->
-          if child instanceof THREE.Mesh
-            child.material.map = texture
-
-            object.position.y = 0
-            scene.add object
-
-        , onProgress
-        , onError
 
     init = ->
       container = document.createElement "div"
@@ -74,14 +30,10 @@ Renderer
       addLights scene
       addCube scene
       
-      manager = new THREE.LoadingManager()
-      manager.onProgress = (item, loaded, total) ->
-      	console.log item, loaded, total 
-
       texture = new THREE.Texture()
 
-      loadPalette "bartender"
-      loadObj "bartender"
+      loadPalette "bartender", texture
+      loadObj "bartender", texture
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
@@ -106,6 +58,54 @@ Renderer
     animate = ->
       requestAnimationFrame animate
       render()
+
+    addLights = (scene) ->
+      ambient = new THREE.AmbientLight 0x101030
+      scene.add ambient
+
+      directionalLight = new THREE.DirectionalLight 0xffeedd 
+      directionalLight.position.set 0, 0, 1 
+      scene.add directionalLight     
+
+    addCube = (scene) ->
+      geometry = new THREE.CubeGeometry(10, 10, 10)
+      material = new THREE.MeshBasicMaterial
+        color: 0xfffff
+        wireframe: false
+      
+      cube = new THREE.Mesh geometry, material 
+      cube.position.y = -5
+
+      scene.add cube
+
+    loadPalette = (name, texture) ->
+      loader = new THREE.ImageLoader(manager)
+      loader.crossOrigin = true
+      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.png?doot2", (image) ->
+        texture.image = image
+        texture.needsUpdate = true
+
+    loadObj = (name, texture) ->
+      onProgress = (xhr) ->
+        if  xhr.lengthComputable 
+          percentComplete = xhr.loaded / xhr.total * 100
+          console.log "#{Math.round(percentComplete, 2)}% downloaded" 
+
+      onError = (xhr) ->
+        console.error xhr    
+    
+      loader = new THREE.OBJLoader(manager)
+      loader.crossOrigin = true
+      loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.obj?doot2", (object) ->
+        object.traverse (child) ->
+          if child instanceof THREE.Mesh
+            child.material.map = texture
+
+            object.position.y = 0
+            scene.add object
+
+        , onProgress
+        , onError
 
     render = ->
       camera.position.x += (mouseX - camera.position.x) * .05
