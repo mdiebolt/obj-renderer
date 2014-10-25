@@ -201,6 +201,11 @@
       "content": "require \"../main\"\n\ndescribe \"renderer\", ->\n  it \"should have THREE\", ->\n    assert THREE.OBJLoader\n",
       "mode": "100644",
       "type": "blob"
+    },
+    "particles.coffee.md": {
+      "path": "particles.coffee.md",
+      "content": "Particles\n=========\n\nA voxel particle system.\n\n    module.exports = ->\n      particleCount = 1800\n      particles = new THREE.Geometry()\n      pMaterial = new THREE.ParticleBasicMaterial\n        color: 0xFFFFFF\n        size: 20\n      \n      [0...particleCount].forEach (p) ->\n        pX = Math.random() * 500 - 250\n        pY = Math.random() * 500 - 250\n        pZ = Math.random() * 500 - 250\n        particle = new THREE.Vertex(new THREE.Vector3 pX, pY, pZ)\n      \n        # add it to the geometry\n        particles.vertices.push particle\n      \n      \n      particleSystem = new THREE.ParticleSystem particles, pMaterial\n      \n      scene.addChild particleSystem",
+      "mode": "100644"
     }
   },
   "distribution": {
@@ -222,6 +227,11 @@
     "test/test": {
       "path": "test/test",
       "content": "(function() {\n  require(\"../main\");\n\n  describe(\"renderer\", function() {\n    return it(\"should have THREE\", function() {\n      return assert(THREE.OBJLoader);\n    });\n  });\n\n}).call(this);\n",
+      "type": "blob"
+    },
+    "particles": {
+      "path": "particles",
+      "content": "(function() {\n  module.exports = function() {\n    var pMaterial, particleCount, particleSystem, particles, _i, _results;\n    particleCount = 1800;\n    particles = new THREE.Geometry();\n    pMaterial = new THREE.ParticleBasicMaterial({\n      color: 0xFFFFFF,\n      size: 20\n    });\n    (function() {\n      _results = [];\n      for (var _i = 0; 0 <= particleCount ? _i < particleCount : _i > particleCount; 0 <= particleCount ? _i++ : _i--){ _results.push(_i); }\n      return _results;\n    }).apply(this).forEach(function(p) {\n      var pX, pY, pZ, particle;\n      pX = Math.random() * 500 - 250;\n      pY = Math.random() * 500 - 250;\n      pZ = Math.random() * 500 - 250;\n      particle = new THREE.Vertex(new THREE.Vector3(pX, pY, pZ));\n      return particles.vertices.push(particle);\n    });\n    particleSystem = new THREE.ParticleSystem(particles, pMaterial);\n    return scene.addChild(particleSystem);\n  };\n\n}).call(this);\n",
       "type": "blob"
     }
   },
