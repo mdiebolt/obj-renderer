@@ -140,7 +140,18 @@ Renderer
         
         scene.remove(p) if p.age > 120
         
-        p.position.y -= 1
+        if Math.random() > 0.5
+          x = 1
+        else
+          x = -1
+        
+        if Math.random() > 0.5
+          z = 1
+        else
+          z = -1
+          
+        p.position.x += x
+        p.position.z += z
 
       renderer.render scene, camera
 

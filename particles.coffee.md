@@ -5,27 +5,17 @@ Emit voxel particles
 
 Pick a random float between `-max / 2` and `max / 2`
     
-    randomFloat = (max) ->
-      Math.random() * max - max / 2
-
-    randomVector3 = (max) ->
-        x = randomFloat max
-        y = randomFloat max
-        z = randomFloat max
-
-        new THREE.Vector3(x, y, z)
-
-    addCube = (scene) ->
+    addCube = (scene, position) ->
       geometry = new THREE.BoxGeometry(1, 1, 1)
       material = new THREE.MeshBasicMaterial
         color: 0xfffff
 
       cube = new THREE.Mesh geometry, material
-      position = randomVector3(500)
+      position = position
       
-      cube.position.x = position.x
-      cube.position.y = position.y
-      cube.position.z = position.z
+      cube.position.x = position.x + Math.random() * 5
+      cube.position.y = position.y + Math.random() * 5
+      cube.position.z = position.z + Math.random() * 5
 
       scene.add cube
       
@@ -34,9 +24,10 @@ Pick a random float between `-max / 2` and `max / 2`
     createParticles = (opts={}) ->
       scene = opts.scene
       number = opts.number
+      position = opts.position
     
       [0...number].map ->
-        addCube(scene)
+        addCube(scene, position)
 
     module.exports = (opts={}) ->
       scene = opts.scene
