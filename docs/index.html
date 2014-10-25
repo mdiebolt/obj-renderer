@@ -95,13 +95,12 @@ windowHalfY = window.innerHeight / <span class="number">2</span>
     , onProgress
     , onError
 
-
   renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
-  renderer.setSize( window.innerWidth, window.innerHeight )
-  container.appendChild( renderer.domElement )
+  renderer.setSize window.innerWidth, window.innerHeight
+  container.appendChild renderer.domElement
 
-  document.addEventListener( <span class="string">'mousemove'</span>, onDocumentMouseMove, <span class="literal">false</span> )
-  window.addEventListener( <span class="string">'resize'</span>, onWindowResize, <span class="literal">false</span> )
+  document.addEventListener <span class="string">"mousemove"</span>, onDocumentMouseMove, <span class="literal">false</span>
+  window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 
 <span class="function"><span class="title">onWindowResize</span></span> = -&gt;
     windowHalfX = window.innerWidth / <span class="number">2</span>
@@ -110,23 +109,23 @@ windowHalfY = window.innerHeight / <span class="number">2</span>
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
 
-    renderer.setSize( window.innerWidth, window.innerHeight )
+    renderer.setSize window.innerWidth, window.innerHeight
 
-<span class="function"><span class="title">onDocumentMouseMove</span></span> = ( event ) -&gt;
-  mouseX = ( event.clientX - windowHalfX ) / <span class="number">2</span>
-  mouseY = ( event.clientY - windowHalfY ) / <span class="number">2</span>
+<span class="function"><span class="title">onDocumentMouseMove</span></span> = (event) -&gt;
+  mouseX = (event.clientX - windowHalfX) / <span class="number">2</span>
+  mouseY = (event.clientY - windowHalfY) / <span class="number">2</span>
 
 <span class="function"><span class="title">animate</span></span> = -&gt;
-  requestAnimationFrame( animate )
+  requestAnimationFrame animate
   render()
 
 <span class="function"><span class="title">render</span></span> = -&gt;
-  camera.position.x += ( mouseX - camera.position.x ) * <span class="number">.05</span>
-  camera.position.y += ( - mouseY - camera.position.y ) * <span class="number">.05</span>
+  camera.position.x += (mouseX - camera.position.x) * <span class="number">.05</span>
+  camera.position.y += (-mouseY - camera.position.y) * <span class="number">.05</span>
 
-  camera.lookAt( scene.position )
+  camera.lookAt scene.position
 
-  renderer.render( scene, camera )
+  renderer.render scene, camera
 
 init()
 animate()</code></pre>
