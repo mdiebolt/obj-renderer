@@ -40,7 +40,11 @@ Renderer
 
       loadPalette "bartender", texture
       loadObj "bartender", texture
-      ParticleSystem(scene)
+      
+      particles = ParticleSystem
+        scene: scene
+      
+      particles.generate(1800)
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
