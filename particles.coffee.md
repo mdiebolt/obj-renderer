@@ -31,8 +31,11 @@ Pick a random float between `-max / 2` and `max / 2`
       
       cube
 
-    createParticles = (count, scene) ->
-      [0...count].map ->
+    createParticles = (opts={}) ->
+      scene = opts.scene
+      number = opts.number
+    
+      [0...number].map ->
         addCube(scene)
 
     module.exports = (opts={}) ->
@@ -40,8 +43,11 @@ Pick a random float between `-max / 2` and `max / 2`
       particles = null
     
       return {
-        generate: (number) ->
-          particles = createParticles number, scene
+        generate: (opts={}) ->
+          particles = createParticles
+            number: opts.number
+            position: opts.position
+            scene: scene
           
         update: (cb) ->
           particles?.forEach cb
