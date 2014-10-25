@@ -70,7 +70,7 @@ module.<span class="function"><span class="title">exports</span></span> = (opts=
 
   <span class="keyword">return</span> {
     generate: (number) -&gt;
-      createParticles number, scene
+      particles = createParticles number, scene
 
     update: (cb) -&gt;
       particles?.forEach cb

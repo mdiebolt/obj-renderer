@@ -36,6 +36,7 @@
             </div>
             <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
 ParticleSystem = require <span class="string">"./particles"</span>
+particles = []
 
 {Vector3} = THREE
 
@@ -163,6 +164,10 @@ aspectRatio = window.innerWidth / window.innerHeight
   camera.position.y += (-mouseY - camera.position.y) * <span class="number">.05</span>
 
   camera.lookAt scene.position
+
+  particles.update (p) -&gt;
+    console.log p
+    p.position.x = p.position.x + <span class="number">1</span>
 
   renderer.render scene, camera
 
