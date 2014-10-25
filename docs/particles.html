@@ -47,7 +47,7 @@
     y = Math.random() * <span class="number">500</span> - <span class="number">250</span>
     z = Math.random() * <span class="number">500</span> - <span class="number">250</span>
 
-    particle = <span class="keyword">new</span> THREE.Vertex(<span class="keyword">new</span> THREE.Vector3 x, y, z)
+    particle = <span class="keyword">new</span> THREE.Vector3(x, y, z)
 
     <span class="comment"># add it to the geometry</span>
     particles.vertices.push particle
