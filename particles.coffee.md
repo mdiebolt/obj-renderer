@@ -28,6 +28,8 @@ Pick a random float between `-max / 2` and `max / 2`
       cube.position.z = position.z
 
       scene.add cube
+      
+      cube
 
     createParticles = (count, scene) ->
       [0...count].map ->

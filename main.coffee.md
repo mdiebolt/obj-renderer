@@ -45,7 +45,7 @@ Renderer
       particles = ParticleSystem
         scene: scene
       
-      particles.generate(1800)
+      particles.generate(180)
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
@@ -133,8 +133,7 @@ Renderer
       camera.lookAt scene.position
 
       particles.update (p) ->
-        console.log p
-        p.position.x = p.position.x + 1
+        p.position.x = p.position.x + 0.01
 
       renderer.render scene, camera
 
