@@ -73,8 +73,7 @@ module.<span class="function"><span class="title">exports</span></span> = (opts=
       createParticles number, scene
 
     update: (cb) -&gt;
-      particles?.forEach (p) -&gt;
-        cb?(p)
+      particles?.forEach cb
   }</code></pre>
 </div>
         </li>
