@@ -135,7 +135,8 @@ aspectRatio = window.innerWidth / window.innerHeight
 <span class="function"><span class="title">loadPalette</span></span> = (name, texture) -&gt;
   loader = <span class="keyword">new</span> THREE.ImageLoader(manager)
   loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/<span class="subst">#{name}</span>.png?doot2"</span>, (image) -&gt;
+
+  loader.load <span class="string">"https://s3.amazonaws.com/distri-tactics/bartender.png?doot2"</span>, (image) -&gt;
     texture.image = image
     texture.needsUpdate = <span class="literal">true</span>
 
@@ -150,7 +151,7 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   loader = <span class="keyword">new</span> THREE.OBJLoader(manager)
   loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">"https://s3.amazonaws.com/trinket/18894/<span class="subst">#{name}</span>.obj?doot2"</span>, (object) -&gt;
+  loader.load <span class="string">"https://s3.amazonaws.com/distri-tactics/<span class="subst">#{name}</span>.obj?doot2"</span>, (object) -&gt;
     object.traverse (child) -&gt;
       <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh
         child.material.map = texture
