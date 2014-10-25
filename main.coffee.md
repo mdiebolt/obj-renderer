@@ -2,8 +2,8 @@ Renderer
 ========
 
     require "./lib/obj_renderer"
-    
-    {Vector3} = THREE 
+
+    {Vector3} = THREE
 
     CUBE_SIZE = 10
 
@@ -16,7 +16,7 @@ Renderer
 
     manager = new THREE.LoadingManager()
     manager.onProgress = (item, loaded, total) ->
-      console.log item, loaded, total 
+      console.log item, loaded, total
 
     windowHalfX = window.innerWidth / 2
     windowHalfY = window.innerHeight / 2
@@ -32,11 +32,9 @@ Renderer
       scene = new THREE.Scene()
 
       addLights scene
-      
-      [0..10].forEach (x) ->
-        [0..10].forEach (z) ->
-          addCube scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
-      
+
+      generateGrid(10)
+
       texture = new THREE.Texture()
 
       loadPalette "bartender", texture
@@ -48,6 +46,11 @@ Renderer
 
       document.addEventListener "mousemove", onDocumentMouseMove, false
       window.addEventListener "resize", onWindowResize, false
+
+    generateGrid = (size) ->
+      [0...size].forEach (x) ->
+        [0...size].forEach (z) ->
+          addCube scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
 
     onWindowResize = ->
     	windowHalfX = window.innerWidth / 2
@@ -70,21 +73,21 @@ Renderer
       ambient = new THREE.AmbientLight 0x101030
       scene.add ambient
 
-      directionalLight = new THREE.DirectionalLight 0xffeedd 
-      directionalLight.position.set 0, 0, 1 
-      scene.add directionalLight     
+      directionalLight = new THREE.DirectionalLight 0xffeedd
+      directionalLight.position.set 0, 0, 1
+      scene.add directionalLight
 
     addCube = (scene, position) ->
       geometry = new THREE.CubeGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
       material = new THREE.MeshBasicMaterial
         color: 0xfffff
         wireframe: true
-      
-      cube = new THREE.Mesh geometry, material 
+
+      cube = new THREE.Mesh geometry, material
       cube.position.x = position.x
       cube.position.y = position.y
       cube.position.z = position.z
-      
+
       scene.add cube
 
     loadPalette = (name, texture) ->
@@ -96,13 +99,13 @@ Renderer
 
     loadObj = (name, texture) ->
       onProgress = (xhr) ->
-        if  xhr.lengthComputable 
+        if  xhr.lengthComputable
           percentComplete = xhr.loaded / xhr.total * 100
-          console.log "#{Math.round(percentComplete, 2)}% downloaded" 
+          console.log "#{Math.round(percentComplete, 2)}% downloaded"
 
       onError = (xhr) ->
-        console.error xhr    
-    
+        console.error xhr
+
       loader = new THREE.OBJLoader(manager)
       loader.crossOrigin = true
       loader.load "https://s3.amazonaws.com/trinket/18894/#{name}.obj?doot2", (object) ->
