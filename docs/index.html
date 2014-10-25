@@ -45,12 +45,13 @@ mouseX = mouseY = <span class="number">0</span>
 
 windowHalfX = window.innerWidth / <span class="number">2</span>
 windowHalfY = window.innerHeight / <span class="number">2</span>
+aspectRatio = window.innerWidth / window.innerHeight
 
 <span class="function"><span class="title">init</span></span> = -&gt;
   container = document.createElement <span class="string">"div"</span>
   document.body.appendChild container
 
-  camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, window.innerWidth / window.innerHeight, <span class="number">1</span>, <span class="number">2000</span>)
+  camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, aspectRatio, <span class="number">1</span>, <span class="number">2000</span>)
   camera.position.z = <span class="number">100</span>
 
   scene = <span class="keyword">new</span> THREE.Scene()
