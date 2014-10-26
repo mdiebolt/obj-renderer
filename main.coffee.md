@@ -19,16 +19,18 @@ Renderer
     windowHalfY = window.innerHeight / 2
     aspectRatio = window.innerWidth / window.innerHeight
 
+    container = document.createElement "div"
+    document.body.appendChild container
     window.renderer = new THREE.WebGLRenderer()
+    renderer.setSize window.innerWidth, window.innerHeight
+    container.appendChild renderer.domElement    
+    
     window.scene = new THREE.Scene()
     window.camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)
     camera.position.z = 100
-
+    
     init = ->
-      container = document.createElement "div"
-      document.body.appendChild container
-
-      addLights scene
+      addLights()
 
       generateGrid(10)
 
@@ -69,9 +71,6 @@ Renderer
         number: 100
         position: new Vector3(0, 0, 0)
 
-      renderer.setSize window.innerWidth, window.innerHeight
-      container.appendChild renderer.domElement
-
       document.addEventListener "mousemove", onDocumentMouseMove, false
       window.addEventListener "resize", onWindowResize, false
 
@@ -97,7 +96,7 @@ Renderer
       requestAnimationFrame animate
       render()
 
-    addLights = (scene) ->
+    addLights = ->
       ambient = new THREE.AmbientLight 0x101030
       scene.add ambient
 
