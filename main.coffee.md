@@ -47,6 +47,38 @@ Renderer
       loadObj "robo_sheriff", 
         texture: texture
         position: new Vector3(90, 0, 90)
+        
+      loadObj "cactus",
+        texture: texture
+        position: new Vector3(50, 0, 0)
+      
+      loadObj "arrow",
+        texture: texture
+        position: new Vector3(40, 0, 10)
+
+      loadObj "beam_sword",
+        texture: texture
+        position: new Vector3(40, 0, 30)
+  
+      loadObj "branding_iron",
+        texture: texture
+        position: new Vector3(40, 0, 50)
+
+      loadObj "character",
+        texture: texture
+        position: new Vector3(60, 0, 10)
+        
+      loadObj "gun",
+        texture: texture
+        position: new Vector3(60, 0, 30)
+        
+      loadObj "hoverboard",
+        texture: texture
+        position: new Vector3(60, 0, 50)
+  
+      loadObj "jetpack_bandit",
+        texture: texture
+        position: new Vector3(60, 0, 70)
 
       particles = ParticleSystem
         scene: scene
