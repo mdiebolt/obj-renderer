@@ -44,6 +44,23 @@ raycastDirection = <span class="keyword">new</span> THREE.Vector3()
 
     renderer.setSize window.innerWidth, window.innerHeight
 
+<span class="function"><span class="title">onKeydown</span></span> = (e) -&gt;
+  e.preventDefault()
+
+  <span class="keyword">switch</span> e.keyCode
+    <span class="keyword">when</span> <span class="number">81</span> <span class="comment"># q</span>
+      camera.position.x -= <span class="number">1</span>
+    <span class="keyword">when</span> <span class="number">87</span> <span class="comment"># w</span>
+      camera.position.x += <span class="number">1</span>
+    <span class="keyword">when</span> <span class="number">65</span> <span class="comment"># a</span>
+      camera.position.y -= <span class="number">1</span>
+    <span class="keyword">when</span> <span class="number">83</span> <span class="comment"># s</span>
+      camera.position.y += <span class="number">1</span>
+    <span class="keyword">when</span> <span class="number">90</span> <span class="comment"># z</span>
+      camera.position.z -= <span class="number">1</span>
+    <span class="keyword">when</span> <span class="number">88</span> <span class="comment"># x</span>
+      camera.position.z += <span class="number">1</span>
+
 <span class="function"><span class="title">onClick</span></span> = (e) -&gt;</code></pre>
 </div>
         </li>
@@ -140,7 +157,8 @@ We need to call <code>parent</code> to get the right object</p>
     camera.lookAt intersection.object.parent
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
-window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span></code></pre>
+window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span>
+window.addEventListener <span class="string">"keydown"</span>, onKeydown, <span class="literal">false</span></code></pre>
 </div>
         </li>
         
