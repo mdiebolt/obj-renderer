@@ -12,7 +12,6 @@ Eventually we'll remove this as the game takes control of the camera.
     	renderer.setSize window.innerWidth, window.innerHeight
 
     onClick = (e) ->
-      debugger
     
 Translate mouse coordinates into a number ranging from -1 to 1, 
 where `x == -1 && y == -1` means top-left, 
@@ -21,10 +20,23 @@ and `x ==  1 && y ==  1` means bottom right
       raycastDirection.x = (e.clientX / window.innerWidth) * 2 - 1
       raycastDirection.y = -(e.clientY / window.innerHeight) * 2 + 1
       raycastDirection.z = 0.5
-  
-      ray = new THREE.Ray(camera.position, raycastDirection)
-      intersects = ray.intersectObjects scene.children  
 
+http://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects
+Renderers use Vector#project for translating 3D points to the 2D screen. 
+Vector#unproject is basically for doing the inverse, unprojecting 2D points into the 3D world. 
+For both methods you pass the camera you're viewing the scene through.  
+  
+      raycastDirection.unproject(camera)
+      
+Subtract the vector representing the camera position
+
+      raycastDirection.sub(camera.position)
+      raycastDirection.normalize()
+  
+      raycaster.set camera.position, raycastDirection
+      intersects = raycaster.intersectObjects scene.children  
+
+      console.log intersects
       [0...intersects.length].forEach (i) ->
       	intersection = intersects[i]
       	obj = intersection.object
