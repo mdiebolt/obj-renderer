@@ -66,7 +66,7 @@ Our raycaster intersects the underlying Mesh.
 We need to call `parent` to get the right object
               
         position = intersection.object.parent.position
-        
+
         camera.position.set position.x, position.y + 100, position.z + 200
         camera.lookAt intersection.object.parent.position
 
