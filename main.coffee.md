@@ -3,25 +3,25 @@ Renderer
 
     require "./globals"
     require "./lib/obj_renderer"
-    
+
     ParticleSystem = require "./particles"
     eventHandlers = require "./event_handlers"
-    
+
     util = require "util"
     util.applyStylesheet(require("./style"))
-    
+
     map = require("./map")()
 
     particles = []
-    
+
     container = document.createElement "div"
     document.body.appendChild container
-    
-    container.appendChild renderer.domElement    
+
+    container.appendChild renderer.domElement
     renderer.setSize window.innerWidth, window.innerHeight
-    
+
     camera.position.z = 100
-    
+
     init = ->
       addLights()
 
@@ -50,17 +50,17 @@ Renderer
 
     render = ->
       {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
-      
-      camera.position.x += (mouseX - camera.position.x) * .05
-      camera.position.y += (-mouseY - camera.position.y) * .05
+    
+      camera.position.x -= (-mouseX + camera.position.x) * .05
+      camera.position.y -= (-mouseY + camera.position.y) * .05
 
       camera.lookAt scene.position
-      
+
       particles.update (p) ->
         p.age ||= 0
         p.age += 1
 
-        p.material.opacity = p.material.opacity - 0.01 
+        p.material.opacity = p.material.opacity - 0.01
         scene.remove(p) if p.age > 100
 
         if Math.random() > 0.5
