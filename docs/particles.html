@@ -33,7 +33,6 @@
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <p>Emit voxel particles</p>
-<p>Pick a random float between <code>-max / 2</code> and <code>max / 2</code></p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript"><span class="function"><span class="title">addCube</span></span> = (scene, position) -&gt;
@@ -61,16 +60,14 @@ module.<span class="function"><span class="title">exports</span></span> = (opts=
   scene = opts.scene
   particles = <span class="literal">null</span>
 
-  <span class="keyword">return</span> {
-    generate: (opts={}) -&gt;
-      particles = createParticles
-        number: opts.number
-        position: opts.position
-        scene: scene
+  generate: (opts={}) -&gt;
+    particles = createParticles
+      number: opts.number
+      position: opts.position
+      scene: scene
 
-    update: (cb) -&gt;
-      particles?.forEach cb
-  }</code></pre>
+  update: (cb) -&gt;
+    particles?.forEach cb</code></pre>
 </div>
         </li>
         
