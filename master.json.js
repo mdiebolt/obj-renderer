@@ -71,6 +71,11 @@ window["mdiebolt/obj-renderer:master"]({
       "content": "require \"../main\"\n\ndescribe \"renderer\", ->\n  it \"should have THREE\", ->\n    assert THREE.OBJLoader\n",
       "mode": "100644",
       "type": "blob"
+    },
+    "glow_material.coffee.md": {
+      "path": "glow_material.coffee.md",
+      "content": "Glow Material\n=============\n\n    module.exports = ->\n      new THREE.ShaderMaterial \n        uniforms:  \n          c:   \n            type: \"f\"\n            value: 1.0\n          p:   \n            type: \"f\"\n            value: 1.4 \n          glowColor: \n            type: \"c\"\n            value: new THREE.Color(0xffff00)\n          viewVector: \n            type: \"v3\"\n            value: camera.position\n        vertexShader: \"\"\"\n        \n        \"\"\"\n        fragmentShader: \"\"\"\n        \n        \"\"\"\n        side: THREE.FrontSide\n        blending: THREE.AdditiveBlending\n        transparent: true\n    \t",
+      "mode": "100644"
     }
   },
   "distribution": {
@@ -122,6 +127,11 @@ window["mdiebolt/obj-renderer:master"]({
     "test/test": {
       "path": "test/test",
       "content": "(function() {\n  require(\"../main\");\n\n  describe(\"renderer\", function() {\n    return it(\"should have THREE\", function() {\n      return assert(THREE.OBJLoader);\n    });\n  });\n\n}).call(this);\n",
+      "type": "blob"
+    },
+    "glow_material": {
+      "path": "glow_material",
+      "content": "(function() {\n  module.exports = function() {\n    return new THREE.ShaderMaterial({\n      uniforms: {\n        c: {\n          type: \"f\",\n          value: 1.0\n        },\n        p: {\n          type: \"f\",\n          value: 1.4\n        },\n        glowColor: {\n          type: \"c\",\n          value: new THREE.Color(0xffff00)\n        },\n        viewVector: {\n          type: \"v3\",\n          value: camera.position\n        }\n      },\n      vertexShader: \"\",\n      fragmentShader: \"\",\n      side: THREE.FrontSide,\n      blending: THREE.AdditiveBlending,\n      transparent: true\n    });\n  };\n\n}).call(this);\n",
       "type": "blob"
     }
   },
