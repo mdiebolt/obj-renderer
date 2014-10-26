@@ -12,35 +12,24 @@ Renderer
 
     CUBE_SIZE = 10
 
-    camera =
-    scene =
-    renderer =
-    container = null
-
     mouseX = mouseY = 0
-
-    manager = new THREE.LoadingManager()
-    manager.onProgress = (item, loaded, total) ->
-      console.log item, loaded, total
 
     windowHalfX = window.innerWidth / 2
     windowHalfY = window.innerHeight / 2
     aspectRatio = window.innerWidth / window.innerHeight
 
+    window.renderer = null
+    window.scene = new THREE.Scene()
+    window.camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)
+    camera.position.z = 100
+
     init = ->
       container = document.createElement "div"
       document.body.appendChild container
 
-      camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)
-      camera.position.z = 100
-
-      scene = new THREE.Scene()
-
       addLights scene
 
       generateGrid(10)
-
-      texture = new THREE.Texture()
 
       loadPalette "bartender", texture
       loadObj "bartender",
@@ -136,42 +125,6 @@ Renderer
       cube = new THREE.Mesh geometry, material
       cube.position.set position.x, position.y, position.z
       scene.add cube
-
-    loadPalette = (name, texture) ->
-      loader = new THREE.ImageLoader(manager)
-      loader.crossOrigin = true
-
-      loader.load "https://s3.amazonaws.com/distri-tactics/bartender.png?doot2", (image) ->
-        texture.image = image
-        texture.needsUpdate = true
-
-    loadObj = (name, opts={}) ->
-      texture = opts.texture
-      position = opts.position
-
-      onProgress = (xhr) ->
-        if  xhr.lengthComputable
-          percentComplete = xhr.loaded / xhr.total * 100
-          console.log "#{Math.round(percentComplete, 2)}% downloaded"
-
-      onError = (xhr) ->
-        console.error xhr
-
-      loader = new THREE.OBJLoader(manager)
-      loader.crossOrigin = true
-      loader.load "https://s3.amazonaws.com/distri-tactics/#{name}.obj?doot2", (object) ->
-        object.traverse (child) ->
-          if child instanceof THREE.Mesh
-            child.material.map = texture
-
-            object.position.x = position.x
-            object.position.y = position.y
-            object.position.z = position.z
-
-            scene.add object
-
-        , onProgress
-        , onError
 
     render = ->
       camera.position.x += (mouseX - camera.position.x) * .05
