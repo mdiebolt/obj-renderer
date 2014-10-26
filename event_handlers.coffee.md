@@ -12,10 +12,9 @@
       mouseX = (e.clientX - halfWidth) / 2
       mouseY = (e.clientY - halfHeight) / 2
       
-    module.exports = ->
-      initialize: ->
-        document.addEventListener "mousemove", onDocumentMouseMove, false
-        window.addEventListener "resize", onWindowResize, false
+    exports.initialize = ->
+      document.addEventListener "mousemove", onDocumentMouseMove, false
+      window.addEventListener "resize", onWindowResize, false
         
-      mousePosition: ->
-        new Vector2(mouseX, mouseY)
+    exports.mousePosition = ->
+      new Vector2(mouseX, mouseY)

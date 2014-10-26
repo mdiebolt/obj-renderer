@@ -2,30 +2,34 @@ Renderer
 ========
 
     require "./lib/obj_renderer"
-    util = require "util"
+    
     ParticleSystem = require "./particles"
     eventHandlers = require "./event_handlers"
     load = require "./loader"
-    particles = []
-
+    console.log eventHandlers.initialize()
+    
+    
+    util = require "util"
     util.applyStylesheet(require("./style"))
+
+    particles = []
 
     {Vector3} = THREE
 
     CUBE_SIZE = 10
-
-    windowHalfX = window.innerWidth / 2
-    windowHalfY = window.innerHeight / 2
-    aspectRatio = window.innerWidth / window.innerHeight
+    
+    width = window.innerWidth
+    height = window.innerHeight
 
     container = document.createElement "div"
     document.body.appendChild container
-    window.renderer = new THREE.WebGLRenderer()
-    renderer.setSize window.innerWidth, window.innerHeight
+    
+    window.renderer = new THREE.WebGLRenderer()    
     container.appendChild renderer.domElement    
+    renderer.setSize width, height
     
     window.scene = new THREE.Scene()
-    window.camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)
+    window.camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000)
     camera.position.z = 100
     
     init = ->
