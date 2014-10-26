@@ -11,6 +11,23 @@ Event Handlers
 
     	renderer.setSize window.innerWidth, window.innerHeight
 
+    onKeydown = (e) ->
+      e.preventDefault()
+      
+      switch e.keyCode
+        when 81 # q
+          camera.position.x -= 1
+        when 87 # w
+          camera.position.x += 1
+        when 65 # a
+          camera.position.y -= 1
+        when 83 # s
+          camera.position.y += 1
+        when 90 # z
+          camera.position.z -= 1
+        when 88 # x
+          camera.position.z += 1
+
     onClick = (e) ->
 
 Translate mouse coordinates into a number ranging from -1 to 1.
@@ -55,3 +72,4 @@ We need to call `parent` to get the right object
 
     window.addEventListener "resize", onWindowResize, false
     window.addEventListener "click", onClick, false
+    window.addEventListener "keydown", onKeydown, false
