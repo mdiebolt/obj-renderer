@@ -3,9 +3,9 @@ Renderer
 
     require "./globals"
     require "./lib/obj_renderer"
+    require "./event_handlers"
 
     ParticleSystem = require "./particles"
-    eventHandlers = require "./event_handlers"
 
     util = require "util"
     util.applyStylesheet(require("./style"))
@@ -20,7 +20,7 @@ Renderer
     container.appendChild renderer.domElement
     renderer.setSize window.innerWidth, window.innerHeight
 
-    camera.position.set 50, 100, 200
+    camera.position.set 0, 100, 200
 
 Return 1 if `probability` percent of the time.
 Return -1 otherwise
@@ -42,8 +42,6 @@ Return -1 otherwise
       particles.generate
         number: 100
         position: new THREE.Vector3(0, 0, 0)
-
-      eventHandlers.initialize()
 
     animate = ->
       requestAnimationFrame animate

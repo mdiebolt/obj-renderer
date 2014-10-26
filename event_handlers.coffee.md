@@ -11,8 +11,5 @@ Eventually we'll remove this as the game takes control of the camera.
 
     	renderer.setSize window.innerWidth, window.innerHeight
 
-    exports.initialize = ->
-      window.addEventListener "resize", onWindowResize, false
+    window.addEventListener "resize", onWindowResize, false
 
-    exports.mousePosition = ->
-      new THREE.Vector2(mouseX, mouseY)
