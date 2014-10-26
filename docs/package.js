@@ -186,7 +186,7 @@
     },
     "main.coffee.md": {
       "path": "main.coffee.md",
-      "content": "Renderer\n========\n\n    require \"./lib/obj_renderer\"\n    ParticleSystem = require \"./particles\"\n    particles = []\n\n    {Vector3} = THREE\n\n    CUBE_SIZE = 10\n\n    camera =\n    scene =\n    renderer =\n    container = null\n\n    mouseX = mouseY = 0\n\n    manager = new THREE.LoadingManager()\n    manager.onProgress = (item, loaded, total) ->\n      console.log item, loaded, total\n\n    windowHalfX = window.innerWidth / 2\n    windowHalfY = window.innerHeight / 2\n    aspectRatio = window.innerWidth / window.innerHeight\n\n    init = ->\n      container = document.createElement \"div\"\n      document.body.appendChild container\n\n      camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)\n      camera.position.z = 100\n\n      scene = new THREE.Scene()\n\n      addLights scene\n\n      generateGrid(10)\n\n      texture = new THREE.Texture()\n\n      loadPalette \"bartender\", texture\n      loadObj \"bartender\",\n        texture: texture\n        position: new Vector3(0, 0, 0)\n      \n      loadObj \"robo_sheriff\", \n        texture: texture\n        position: new Vector3(90, 0, 90)\n        \n      loadObj \"cactus\",\n        texture: texture\n        position: new Vector3(50, 0, 0)\n      \n      loadObj \"arrow\",\n        texture: texture\n        position: new Vector3(40, 0, 10)\n\n      loadObj \"beam_sword\",\n        texture: texture\n        position: new Vector3(40, 0, 30)\n  \n      loadObj \"branding_iron\",\n        texture: texture\n        position: new Vector3(40, 0, 50)\n\n      loadObj \"character\",\n        texture: texture\n        position: new Vector3(60, 0, 10)\n        \n      loadObj \"gun\",\n        texture: texture\n        position: new Vector3(60, 0, 30)\n        \n      loadObj \"hoverboard\",\n        texture: texture\n        position: new Vector3(60, 0, 50)\n  \n      loadObj \"jetpack_bandit\",\n        texture: texture\n        position: new Vector3(60, 0, 70)\n\n      particles = ParticleSystem\n        scene: scene\n\n      particles.generate\n        number: 100\n        position: new Vector3(0, 0, 0)\n\n      renderer = new THREE.WebGLRenderer()\n      renderer.setSize window.innerWidth, window.innerHeight\n      container.appendChild renderer.domElement\n\n      document.addEventListener \"mousemove\", onDocumentMouseMove, false\n      window.addEventListener \"resize\", onWindowResize, false\n\n    generateGrid = (size) ->\n      [0...size].forEach (x) ->\n        [0...size].forEach (z) ->\n          addCube scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)\n\n    onWindowResize = ->\n    \twindowHalfX = window.innerWidth / 2\n    \twindowHalfY = window.innerHeight / 2\n\n    \tcamera.aspect = window.innerWidth / window.innerHeight\n    \tcamera.updateProjectionMatrix()\n\n    \trenderer.setSize window.innerWidth, window.innerHeight\n\n    onDocumentMouseMove = (event) ->\n      mouseX = (event.clientX - windowHalfX) / 2\n      mouseY = (event.clientY - windowHalfY) / 2\n\n    animate = ->\n      requestAnimationFrame animate\n      render()\n\n    addLights = (scene) ->\n      ambient = new THREE.AmbientLight 0x101030\n      scene.add ambient\n\n      directionalLight = new THREE.DirectionalLight 0xffeedd\n      directionalLight.position.set 0, 0, 1\n      scene.add directionalLight\n\n    addCube = (scene, position) ->\n      geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)\n      material = new THREE.MeshBasicMaterial\n        color: 0xfffff\n        wireframe: true\n\n      cube = new THREE.Mesh geometry, material\n      cube.position.x = position.x\n      cube.position.y = position.y\n      cube.position.z = position.z\n\n      scene.add cube\n\n    loadPalette = (name, texture) ->\n      loader = new THREE.ImageLoader(manager)\n      loader.crossOrigin = true\n\n      loader.load \"https://s3.amazonaws.com/distri-tactics/bartender.png?doot2\", (image) ->\n        texture.image = image\n        texture.needsUpdate = true\n\n    loadObj = (name, opts={}) ->\n      texture = opts.texture\n      position = opts.position\n      \n      onProgress = (xhr) ->\n        if  xhr.lengthComputable\n          percentComplete = xhr.loaded / xhr.total * 100\n          console.log \"#{Math.round(percentComplete, 2)}% downloaded\"\n\n      onError = (xhr) ->\n        console.error xhr\n\n      loader = new THREE.OBJLoader(manager)\n      loader.crossOrigin = true\n      loader.load \"https://s3.amazonaws.com/distri-tactics/#{name}.obj?doot2\", (object) ->\n        object.traverse (child) ->\n          if child instanceof THREE.Mesh\n            child.material.map = texture\n            \n            object.position.x = position.x\n            object.position.y = position.y\n            object.position.z = position.z\n            \n            scene.add object\n\n        , onProgress\n        , onError\n\n    render = ->\n      camera.position.x += (mouseX - camera.position.x) * .05\n      camera.position.y += (-mouseY - camera.position.y) * .05\n\n      camera.lookAt scene.position\n\n      particles.update (p) ->\n        p.age ||= 0\n        p.age += 1\n\n        scene.remove(p) if p.age > 120\n\n        if Math.random() > 0.5\n          x = 1\n        else\n          x = -1\n\n        if Math.random() > 0.5\n          z = 1\n        else\n          z = -1\n\n        p.position.x += x * 1\n        p.position.z += z * 1\n\n      renderer.render scene, camera\n\n    init()\n    animate()\n",
+      "content": "Renderer\n========\n\n    require \"./lib/obj_renderer\"\n    util = require \"util\"\n    ParticleSystem = require \"./particles\"\n    particles = []\n\n    util.applyStylesheet(require(\"./style\"))\n\n    {Vector3} = THREE\n\n    CUBE_SIZE = 10\n\n    camera =\n    scene =\n    renderer =\n    container = null\n\n    mouseX = mouseY = 0\n\n    manager = new THREE.LoadingManager()\n    manager.onProgress = (item, loaded, total) ->\n      console.log item, loaded, total\n\n    windowHalfX = window.innerWidth / 2\n    windowHalfY = window.innerHeight / 2\n    aspectRatio = window.innerWidth / window.innerHeight\n\n    init = ->\n      container = document.createElement \"div\"\n      document.body.appendChild container\n\n      camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)\n      camera.position.z = 100\n\n      scene = new THREE.Scene()\n\n      addLights scene\n\n      generateGrid(10)\n\n      texture = new THREE.Texture()\n\n      loadPalette \"bartender\", texture\n      loadObj \"bartender\",\n        texture: texture\n        position: new Vector3(0, 0, 0)\n\n      loadObj \"robo_sheriff\",\n        texture: texture\n        position: new Vector3(90, 0, 90)\n\n      loadObj \"cactus\",\n        texture: texture\n        position: new Vector3(50, 0, 0)\n\n      loadObj \"arrow\",\n        texture: texture\n        position: new Vector3(40, 0, 10)\n\n      loadObj \"beam_sword\",\n        texture: texture\n        position: new Vector3(40, 0, 30)\n\n      loadObj \"branding_iron\",\n        texture: texture\n        position: new Vector3(40, 0, 50)\n\n      loadObj \"character\",\n        texture: texture\n        position: new Vector3(60, 0, 10)\n\n      loadObj \"gun\",\n        texture: texture\n        position: new Vector3(60, 0, 30)\n\n      loadObj \"hoverboard\",\n        texture: texture\n        position: new Vector3(60, 0, 50)\n\n      loadObj \"jetpack_bandit\",\n        texture: texture\n        position: new Vector3(60, 0, 70)\n\n      particles = ParticleSystem\n        scene: scene\n\n      particles.generate\n        number: 100\n        position: new Vector3(0, 0, 0)\n\n      renderer = new THREE.WebGLRenderer()\n      renderer.setSize window.innerWidth, window.innerHeight\n      container.appendChild renderer.domElement\n\n      document.addEventListener \"mousemove\", onDocumentMouseMove, false\n      window.addEventListener \"resize\", onWindowResize, false\n\n    generateGrid = (size) ->\n      [0...size].forEach (x) ->\n        [0...size].forEach (z) ->\n          addCube scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)\n\n    onWindowResize = ->\n    \twindowHalfX = window.innerWidth / 2\n    \twindowHalfY = window.innerHeight / 2\n\n    \tcamera.aspect = window.innerWidth / window.innerHeight\n    \tcamera.updateProjectionMatrix()\n\n    \trenderer.setSize window.innerWidth, window.innerHeight\n\n    onDocumentMouseMove = (event) ->\n      mouseX = (event.clientX - windowHalfX) / 2\n      mouseY = (event.clientY - windowHalfY) / 2\n\n    animate = ->\n      requestAnimationFrame animate\n      render()\n\n    addLights = (scene) ->\n      ambient = new THREE.AmbientLight 0x101030\n      scene.add ambient\n\n      directionalLight = new THREE.DirectionalLight 0xffeedd\n      directionalLight.position.set 0, 0, 1\n      scene.add directionalLight\n\n    addCube = (scene, position) ->\n      geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)\n      material = new THREE.MeshBasicMaterial\n        color: 0xfffff\n        wireframe: true\n\n      cube = new THREE.Mesh geometry, material\n      cube.position.x = position.x\n      cube.position.y = position.y\n      cube.position.z = position.z\n\n      scene.add cube\n\n    loadPalette = (name, texture) ->\n      loader = new THREE.ImageLoader(manager)\n      loader.crossOrigin = true\n\n      loader.load \"https://s3.amazonaws.com/distri-tactics/bartender.png?doot2\", (image) ->\n        texture.image = image\n        texture.needsUpdate = true\n\n    loadObj = (name, opts={}) ->\n      texture = opts.texture\n      position = opts.position\n\n      onProgress = (xhr) ->\n        if  xhr.lengthComputable\n          percentComplete = xhr.loaded / xhr.total * 100\n          console.log \"#{Math.round(percentComplete, 2)}% downloaded\"\n\n      onError = (xhr) ->\n        console.error xhr\n\n      loader = new THREE.OBJLoader(manager)\n      loader.crossOrigin = true\n      loader.load \"https://s3.amazonaws.com/distri-tactics/#{name}.obj?doot2\", (object) ->\n        object.traverse (child) ->\n          if child instanceof THREE.Mesh\n            child.material.map = texture\n\n            object.position.x = position.x\n            object.position.y = position.y\n            object.position.z = position.z\n\n            scene.add object\n\n        , onProgress\n        , onError\n\n    render = ->\n      camera.position.x += (mouseX - camera.position.x) * .05\n      camera.position.y += (-mouseY - camera.position.y) * .05\n\n      camera.lookAt scene.position\n\n      particles.update (p) ->\n        p.age ||= 0\n        p.age += 1\n\n        scene.remove(p) if p.age > 120\n\n        if Math.random() > 0.5\n          x = 1\n        else\n          x = -1\n\n        if Math.random() > 0.5\n          z = 1\n        else\n          z = -1\n\n        p.position.x += x * 1\n        p.position.z += z * 1\n\n      renderer.render scene, camera\n\n    init()\n    animate()\n",
       "mode": "100644",
       "type": "blob"
     },
@@ -198,7 +198,13 @@
     },
     "pixie.cson": {
       "path": "pixie.cson",
-      "content": "version: \"0.1.0\"\nremoteDependencies: [\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js\"\n]\n",
+      "content": "version: \"0.1.0\"\nremoteDependencies: [\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js\"\n]\ndependencies:\n  util: \"distri/util:v0.1.0\"",
+      "mode": "100644",
+      "type": "blob"
+    },
+    "style.styl": {
+      "path": "style.styl",
+      "content": "body\n  margin: 0\n",
       "mode": "100644",
       "type": "blob"
     },
@@ -207,11 +213,6 @@
       "content": "require \"../main\"\n\ndescribe \"renderer\", ->\n  it \"should have THREE\", ->\n    assert THREE.OBJLoader\n",
       "mode": "100644",
       "type": "blob"
-    },
-    "style.styl": {
-      "path": "style.styl",
-      "content": "body\n  margin: 0",
-      "mode": "100644"
     }
   },
   "distribution": {
@@ -222,7 +223,7 @@
     },
     "main": {
       "path": "main",
-      "content": "(function() {\n  var CUBE_SIZE, ParticleSystem, Vector3, addCube, addLights, animate, aspectRatio, camera, container, generateGrid, init, loadObj, loadPalette, manager, mouseX, mouseY, onDocumentMouseMove, onWindowResize, particles, render, renderer, scene, windowHalfX, windowHalfY;\n\n  require(\"./lib/obj_renderer\");\n\n  ParticleSystem = require(\"./particles\");\n\n  particles = [];\n\n  Vector3 = THREE.Vector3;\n\n  CUBE_SIZE = 10;\n\n  camera = scene = renderer = container = null;\n\n  mouseX = mouseY = 0;\n\n  manager = new THREE.LoadingManager();\n\n  manager.onProgress = function(item, loaded, total) {\n    return console.log(item, loaded, total);\n  };\n\n  windowHalfX = window.innerWidth / 2;\n\n  windowHalfY = window.innerHeight / 2;\n\n  aspectRatio = window.innerWidth / window.innerHeight;\n\n  init = function() {\n    var texture;\n    container = document.createElement(\"div\");\n    document.body.appendChild(container);\n    camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000);\n    camera.position.z = 100;\n    scene = new THREE.Scene();\n    addLights(scene);\n    generateGrid(10);\n    texture = new THREE.Texture();\n    loadPalette(\"bartender\", texture);\n    loadObj(\"bartender\", {\n      texture: texture,\n      position: new Vector3(0, 0, 0)\n    });\n    loadObj(\"robo_sheriff\", {\n      texture: texture,\n      position: new Vector3(90, 0, 90)\n    });\n    loadObj(\"cactus\", {\n      texture: texture,\n      position: new Vector3(50, 0, 0)\n    });\n    loadObj(\"arrow\", {\n      texture: texture,\n      position: new Vector3(40, 0, 10)\n    });\n    loadObj(\"beam_sword\", {\n      texture: texture,\n      position: new Vector3(40, 0, 30)\n    });\n    loadObj(\"branding_iron\", {\n      texture: texture,\n      position: new Vector3(40, 0, 50)\n    });\n    loadObj(\"character\", {\n      texture: texture,\n      position: new Vector3(60, 0, 10)\n    });\n    loadObj(\"gun\", {\n      texture: texture,\n      position: new Vector3(60, 0, 30)\n    });\n    loadObj(\"hoverboard\", {\n      texture: texture,\n      position: new Vector3(60, 0, 50)\n    });\n    loadObj(\"jetpack_bandit\", {\n      texture: texture,\n      position: new Vector3(60, 0, 70)\n    });\n    particles = ParticleSystem({\n      scene: scene\n    });\n    particles.generate({\n      number: 100,\n      position: new Vector3(0, 0, 0)\n    });\n    renderer = new THREE.WebGLRenderer();\n    renderer.setSize(window.innerWidth, window.innerHeight);\n    container.appendChild(renderer.domElement);\n    document.addEventListener(\"mousemove\", onDocumentMouseMove, false);\n    return window.addEventListener(\"resize\", onWindowResize, false);\n  };\n\n  generateGrid = function(size) {\n    var _i, _results;\n    return (function() {\n      _results = [];\n      for (var _i = 0; 0 <= size ? _i < size : _i > size; 0 <= size ? _i++ : _i--){ _results.push(_i); }\n      return _results;\n    }).apply(this).forEach(function(x) {\n      var _i, _results;\n      return (function() {\n        _results = [];\n        for (var _i = 0; 0 <= size ? _i < size : _i > size; 0 <= size ? _i++ : _i--){ _results.push(_i); }\n        return _results;\n      }).apply(this).forEach(function(z) {\n        return addCube(scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE));\n      });\n    });\n  };\n\n  onWindowResize = function() {\n    windowHalfX = window.innerWidth / 2;\n    windowHalfY = window.innerHeight / 2;\n    camera.aspect = window.innerWidth / window.innerHeight;\n    camera.updateProjectionMatrix();\n    return renderer.setSize(window.innerWidth, window.innerHeight);\n  };\n\n  onDocumentMouseMove = function(event) {\n    mouseX = (event.clientX - windowHalfX) / 2;\n    return mouseY = (event.clientY - windowHalfY) / 2;\n  };\n\n  animate = function() {\n    requestAnimationFrame(animate);\n    return render();\n  };\n\n  addLights = function(scene) {\n    var ambient, directionalLight;\n    ambient = new THREE.AmbientLight(0x101030);\n    scene.add(ambient);\n    directionalLight = new THREE.DirectionalLight(0xffeedd);\n    directionalLight.position.set(0, 0, 1);\n    return scene.add(directionalLight);\n  };\n\n  addCube = function(scene, position) {\n    var cube, geometry, material;\n    geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);\n    material = new THREE.MeshBasicMaterial({\n      color: 0xfffff,\n      wireframe: true\n    });\n    cube = new THREE.Mesh(geometry, material);\n    cube.position.x = position.x;\n    cube.position.y = position.y;\n    cube.position.z = position.z;\n    return scene.add(cube);\n  };\n\n  loadPalette = function(name, texture) {\n    var loader;\n    loader = new THREE.ImageLoader(manager);\n    loader.crossOrigin = true;\n    return loader.load(\"https://s3.amazonaws.com/distri-tactics/bartender.png?doot2\", function(image) {\n      texture.image = image;\n      return texture.needsUpdate = true;\n    });\n  };\n\n  loadObj = function(name, opts) {\n    var loader, onError, onProgress, position, texture;\n    if (opts == null) {\n      opts = {};\n    }\n    texture = opts.texture;\n    position = opts.position;\n    onProgress = function(xhr) {\n      var percentComplete;\n      if (xhr.lengthComputable) {\n        percentComplete = xhr.loaded / xhr.total * 100;\n        return console.log(\"\" + (Math.round(percentComplete, 2)) + \"% downloaded\");\n      }\n    };\n    onError = function(xhr) {\n      return console.error(xhr);\n    };\n    loader = new THREE.OBJLoader(manager);\n    loader.crossOrigin = true;\n    return loader.load(\"https://s3.amazonaws.com/distri-tactics/\" + name + \".obj?doot2\", function(object) {\n      return object.traverse(function(child) {\n        if (child instanceof THREE.Mesh) {\n          child.material.map = texture;\n          object.position.x = position.x;\n          object.position.y = position.y;\n          object.position.z = position.z;\n          return scene.add(object);\n        }\n      }, onProgress, onError);\n    });\n  };\n\n  render = function() {\n    camera.position.x += (mouseX - camera.position.x) * .05;\n    camera.position.y += (-mouseY - camera.position.y) * .05;\n    camera.lookAt(scene.position);\n    particles.update(function(p) {\n      var x, z;\n      p.age || (p.age = 0);\n      p.age += 1;\n      if (p.age > 120) {\n        scene.remove(p);\n      }\n      if (Math.random() > 0.5) {\n        x = 1;\n      } else {\n        x = -1;\n      }\n      if (Math.random() > 0.5) {\n        z = 1;\n      } else {\n        z = -1;\n      }\n      p.position.x += x * 1;\n      return p.position.z += z * 1;\n    });\n    return renderer.render(scene, camera);\n  };\n\n  init();\n\n  animate();\n\n}).call(this);\n",
+      "content": "(function() {\n  var CUBE_SIZE, ParticleSystem, Vector3, addCube, addLights, animate, aspectRatio, camera, container, generateGrid, init, loadObj, loadPalette, manager, mouseX, mouseY, onDocumentMouseMove, onWindowResize, particles, render, renderer, scene, util, windowHalfX, windowHalfY;\n\n  require(\"./lib/obj_renderer\");\n\n  util = require(\"util\");\n\n  ParticleSystem = require(\"./particles\");\n\n  particles = [];\n\n  util.applyStylesheet(require(\"./style\"));\n\n  Vector3 = THREE.Vector3;\n\n  CUBE_SIZE = 10;\n\n  camera = scene = renderer = container = null;\n\n  mouseX = mouseY = 0;\n\n  manager = new THREE.LoadingManager();\n\n  manager.onProgress = function(item, loaded, total) {\n    return console.log(item, loaded, total);\n  };\n\n  windowHalfX = window.innerWidth / 2;\n\n  windowHalfY = window.innerHeight / 2;\n\n  aspectRatio = window.innerWidth / window.innerHeight;\n\n  init = function() {\n    var texture;\n    container = document.createElement(\"div\");\n    document.body.appendChild(container);\n    camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000);\n    camera.position.z = 100;\n    scene = new THREE.Scene();\n    addLights(scene);\n    generateGrid(10);\n    texture = new THREE.Texture();\n    loadPalette(\"bartender\", texture);\n    loadObj(\"bartender\", {\n      texture: texture,\n      position: new Vector3(0, 0, 0)\n    });\n    loadObj(\"robo_sheriff\", {\n      texture: texture,\n      position: new Vector3(90, 0, 90)\n    });\n    loadObj(\"cactus\", {\n      texture: texture,\n      position: new Vector3(50, 0, 0)\n    });\n    loadObj(\"arrow\", {\n      texture: texture,\n      position: new Vector3(40, 0, 10)\n    });\n    loadObj(\"beam_sword\", {\n      texture: texture,\n      position: new Vector3(40, 0, 30)\n    });\n    loadObj(\"branding_iron\", {\n      texture: texture,\n      position: new Vector3(40, 0, 50)\n    });\n    loadObj(\"character\", {\n      texture: texture,\n      position: new Vector3(60, 0, 10)\n    });\n    loadObj(\"gun\", {\n      texture: texture,\n      position: new Vector3(60, 0, 30)\n    });\n    loadObj(\"hoverboard\", {\n      texture: texture,\n      position: new Vector3(60, 0, 50)\n    });\n    loadObj(\"jetpack_bandit\", {\n      texture: texture,\n      position: new Vector3(60, 0, 70)\n    });\n    particles = ParticleSystem({\n      scene: scene\n    });\n    particles.generate({\n      number: 100,\n      position: new Vector3(0, 0, 0)\n    });\n    renderer = new THREE.WebGLRenderer();\n    renderer.setSize(window.innerWidth, window.innerHeight);\n    container.appendChild(renderer.domElement);\n    document.addEventListener(\"mousemove\", onDocumentMouseMove, false);\n    return window.addEventListener(\"resize\", onWindowResize, false);\n  };\n\n  generateGrid = function(size) {\n    var _i, _results;\n    return (function() {\n      _results = [];\n      for (var _i = 0; 0 <= size ? _i < size : _i > size; 0 <= size ? _i++ : _i--){ _results.push(_i); }\n      return _results;\n    }).apply(this).forEach(function(x) {\n      var _i, _results;\n      return (function() {\n        _results = [];\n        for (var _i = 0; 0 <= size ? _i < size : _i > size; 0 <= size ? _i++ : _i--){ _results.push(_i); }\n        return _results;\n      }).apply(this).forEach(function(z) {\n        return addCube(scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE));\n      });\n    });\n  };\n\n  onWindowResize = function() {\n    windowHalfX = window.innerWidth / 2;\n    windowHalfY = window.innerHeight / 2;\n    camera.aspect = window.innerWidth / window.innerHeight;\n    camera.updateProjectionMatrix();\n    return renderer.setSize(window.innerWidth, window.innerHeight);\n  };\n\n  onDocumentMouseMove = function(event) {\n    mouseX = (event.clientX - windowHalfX) / 2;\n    return mouseY = (event.clientY - windowHalfY) / 2;\n  };\n\n  animate = function() {\n    requestAnimationFrame(animate);\n    return render();\n  };\n\n  addLights = function(scene) {\n    var ambient, directionalLight;\n    ambient = new THREE.AmbientLight(0x101030);\n    scene.add(ambient);\n    directionalLight = new THREE.DirectionalLight(0xffeedd);\n    directionalLight.position.set(0, 0, 1);\n    return scene.add(directionalLight);\n  };\n\n  addCube = function(scene, position) {\n    var cube, geometry, material;\n    geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);\n    material = new THREE.MeshBasicMaterial({\n      color: 0xfffff,\n      wireframe: true\n    });\n    cube = new THREE.Mesh(geometry, material);\n    cube.position.x = position.x;\n    cube.position.y = position.y;\n    cube.position.z = position.z;\n    return scene.add(cube);\n  };\n\n  loadPalette = function(name, texture) {\n    var loader;\n    loader = new THREE.ImageLoader(manager);\n    loader.crossOrigin = true;\n    return loader.load(\"https://s3.amazonaws.com/distri-tactics/bartender.png?doot2\", function(image) {\n      texture.image = image;\n      return texture.needsUpdate = true;\n    });\n  };\n\n  loadObj = function(name, opts) {\n    var loader, onError, onProgress, position, texture;\n    if (opts == null) {\n      opts = {};\n    }\n    texture = opts.texture;\n    position = opts.position;\n    onProgress = function(xhr) {\n      var percentComplete;\n      if (xhr.lengthComputable) {\n        percentComplete = xhr.loaded / xhr.total * 100;\n        return console.log(\"\" + (Math.round(percentComplete, 2)) + \"% downloaded\");\n      }\n    };\n    onError = function(xhr) {\n      return console.error(xhr);\n    };\n    loader = new THREE.OBJLoader(manager);\n    loader.crossOrigin = true;\n    return loader.load(\"https://s3.amazonaws.com/distri-tactics/\" + name + \".obj?doot2\", function(object) {\n      return object.traverse(function(child) {\n        if (child instanceof THREE.Mesh) {\n          child.material.map = texture;\n          object.position.x = position.x;\n          object.position.y = position.y;\n          object.position.z = position.z;\n          return scene.add(object);\n        }\n      }, onProgress, onError);\n    });\n  };\n\n  render = function() {\n    camera.position.x += (mouseX - camera.position.x) * .05;\n    camera.position.y += (-mouseY - camera.position.y) * .05;\n    camera.lookAt(scene.position);\n    particles.update(function(p) {\n      var x, z;\n      p.age || (p.age = 0);\n      p.age += 1;\n      if (p.age > 120) {\n        scene.remove(p);\n      }\n      if (Math.random() > 0.5) {\n        x = 1;\n      } else {\n        x = -1;\n      }\n      if (Math.random() > 0.5) {\n        z = 1;\n      } else {\n        z = -1;\n      }\n      p.position.x += x * 1;\n      return p.position.z += z * 1;\n    });\n    return renderer.render(scene, camera);\n  };\n\n  init();\n\n  animate();\n\n}).call(this);\n",
       "type": "blob"
     },
     "particles": {
@@ -232,17 +233,17 @@
     },
     "pixie": {
       "path": "pixie",
-      "content": "module.exports = {\"version\":\"0.1.0\",\"remoteDependencies\":[\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js\"]};",
-      "type": "blob"
-    },
-    "test/test": {
-      "path": "test/test",
-      "content": "(function() {\n  require(\"../main\");\n\n  describe(\"renderer\", function() {\n    return it(\"should have THREE\", function() {\n      return assert(THREE.OBJLoader);\n    });\n  });\n\n}).call(this);\n",
+      "content": "module.exports = {\"version\":\"0.1.0\",\"remoteDependencies\":[\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js\"],\"dependencies\":{\"util\":\"distri/util:v0.1.0\"}};",
       "type": "blob"
     },
     "style": {
       "path": "style",
       "content": "module.exports = \"body {\\n  margin: 0;\\n}\";",
+      "type": "blob"
+    },
+    "test/test": {
+      "path": "test/test",
+      "content": "(function() {\n  require(\"../main\");\n\n  describe(\"renderer\", function() {\n    return it(\"should have THREE\", function() {\n      return assert(THREE.OBJLoader);\n    });\n  });\n\n}).call(this);\n",
       "type": "blob"
     }
   },
@@ -264,5 +265,167 @@
     "url": "https://api.github.com/repos/mdiebolt/obj-renderer",
     "publishBranch": "gh-pages"
   },
-  "dependencies": {}
+  "dependencies": {
+    "util": {
+      "source": {
+        "LICENSE": {
+          "path": "LICENSE",
+          "mode": "100644",
+          "content": "The MIT License (MIT)\n\nCopyright (c) 2014 \n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.",
+          "type": "blob"
+        },
+        "README.md": {
+          "path": "README.md",
+          "mode": "100644",
+          "content": "util\n====\n\nSmall utility methods for JS\n",
+          "type": "blob"
+        },
+        "main.coffee.md": {
+          "path": "main.coffee.md",
+          "mode": "100644",
+          "content": "Util\n====\n\n    module.exports =\n      approach: (current, target, amount) ->\n        (target - current).clamp(-amount, amount) + current\n\nApply a stylesheet idempotently.\n\n      applyStylesheet: (style, id=\"primary\") ->\n        styleNode = document.createElement(\"style\")\n        styleNode.innerHTML = style\n        styleNode.id = id\n\n        if previousStyleNode = document.head.querySelector(\"style##{id}\")\n          previousStyleNode.parentNode.removeChild(prevousStyleNode)\n\n        document.head.appendChild(styleNode)\n\n      defaults: (target, objects...) ->\n        for object in objects\n          for name of object\n            unless target.hasOwnProperty(name)\n              target[name] = object[name]\n\n        return target\n\n      extend: (target, sources...) ->\n        for source in sources\n          for name of source\n            target[name] = source[name]\n\n        return target\n",
+          "type": "blob"
+        },
+        "pixie.cson": {
+          "path": "pixie.cson",
+          "mode": "100644",
+          "content": "version: \"0.1.0\"\n",
+          "type": "blob"
+        }
+      },
+      "distribution": {
+        "main": {
+          "path": "main",
+          "content": "(function() {\n  var __slice = [].slice;\n\n  module.exports = {\n    approach: function(current, target, amount) {\n      return (target - current).clamp(-amount, amount) + current;\n    },\n    applyStylesheet: function(style, id) {\n      var previousStyleNode, styleNode;\n      if (id == null) {\n        id = \"primary\";\n      }\n      styleNode = document.createElement(\"style\");\n      styleNode.innerHTML = style;\n      styleNode.id = id;\n      if (previousStyleNode = document.head.querySelector(\"style#\" + id)) {\n        previousStyleNode.parentNode.removeChild(prevousStyleNode);\n      }\n      return document.head.appendChild(styleNode);\n    },\n    defaults: function() {\n      var name, object, objects, target, _i, _len;\n      target = arguments[0], objects = 2 <= arguments.length ? __slice.call(arguments, 1) : [];\n      for (_i = 0, _len = objects.length; _i < _len; _i++) {\n        object = objects[_i];\n        for (name in object) {\n          if (!target.hasOwnProperty(name)) {\n            target[name] = object[name];\n          }\n        }\n      }\n      return target;\n    },\n    extend: function() {\n      var name, source, sources, target, _i, _len;\n      target = arguments[0], sources = 2 <= arguments.length ? __slice.call(arguments, 1) : [];\n      for (_i = 0, _len = sources.length; _i < _len; _i++) {\n        source = sources[_i];\n        for (name in source) {\n          target[name] = source[name];\n        }\n      }\n      return target;\n    }\n  };\n\n}).call(this);\n",
+          "type": "blob"
+        },
+        "pixie": {
+          "path": "pixie",
+          "content": "module.exports = {\"version\":\"0.1.0\"};",
+          "type": "blob"
+        }
+      },
+      "progenitor": {
+        "url": "http://strd6.github.io/editor/"
+      },
+      "version": "0.1.0",
+      "entryPoint": "main",
+      "repository": {
+        "id": 18501018,
+        "name": "util",
+        "full_name": "distri/util",
+        "owner": {
+          "login": "distri",
+          "id": 6005125,
+          "avatar_url": "https://avatars.githubusercontent.com/u/6005125?",
+          "gravatar_id": "192f3f168409e79c42107f081139d9f3",
+          "url": "https://api.github.com/users/distri",
+          "html_url": "https://github.com/distri",
+          "followers_url": "https://api.github.com/users/distri/followers",
+          "following_url": "https://api.github.com/users/distri/following{/other_user}",
+          "gists_url": "https://api.github.com/users/distri/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/distri/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/distri/subscriptions",
+          "organizations_url": "https://api.github.com/users/distri/orgs",
+          "repos_url": "https://api.github.com/users/distri/repos",
+          "events_url": "https://api.github.com/users/distri/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/distri/received_events",
+          "type": "Organization",
+          "site_admin": false
+        },
+        "private": false,
+        "html_url": "https://github.com/distri/util",
+        "description": "Small utility methods for JS",
+        "fork": false,
+        "url": "https://api.github.com/repos/distri/util",
+        "forks_url": "https://api.github.com/repos/distri/util/forks",
+        "keys_url": "https://api.github.com/repos/distri/util/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/distri/util/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/distri/util/teams",
+        "hooks_url": "https://api.github.com/repos/distri/util/hooks",
+        "issue_events_url": "https://api.github.com/repos/distri/util/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/distri/util/events",
+        "assignees_url": "https://api.github.com/repos/distri/util/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/distri/util/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/distri/util/tags",
+        "blobs_url": "https://api.github.com/repos/distri/util/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/distri/util/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/distri/util/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/distri/util/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/distri/util/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/distri/util/languages",
+        "stargazers_url": "https://api.github.com/repos/distri/util/stargazers",
+        "contributors_url": "https://api.github.com/repos/distri/util/contributors",
+        "subscribers_url": "https://api.github.com/repos/distri/util/subscribers",
+        "subscription_url": "https://api.github.com/repos/distri/util/subscription",
+        "commits_url": "https://api.github.com/repos/distri/util/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/distri/util/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/distri/util/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/distri/util/issues/comments/{number}",
+        "contents_url": "https://api.github.com/repos/distri/util/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/distri/util/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/distri/util/merges",
+        "archive_url": "https://api.github.com/repos/distri/util/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/distri/util/downloads",
+        "issues_url": "https://api.github.com/repos/distri/util/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/distri/util/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/distri/util/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/distri/util/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/distri/util/labels{/name}",
+        "releases_url": "https://api.github.com/repos/distri/util/releases{/id}",
+        "created_at": "2014-04-06T22:42:56Z",
+        "updated_at": "2014-04-06T22:42:56Z",
+        "pushed_at": "2014-04-06T22:42:56Z",
+        "git_url": "git://github.com/distri/util.git",
+        "ssh_url": "git@github.com:distri/util.git",
+        "clone_url": "https://github.com/distri/util.git",
+        "svn_url": "https://github.com/distri/util",
+        "homepage": null,
+        "size": 0,
+        "stargazers_count": 0,
+        "watchers_count": 0,
+        "language": null,
+        "has_issues": true,
+        "has_downloads": true,
+        "has_wiki": true,
+        "forks_count": 0,
+        "mirror_url": null,
+        "open_issues_count": 0,
+        "forks": 0,
+        "open_issues": 0,
+        "watchers": 0,
+        "default_branch": "master",
+        "master_branch": "master",
+        "permissions": {
+          "admin": true,
+          "push": true,
+          "pull": true
+        },
+        "organization": {
+          "login": "distri",
+          "id": 6005125,
+          "avatar_url": "https://avatars.githubusercontent.com/u/6005125?",
+          "gravatar_id": "192f3f168409e79c42107f081139d9f3",
+          "url": "https://api.github.com/users/distri",
+          "html_url": "https://github.com/distri",
+          "followers_url": "https://api.github.com/users/distri/followers",
+          "following_url": "https://api.github.com/users/distri/following{/other_user}",
+          "gists_url": "https://api.github.com/users/distri/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/distri/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/distri/subscriptions",
+          "organizations_url": "https://api.github.com/users/distri/orgs",
+          "repos_url": "https://api.github.com/users/distri/repos",
+          "events_url": "https://api.github.com/users/distri/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/distri/received_events",
+          "type": "Organization",
+          "site_admin": false
+        },
+        "network_count": 0,
+        "subscribers_count": 2,
+        "branch": "v0.1.0",
+        "publishBranch": "gh-pages"
+      },
+      "dependencies": {}
+    }
+  }
 });
