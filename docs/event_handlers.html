@@ -106,7 +106,7 @@ For both methods you pass the camera you&#39;re viewing the scene through.</p>
 <a href="http://stackoverflow.com/questions/22114224/three-js-raycasting-obj">http://stackoverflow.com/questions/22114224/three-js-raycasting-obj</a></p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">  intersects = raycaster.intersectObjects scene.children, <span class="literal">true</span></code></pre>
+            <div class="content"><pre><code class="lang-coffeescript">  intersects = raycaster.intersectObjects window.characters, <span class="literal">true</span></code></pre>
 </div>
         </li>
         
@@ -120,7 +120,7 @@ For both methods you pass the camera you&#39;re viewing the scene through.</p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">  intersects.forEach (intersection) -&gt;
-    scene.remove intersection.object
+    scene.remove intersection.object.parent
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span></code></pre>

@@ -35,7 +35,8 @@
               <p>Loads voxel models from .obj files</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">manager = <span class="keyword">new</span> THREE.LoadingManager()
+            <div class="content"><pre><code class="lang-coffeescript">window.characters = []
+manager = <span class="keyword">new</span> THREE.LoadingManager()
 texture = <span class="keyword">new</span> THREE.Texture()</code></pre>
 </div>
         </li>
@@ -123,8 +124,9 @@ Load up one from an arbitrary model we use.</p>
             </div>
             <div class="content"><pre><code class="lang-coffeescript">        child.material.map = texture
 
-    object.position.set position.x, position.y, position.z
-    scene.add object
+      object.position.set position.x, position.y, position.z
+      window.characters.push object
+      scene.add object
 
     , onProgress
     , onError</code></pre>
