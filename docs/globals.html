@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>index</title>
+  <title>globals</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="http://strd6.github.io/cdn/parallel/docco.css" />
@@ -18,7 +18,7 @@
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <h1 id="renderer">Renderer</h1>
+              <h1 id="globals">Globals</h1>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">
@@ -32,90 +32,12 @@
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              
+              <p>Put all these gross guys in here.</p>
+
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./globals"</span>
-require <span class="string">"./lib/obj_renderer"</span>
-
-ParticleSystem = require <span class="string">"./particles"</span>
-eventHandlers = require <span class="string">"./event_handlers"</span>
-
-util = require <span class="string">"util"</span>
-util.applyStylesheet(require(<span class="string">"./style"</span>))
-
-map = require(<span class="string">"./map"</span>)()
-
-particles = []
-
-container = document.createElement <span class="string">"div"</span>
-document.body.appendChild container
-
-window.renderer = <span class="keyword">new</span> THREE.WebGLRenderer()    
-container.appendChild renderer.domElement    
-renderer.setSize window.innerWidth, window.innerHeight
-
+            <div class="content"><pre><code class="lang-coffeescript">window.renderer = <span class="keyword">new</span> THREE.WebGLRenderer()    
 window.scene = <span class="keyword">new</span> THREE.Scene()
-window.camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, width / height, <span class="number">1</span>, <span class="number">2000</span>)
-camera.position.z = <span class="number">100</span>
-
-<span class="function"><span class="title">init</span></span> = -&gt;
-  addLights()
-
-  map.generateGrid(<span class="number">10</span>)
-  map.populateCharacters()
-
-  particles = ParticleSystem()
-
-  particles.generate
-    number: <span class="number">100</span>
-    position: <span class="keyword">new</span> THREE.Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
-
-  eventHandlers.initialize()
-
-<span class="function"><span class="title">animate</span></span> = -&gt;
-  requestAnimationFrame animate
-  render()
-
-<span class="function"><span class="title">addLights</span></span> = -&gt;
-  ambient = <span class="keyword">new</span> THREE.AmbientLight <span class="number">0x101030</span>
-  scene.add ambient
-
-  directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span>
-  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>
-  scene.add directionalLight
-
-<span class="function"><span class="title">render</span></span> = -&gt;
-  {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
-
-  camera.position.x += (mouseX - camera.position.x) * <span class="number">.05</span>
-  camera.position.y += (-mouseY - camera.position.y) * <span class="number">.05</span>
-
-  camera.lookAt scene.position
-
-  particles.update (p) -&gt;
-    p.age ||= <span class="number">0</span>
-    p.age += <span class="number">1</span>
-
-    p.material.opacity = p.material.opacity - <span class="number">0.01</span> 
-    scene.remove(p) <span class="keyword">if</span> p.age &gt; <span class="number">100</span>
-
-    <span class="keyword">if</span> Math.random() &gt; <span class="number">0.5</span>
-      x = <span class="number">1</span>
-    <span class="keyword">else</span>
-      x = -<span class="number">1</span>
-
-    <span class="keyword">if</span> Math.random() &gt; <span class="number">0.5</span>
-      z = <span class="number">1</span>
-    <span class="keyword">else</span>
-      z = -<span class="number">1</span>
-
-    p.position.x += x * <span class="number">1</span>
-    p.position.z += z * <span class="number">1</span>
-
-  renderer.render scene, camera
-
-init()
-animate()</code></pre>
+window.camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, window.innerWidth / window.innerHeight, <span class="number">1</span>, <span class="number">2000</span>)</code></pre>
 </div>
         </li>
         

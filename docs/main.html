@@ -34,7 +34,8 @@
               </div>
               
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
+            <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./globals"</span>
+require <span class="string">"./lib/obj_renderer"</span>
 
 ParticleSystem = require <span class="string">"./particles"</span>
 eventHandlers = require <span class="string">"./event_handlers"</span>
@@ -46,15 +47,12 @@ map = require(<span class="string">"./map"</span>)()
 
 particles = []
 
-width = window.innerWidth
-height = window.innerHeight
-
 container = document.createElement <span class="string">"div"</span>
 document.body.appendChild container
 
 window.renderer = <span class="keyword">new</span> THREE.WebGLRenderer()    
 container.appendChild renderer.domElement    
-renderer.setSize width, height
+renderer.setSize window.innerWidth, window.innerHeight
 
 window.scene = <span class="keyword">new</span> THREE.Scene()
 window.camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, width / height, <span class="number">1</span>, <span class="number">2000</span>)
