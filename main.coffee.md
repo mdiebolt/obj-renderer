@@ -21,6 +21,7 @@ Renderer
     renderer.setSize window.innerWidth, window.innerHeight
 
     camera.position.set 50, 100, 200
+    camera.up = new THREE.Vector3(0, 1, 0)
 
 Return 1 if `probability` percent of the time.
 Return -1 otherwise
