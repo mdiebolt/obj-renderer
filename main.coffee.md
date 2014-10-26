@@ -15,8 +15,6 @@ Renderer
     particles = []
 
     {Vector3} = THREE
-
-    CUBE_SIZE = 10
     
     width = window.innerWidth
     height = window.innerHeight
@@ -75,11 +73,6 @@ Renderer
 
       eventHandlers.initialize()
 
-    generateGrid = (size) ->
-      [0...size].forEach (x) ->
-        [0...size].forEach (z) ->
-          addCube new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
-
     animate = ->
       requestAnimationFrame animate
       render()
@@ -91,16 +84,6 @@ Renderer
       directionalLight = new THREE.DirectionalLight 0xffeedd
       directionalLight.position.set 0, 0, 10
       scene.add directionalLight
-
-    addCube = (position) ->
-      geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
-      material = new THREE.MeshBasicMaterial
-        color: 0xfffff
-        wireframe: true
-
-      cube = new THREE.Mesh geometry, material
-      cube.position.set position.x, position.y, position.z
-      scene.add cube
 
     render = ->
       {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
