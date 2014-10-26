@@ -14,10 +14,10 @@ Renderer
 
     particles = []
 
-    document.body.appendChild renderer.domElement
     renderer.setSize window.innerWidth, window.innerHeight
+    document.body.appendChild renderer.domElement
 
-    camera.position.set 50, 100, 200
+    camera.position.set(50, 100, 200)
     camera.up = new THREE.Vector3(0, 1, 0)
     camera.lookAt new THREE.Vector3(50, 0, 50)
 
