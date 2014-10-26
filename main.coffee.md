@@ -88,7 +88,7 @@ Renderer
 
       particles.generate
         number: 100
-        position: new Vector3(90, 0, 0)
+        position: new Vector3(0, 0, 0)
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
@@ -178,12 +178,13 @@ Renderer
       camera.position.y += (-mouseY - camera.position.y) * .05
 
       camera.lookAt scene.position
-
+      
       particles.update (p) ->
         p.age ||= 0
         p.age += 1
 
-        scene.remove(p) if p.age > 120
+        p.material.opacity = p.material.opacity - 0.01 
+        scene.remove(p) if p.age > 100
 
         if Math.random() > 0.5
           x = 1
