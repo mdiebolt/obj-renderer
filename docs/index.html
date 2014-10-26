@@ -99,7 +99,9 @@ Return -1 otherwise</p>
   scene.add directionalLight
 
 <span class="function"><span class="title">render</span></span> = -&gt;
-  camera.lookAt <span class="keyword">new</span> THREE.Vector3(<span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>)
+  lookAt = <span class="keyword">new</span> THREE.Vector3(<span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>)
+  window.lookingAt?.position.set lookAt.x, lookAt.y, lookAt.z
+  camera.lookAt lookAt
 
   particles.update (p) -&gt;
     p.age ||= <span class="number">0</span>

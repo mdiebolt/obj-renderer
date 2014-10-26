@@ -41,6 +41,16 @@
 
 CUBE_SIZE = <span class="number">10</span>
 
+window.lookingAt = <span class="literal">null</span>
+
+geometry = <span class="keyword">new</span> THREE.BoxGeometry(<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>)
+material = <span class="keyword">new</span> THREE.MeshBasicMaterial
+  color: <span class="number">0xff0000</span>
+
+cube = <span class="keyword">new</span> THREE.Mesh geometry, material
+lookingAt = cube
+scene.add cube
+
 <span class="function"><span class="title">addCube</span></span> = (position) -&gt;
   geometry = <span class="keyword">new</span> THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
   material = <span class="keyword">new</span> THREE.MeshBasicMaterial
