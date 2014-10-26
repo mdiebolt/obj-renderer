@@ -57,7 +57,9 @@ Return -1 otherwise
       scene.add directionalLight
 
     render = ->
-      camera.lookAt new THREE.Vector3(50, 0, 50)
+      lookAt = new THREE.Vector3(50, 0, 50)
+      window.lookingAt?.position.set lookAt.x, lookAt.y, lookAt.z
+      camera.lookAt lookAt
 
       particles.update (p) ->
         p.age ||= 0
