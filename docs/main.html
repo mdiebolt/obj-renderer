@@ -49,8 +49,6 @@ particles = []
 
 {Vector3} = THREE
 
-CUBE_SIZE = <span class="number">10</span>
-
 width = window.innerWidth
 height = window.innerHeight
 
@@ -108,11 +106,6 @@ camera.position.z = <span class="number">100</span>
 
   eventHandlers.initialize()
 
-<span class="function"><span class="title">generateGrid</span></span> = (size) -&gt;
-  [<span class="number">0.</span>..size].forEach (x) -&gt;
-    [<span class="number">0.</span>..size].forEach (z) -&gt;
-      addCube <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
-
 <span class="function"><span class="title">animate</span></span> = -&gt;
   requestAnimationFrame animate
   render()
@@ -124,16 +117,6 @@ camera.position.z = <span class="number">100</span>
   directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span>
   directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>
   scene.add directionalLight
-
-<span class="function"><span class="title">addCube</span></span> = (position) -&gt;
-  geometry = <span class="keyword">new</span> THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
-  material = <span class="keyword">new</span> THREE.MeshBasicMaterial
-    color: <span class="number">0xfffff</span>
-    wireframe: <span class="literal">true</span>
-
-  cube = <span class="keyword">new</span> THREE.Mesh geometry, material
-  cube.position.set position.x, position.y, position.z
-  scene.add cube
 
 <span class="function"><span class="title">render</span></span> = -&gt;
   {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
