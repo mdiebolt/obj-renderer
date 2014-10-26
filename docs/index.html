@@ -50,7 +50,7 @@ particles = []
 container = document.createElement <span class="string">"div"</span>
 document.body.appendChild container
 
-container.appendChild renderer.domElement    
+container.appendChild renderer.domElement
 renderer.setSize window.innerWidth, window.innerHeight
 
 camera.position.z = <span class="number">100</span>
@@ -84,8 +84,8 @@ camera.position.z = <span class="number">100</span>
 <span class="function"><span class="title">render</span></span> = -&gt;
   {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
 
-  camera.position.x += (mouseX - camera.position.x) * <span class="number">.05</span>
-  camera.position.y += (-mouseY - camera.position.y) * <span class="number">.05</span>
+  camera.position.x -= (-mouseX + camera.position.x) * <span class="number">.05</span>
+  camera.position.y -= (-mouseY + camera.position.y) * <span class="number">.05</span>
 
   camera.lookAt scene.position
 
@@ -93,7 +93,7 @@ camera.position.z = <span class="number">100</span>
     p.age ||= <span class="number">0</span>
     p.age += <span class="number">1</span>
 
-    p.material.opacity = p.material.opacity - <span class="number">0.01</span> 
+    p.material.opacity = p.material.opacity - <span class="number">0.01</span>
     scene.remove(p) <span class="keyword">if</span> p.age &gt; <span class="number">100</span>
 
     <span class="keyword">if</span> Math.random() &gt; <span class="number">0.5</span>
