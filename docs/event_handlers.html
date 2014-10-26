@@ -119,8 +119,22 @@ For both methods you pass the camera you&#39;re viewing the scene through.</p>
               <p>TODO: sort intersections by closest and stop after the first one</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">  intersects.forEach (intersection) -&gt;
-    scene.remove intersection.object.parent
+            <div class="content"><pre><code class="lang-coffeescript">  intersects.forEach (intersection) -&gt;</code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>We&#39;re expecting to click on a .obj model. 
+Our raycaster intersects the underlying Mesh, so we need to call <code>parent</code> to
+get the right object to remove from the scene</p>
+
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">    scene.remove intersection.object.parent
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span></code></pre>
