@@ -7,8 +7,6 @@ Loads voxel models from .obj files
     manager = new THREE.LoadingManager()
     texture = new THREE.Texture()
 
-    glow = require("./glow_material")()
-
 Base path to our game's S3 bucket
 
     BUCKET_PATH = "https://s3.amazonaws.com/distri-tactics"
@@ -49,8 +47,6 @@ Apply the color palette texture we loaded above
 
             child.material.map = texture
             
-            object.add(new THREE.Mesh child.geometry, glow)
-
           object.position.set position.x, position.y, position.z
           
 HAX: remove this global characters array. 
