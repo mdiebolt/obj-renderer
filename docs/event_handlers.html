@@ -32,12 +32,7 @@ mouseX = mouseY = <span class="number">0</span>
 
     renderer.setSize window.innerWidth, window.innerHeight
 
-<span class="function"><span class="title">onDocumentMouseMove</span></span> = (event) -&gt;
-  mouseX = (event.clientX - halfWidth) / <span class="number">2</span>
-  mouseY = (event.clientY - halfHeight) / <span class="number">2</span>
-
 exports.<span class="function"><span class="title">initialize</span></span> = -&gt;
-  document.addEventListener <span class="string">"mousemove"</span>, onDocumentMouseMove, <span class="literal">false</span>
   window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 
 exports.<span class="function"><span class="title">mousePosition</span></span> = -&gt;
