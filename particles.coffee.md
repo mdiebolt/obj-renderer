@@ -3,8 +3,6 @@ Particles
 
 Emit voxel particles
 
-Pick a random float between `-max / 2` and `max / 2`
-
     addCube = (scene, position) ->
       geometry = new THREE.BoxGeometry(1, 1, 1)
       material = new THREE.MeshBasicMaterial
@@ -30,13 +28,11 @@ Pick a random float between `-max / 2` and `max / 2`
       scene = opts.scene
       particles = null
 
-      return {
-        generate: (opts={}) ->
-          particles = createParticles
-            number: opts.number
-            position: opts.position
-            scene: scene
+      generate: (opts={}) ->
+        particles = createParticles
+          number: opts.number
+          position: opts.position
+          scene: scene
 
-        update: (cb) ->
-          particles?.forEach cb
-      }
+      update: (cb) ->
+        particles?.forEach cb
