@@ -228,7 +228,7 @@
     },
     "style.styl": {
       "path": "style.styl",
-      "content": "html, body\n  width: 100%\n  height: 100%\n  max-height: 100%\n  overflow: hidden\n\nbody\n  margin: 0\n",
+      "content": "html, body\n  height: 100%\n  overflow: hidden\n\nbody\n  margin: 0\n",
       "mode": "100644",
       "type": "blob"
     },
@@ -282,7 +282,7 @@
     },
     "style": {
       "path": "style",
-      "content": "module.exports = \"html,\\nbody {\\n  width: 100%;\\n  height: 100%;\\n  max-height: 100%;\\n  overflow: hidden;\\n}\\n\\nbody {\\n  margin: 0;\\n}\";",
+      "content": "module.exports = \"html,\\nbody {\\n  height: 100%;\\n  overflow: hidden;\\n}\\n\\nbody {\\n  margin: 0;\\n}\";",
       "type": "blob"
     },
     "test/test": {
