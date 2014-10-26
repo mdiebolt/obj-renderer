@@ -20,7 +20,7 @@ Renderer
     container.appendChild renderer.domElement
     renderer.setSize window.innerWidth, window.innerHeight
 
-    camera.position.z = 100
+    camera.position.set 50, 100, 200
 
 Return 1 if `probability` percent of the time.
 Return -1 otherwise
@@ -57,12 +57,7 @@ Return -1 otherwise
       directionalLight.position.set 0, 0, 10
       scene.add directionalLight
 
-    render = ->
-      {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
-    
-      camera.position.x -= (-mouseX + camera.position.x) * .05
-      camera.position.y -= (-mouseY + camera.position.y) * .05
-
+    render = ->    
       camera.lookAt scene.position
 
       particles.update (p) ->

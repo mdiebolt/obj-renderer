@@ -11,12 +11,7 @@ Eventually we'll remove this as the game takes control of the camera.
 
     	renderer.setSize window.innerWidth, window.innerHeight
 
-    onDocumentMouseMove = (event) ->
-      mouseX = (event.clientX - halfWidth) / 2
-      mouseY = (event.clientY - halfHeight) / 2
-
     exports.initialize = ->
-      document.addEventListener "mousemove", onDocumentMouseMove, false
       window.addEventListener "resize", onWindowResize, false
 
     exports.mousePosition = ->
