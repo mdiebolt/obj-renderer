@@ -16,8 +16,7 @@ Emit voxel particles
 
       cube
 
-    createParticles = (opts={}) ->
-      scene = opts.scene
+    createParticles = ->
       number = opts.number
       position = opts.position
 

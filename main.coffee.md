@@ -64,7 +64,6 @@ Renderer
         position: new Vector3(90, 0, 0)
 
       particles = ParticleSystem
-        scene: scene
 
       particles.generate
         number: 100
@@ -75,7 +74,7 @@ Renderer
     generateGrid = (size) ->
       [0...size].forEach (x) ->
         [0...size].forEach (z) ->
-          addCube scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
+          addCube new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
 
     animate = ->
       requestAnimationFrame animate
@@ -89,7 +88,7 @@ Renderer
       directionalLight.position.set 0, 0, 10
       scene.add directionalLight
 
-    addCube = (scene, position) ->
+    addCube = (position) ->
       geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
       material = new THREE.MeshBasicMaterial
         color: 0xfffff
