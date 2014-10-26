@@ -75,21 +75,29 @@ For both methods you pass the camera you&#39;re viewing the scene through.  </p>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Subtract the vector representing the camera position</p>
+              <p>Move ray to the camera</p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.sub(camera.position)
   raycastDirection.normalize()
 
-  raycaster.set camera.position, raycastDirection
-  intersects = raycaster.intersectObjects scene.children  
+  raycaster.set camera.position, raycastDirection</code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>TODO: restrict this to only selectable nodes such as characters</p>
 
-  console.log intersects
-  [<span class="number">0.</span>..intersects.length].forEach (i) -&gt;
-      intersection = intersects[i]
-      obj = intersection.object
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">  intersects = raycaster.intersectObjects scene.children  
 
-      obj.material.color.setRGB(<span class="number">1</span> - i / intersects.length, <span class="number">0</span>, <span class="number">0</span>)
+  intersects.forEach (intersection) -&gt;        
+    scene.remove intersection.object
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span></code></pre>
