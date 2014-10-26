@@ -124,8 +124,22 @@ Load up one from an arbitrary model we use.</p>
             </div>
             <div class="content"><pre><code class="lang-coffeescript">        child.material.map = texture
 
-      object.position.set position.x, position.y, position.z
-      window.characters.push object
+      object.position.set position.x, position.y, position.z</code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>HAX: remove this global characters array. 
+It&#39;s used so that the raycaster doesn&#39;t have to traverse <code>scene.children</code></p>
+
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">      window.characters.push object
+
       scene.add object
 
     , onProgress
