@@ -46,6 +46,19 @@ texture = <span class="keyword">new</span> THREE.Texture()</code></pre>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
+              <p>Base path to our game&#39;s S3 bucket</p>
+
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">BUCKET_PATH = <span class="string">"https://s3.amazonaws.com/distri-tactics"</span></code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
               <p>Let us know how far along things are when loading a .obj model.</p>
 
             </div>
@@ -60,32 +73,55 @@ texture = <span class="keyword">new</span> THREE.Texture()</code></pre>
         </li>
         
         
-        <li id="section-4">
+        <li id="section-5">
             <div class="annotation">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>We&#39;re sharing the same palette across all of our models. 
-Load up one from an arbitrary model we use. </p>
+              <p>We&#39;re sharing the same palette across all of our models.
+Load up one from an arbitrary model we use.</p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript"><span class="keyword">do</span> -&gt;
   loader = <span class="keyword">new</span> THREE.ImageLoader(manager)
   loader.crossOrigin = <span class="literal">true</span>
 
-  loader.load <span class="string">"https://s3.amazonaws.com/distri-tactics/bartender.png?doot2"</span>, (image) -&gt;
+  loader.load <span class="string">"<span class="subst">#{BUCKET_PATH}</span>/bartender.png?doot2"</span>, (image) -&gt;
     texture.image = image
-    texture.needsUpdate = <span class="literal">true</span>
+    texture.needsUpdate = <span class="literal">true</span></code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Load a model by name, passing in an optional position.</p>
 
-module.<span class="function"><span class="title">exports</span></span> = (name, opts={}) -&gt;
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">module.<span class="function"><span class="title">exports</span></span> = (name, opts={}) -&gt;
   position = opts.position
 
   loader = <span class="keyword">new</span> THREE.OBJLoader(manager)
   loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">"https://s3.amazonaws.com/distri-tactics/<span class="subst">#{name}</span>.obj?doot2"</span>, (object) -&gt;
+  loader.load <span class="string">"<span class="subst">#{BUCKET_PATH}</span>/<span class="subst">#{name}</span>.obj?doot2"</span>, (object) -&gt;
     object.traverse (child) -&gt;
-      <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh
-        child.material.map = texture
+      <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh</code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Apply the color palette texture we loaded above  </p>
+
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">        child.material.map = texture
 
         object.position.set position.x, position.y, position.z
 
