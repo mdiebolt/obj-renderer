@@ -49,46 +49,46 @@ Renderer
 
       loadObj "robo_sheriff",
         texture: texture
-        position: new Vector3(90, 0, 90)
+        position: new Vector3(10, 0, 0)
 
       loadObj "cactus",
         texture: texture
-        position: new Vector3(50, 0, 0)
+        position: new Vector3(20, 0, 0)
 
       loadObj "arrow",
         texture: texture
-        position: new Vector3(40, 0, 10)
+        position: new Vector3(30, 0, 0)
 
       loadObj "beam_sword",
         texture: texture
-        position: new Vector3(40, 0, 30)
+        position: new Vector3(40, 0, 0)
 
       loadObj "branding_iron",
         texture: texture
-        position: new Vector3(40, 0, 50)
+        position: new Vector3(50, 0, 0)
 
       loadObj "character",
         texture: texture
-        position: new Vector3(60, 0, 10)
+        position: new Vector3(60, 0, 0)
 
       loadObj "gun",
         texture: texture
-        position: new Vector3(60, 0, 30)
+        position: new Vector3(70, 0, 0)
 
       loadObj "hoverboard",
         texture: texture
-        position: new Vector3(60, 0, 50)
+        position: new Vector3(80, 0, 0)
 
       loadObj "jetpack_bandit",
         texture: texture
-        position: new Vector3(60, 0, 70)
+        position: new Vector3(90, 0, 0)
 
       particles = ParticleSystem
         scene: scene
 
       particles.generate
         number: 100
-        position: new Vector3(0, 0, 0)
+        position: new Vector3(90, 0, 0)
 
       renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
@@ -124,7 +124,7 @@ Renderer
       scene.add ambient
 
       directionalLight = new THREE.DirectionalLight 0xffeedd
-      directionalLight.position.set 0, 0, 1
+      directionalLight.position.set 0, 0, 10
       scene.add directionalLight
 
     addCube = (scene, position) ->
@@ -134,10 +134,7 @@ Renderer
         wireframe: true
 
       cube = new THREE.Mesh geometry, material
-      cube.position.x = position.x
-      cube.position.y = position.y
-      cube.position.z = position.z
-
+      cube.position.set position.x, position.y, position.z
       scene.add cube
 
     loadPalette = (name, texture) ->
