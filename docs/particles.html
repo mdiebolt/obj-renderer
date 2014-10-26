@@ -43,11 +43,7 @@
     transparent: <span class="literal">true</span>
 
   cube = <span class="keyword">new</span> THREE.Mesh geometry, material
-  position = position
-
-  cube.position.x = position.x + Math.random() * <span class="number">5</span>
-  cube.position.y = position.y + Math.random() * <span class="number">5</span>
-  cube.position.z = position.z + Math.random() * <span class="number">5</span>
+  cube.position.set position.x, position.y, position.z
 
   scene.add cube
 
