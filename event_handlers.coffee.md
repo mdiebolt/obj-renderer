@@ -25,11 +25,11 @@ Renderers use Vector#project for translating 3D points to the 2D screen.
 Vector#unproject is basically for doing the inverse, unprojecting 2D points into the 3D world.
 For both methods you pass the camera you're viewing the scene through.
 
-      raycastDirection.unproject(camera)
+      raycastDirection.unproject camera
 
 Move ray to the camera
 
-      raycastDirection.sub(camera.position)
+      raycastDirection.sub camera.position
 
       raycaster.set camera.position, raycastDirection.normalize()
 
