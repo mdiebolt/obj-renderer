@@ -21,7 +21,7 @@ Renderer
     renderer.setSize window.innerWidth, window.innerHeight
 
     camera.position.set 0, 100, 200
-
+    
 Return 1 if `probability` percent of the time.
 Return -1 otherwise
 
