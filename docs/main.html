@@ -53,7 +53,25 @@ document.body.appendChild container
 container.appendChild renderer.domElement
 renderer.setSize window.innerWidth, window.innerHeight
 
-camera.position.z = <span class="number">100</span>
+camera.position.z = <span class="number">100</span></code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Return 1 if <code>probability</code> percent of the time.
+Return -1 otherwise</p>
+
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript"><span class="function"><span class="title">randomSign</span></span> = (probability) -&gt;
+  <span class="keyword">if</span> Math.random() &lt;= probability
+    <span class="number">1</span>
+  <span class="keyword">else</span>
+    -<span class="number">1</span>
 
 <span class="function"><span class="title">init</span></span> = -&gt;
   addLights()
@@ -96,18 +114,8 @@ camera.position.z = <span class="number">100</span>
     p.material.opacity = p.material.opacity - <span class="number">0.01</span>
     scene.remove(p) <span class="keyword">if</span> p.age &gt; <span class="number">100</span>
 
-    <span class="keyword">if</span> Math.random() &gt; <span class="number">0.5</span>
-      x = <span class="number">1</span>
-    <span class="keyword">else</span>
-      x = -<span class="number">1</span>
-
-    <span class="keyword">if</span> Math.random() &gt; <span class="number">0.5</span>
-      z = <span class="number">1</span>
-    <span class="keyword">else</span>
-      z = -<span class="number">1</span>
-
-    p.position.x += x * <span class="number">1</span>
-    p.position.z += z * <span class="number">1</span>
+    p.position.x += randomSign(<span class="number">0.5</span>)
+    p.position.z += randomSign(<span class="number">0.5</span>)
 
   renderer.render scene, camera
 
