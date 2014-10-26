@@ -22,9 +22,9 @@
 Eventually we&#39;ll remove this as the game takes control of the camera.</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">halfWidth = window.innerWidth / <span class="number">2</span>
-halfHeight = window.innerHeight / <span class="number">2</span>
-mouseX = mouseY = <span class="number">0</span>
+            <div class="content"><pre><code class="lang-coffeescript">raycaster = <span class="keyword">new</span> THREE.Raycaster()
+projector = <span class="keyword">new</span> THREE.Projector()
+raycastDirection = <span class="keyword">new</span> THREE.Vector3()
 
 <span class="function"><span class="title">onWindowResize</span></span> = -&gt;
     camera.aspect = window.innerWidth / window.innerHeight
@@ -32,7 +32,37 @@ mouseX = mouseY = <span class="number">0</span>
 
     renderer.setSize window.innerWidth, window.innerHeight
 
-window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span></code></pre>
+<span class="function"><span class="title">onClick</span></span> = (e) -&gt;
+  <span class="keyword">debugger</span></code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Translate mouse coordinates into a number ranging from -1 to 1, 
+where <code>x == -1 &amp;&amp; y == -1</code> means top-left, 
+and <code>x ==  1 &amp;&amp; y ==  1</code> means bottom right</p>
+
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.x = (e.clientX / window.innerWidth) * <span class="number">2</span> - <span class="number">1</span>
+  raycastDirection.y = -(e.clientY / window.innerHeight) * <span class="number">2</span> + <span class="number">1</span>
+  raycastDirection.z = <span class="number">0.5</span>
+
+  ray = <span class="keyword">new</span> THREE.Ray(camera.position, raycastDirection)
+  intersects = ray.intersectObjects scene.children  
+
+  [<span class="number">0.</span>..intersects.length].forEach (i) -&gt;
+      intersection = intersects[i]
+      obj = intersection.object
+
+      obj.material.color.setRGB(<span class="number">1</span> - i / intersects.length, <span class="number">0</span>, <span class="number">0</span>)
+
+window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
+window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span></code></pre>
 </div>
         </li>
         
