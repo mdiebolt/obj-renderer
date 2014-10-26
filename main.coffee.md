@@ -21,7 +21,7 @@ Renderer
     renderer.setSize window.innerWidth, window.innerHeight
 
     camera.position.set 0, 100, 200
-    
+
 Return 1 if `probability` percent of the time.
 Return -1 otherwise
 
@@ -55,7 +55,7 @@ Return -1 otherwise
       directionalLight.position.set 0, 0, 10
       scene.add directionalLight
 
-    render = ->    
+    render = ->
       camera.lookAt scene.position
 
       particles.update (p) ->
@@ -64,7 +64,7 @@ Return -1 otherwise
 
         p.material.opacity = p.material.opacity - 0.01
         scene.remove(p) if p.age > 100
-        
+
         p.position.x += randomSign(0.5)
         p.position.z += randomSign(0.5)
 
