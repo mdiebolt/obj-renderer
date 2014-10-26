@@ -76,7 +76,7 @@ Vector#unproject is basically for doing the inverse, unprojecting 2D points into
 For both methods you pass the camera you&#39;re viewing the scene through.</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.unproject(camera)</code></pre>
+            <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.unproject camera</code></pre>
 </div>
         </li>
         
@@ -89,7 +89,7 @@ For both methods you pass the camera you&#39;re viewing the scene through.</p>
               <p>Move ray to the camera</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.sub(camera.position)
+            <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.sub camera.position
 
   raycaster.set camera.position, raycastDirection.normalize()</code></pre>
 </div>
