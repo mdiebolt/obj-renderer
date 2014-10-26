@@ -19,7 +19,6 @@ Translate mouse coordinates into a number ranging from -1 to 1.
 
       raycastDirection.x = (e.clientX / window.innerWidth) * 2 - 1
       raycastDirection.y = -(e.clientY / window.innerHeight) * 2 + 1
-      raycastDirection.z = 0.5
 
 http://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects
 Renderers use Vector#project for translating 3D points to the 2D screen.
