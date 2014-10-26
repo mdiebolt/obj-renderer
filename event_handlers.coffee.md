@@ -7,8 +7,6 @@ Event Handlers
     projector = new THREE.Projector()
     raycastDirection = new THREE.Vector3()
 
-    activeCharacter = null
-
     onWindowResize = ->
     	camera.aspect = window.innerWidth / window.innerHeight
     	camera.updateProjectionMatrix()
@@ -73,13 +71,11 @@ We need to call `parent` to get the right object
 
         camera.position.set position.x, position.y + 100, position.z + 200
         camera.lookAt intersection.object.parent.position
-        
+                          
         glowMesh = new THREE.Mesh intersection.object.geometry, glow
+                
         intersection.object.parent.add(glowMesh)
-        
-        scene.remove(activeCharacter) if activeCharacter
-        activeCharacter = glowMesh
-      
+              
     window.addEventListener "resize", onWindowResize, false
     window.addEventListener "click", onClick, false
     window.addEventListener "keydown", onKeydown, false
