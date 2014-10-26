@@ -5,6 +5,8 @@ Generate a simple map, populating it with a cube floor and characters.
 
     load = require "./loader"
 
+    {Vector3} = THREE
+    
     CUBE_SIZE = 10
     
     addCube = (position) ->

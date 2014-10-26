@@ -8,10 +8,10 @@ Renderer
     
     util = require "util"
     util.applyStylesheet(require("./style"))
+    
+    map = require("./map")()
 
     particles = []
-
-    {Vector3} = THREE
     
     width = window.innerWidth
     height = window.innerHeight
@@ -37,7 +37,7 @@ Renderer
 
       particles.generate
         number: 100
-        position: new Vector3(0, 0, 0)
+        position: new THREE.Vector3(0, 0, 0)
 
       eventHandlers.initialize()
 
