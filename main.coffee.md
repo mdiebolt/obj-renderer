@@ -4,6 +4,7 @@ Renderer
     require "./lib/obj_renderer"
     util = require "util"
     ParticleSystem = require "./particles"
+    load = require "./loader"
     particles = []
 
     util.applyStylesheet(require("./style"))
@@ -18,7 +19,7 @@ Renderer
     windowHalfY = window.innerHeight / 2
     aspectRatio = window.innerWidth / window.innerHeight
 
-    window.renderer = null
+    window.renderer = new THREE.WebGLRenderer()
     window.scene = new THREE.Scene()
     window.camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000)
     camera.position.z = 100
@@ -31,45 +32,34 @@ Renderer
 
       generateGrid(10)
 
-      loadPalette "bartender", texture
-      loadObj "bartender",
-        texture: texture
+      load "bartender",
         position: new Vector3(0, 0, 0)
 
-      loadObj "robo_sheriff",
-        texture: texture
+      load "robo_sheriff",
         position: new Vector3(10, 0, 0)
 
-      loadObj "cactus",
-        texture: texture
+      load "cactus",
         position: new Vector3(20, 0, 0)
 
-      loadObj "arrow",
-        texture: texture
+      load "arrow",
         position: new Vector3(30, 0, 0)
 
-      loadObj "beam_sword",
-        texture: texture
+      load "beam_sword",
         position: new Vector3(40, 0, 0)
 
-      loadObj "branding_iron",
-        texture: texture
+      load "branding_iron",
         position: new Vector3(50, 0, 0)
 
-      loadObj "character",
-        texture: texture
+      load "character",
         position: new Vector3(60, 0, 0)
 
-      loadObj "gun",
-        texture: texture
+      load "gun",
         position: new Vector3(70, 0, 0)
 
-      loadObj "hoverboard",
-        texture: texture
+      load "hoverboard",
         position: new Vector3(80, 0, 0)
 
-      loadObj "jetpack_bandit",
-        texture: texture
+      load "jetpack_bandit",
         position: new Vector3(90, 0, 0)
 
       particles = ParticleSystem
@@ -79,7 +69,6 @@ Renderer
         number: 100
         position: new Vector3(0, 0, 0)
 
-      renderer = new THREE.WebGLRenderer()
       renderer.setSize window.innerWidth, window.innerHeight
       container.appendChild renderer.domElement
 
