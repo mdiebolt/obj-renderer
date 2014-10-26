@@ -54,7 +54,7 @@ Return -1 otherwise
       scene.add ambient
 
       directionalLight = new THREE.DirectionalLight 0xffeedd
-      directionalLight.position.set 0, 0, 10
+      directionalLight.position.set 50, 100, 50
       scene.add directionalLight
 
     render = ->
