@@ -52,16 +52,18 @@ windowHalfX = window.innerWidth / <span class="number">2</span>
 windowHalfY = window.innerHeight / <span class="number">2</span>
 aspectRatio = window.innerWidth / window.innerHeight
 
+container = document.createElement <span class="string">"div"</span>
+document.body.appendChild container
 window.renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
+renderer.setSize window.innerWidth, window.innerHeight
+container.appendChild renderer.domElement    
+
 window.scene = <span class="keyword">new</span> THREE.Scene()
 window.camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, aspectRatio, <span class="number">1</span>, <span class="number">2000</span>)
 camera.position.z = <span class="number">100</span>
 
 <span class="function"><span class="title">init</span></span> = -&gt;
-  container = document.createElement <span class="string">"div"</span>
-  document.body.appendChild container
-
-  addLights scene
+  addLights()
 
   generateGrid(<span class="number">10</span>)
 
@@ -102,9 +104,6 @@ camera.position.z = <span class="number">100</span>
     number: <span class="number">100</span>
     position: <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
 
-  renderer.setSize window.innerWidth, window.innerHeight
-  container.appendChild renderer.domElement
-
   document.addEventListener <span class="string">"mousemove"</span>, onDocumentMouseMove, <span class="literal">false</span>
   window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 
@@ -130,7 +129,7 @@ camera.position.z = <span class="number">100</span>
   requestAnimationFrame animate
   render()
 
-<span class="function"><span class="title">addLights</span></span> = (scene) -&gt;
+<span class="function"><span class="title">addLights</span></span> = -&gt;
   ambient = <span class="keyword">new</span> THREE.AmbientLight <span class="number">0x101030</span>
   scene.add ambient
 
