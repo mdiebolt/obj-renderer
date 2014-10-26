@@ -4,6 +4,7 @@ Renderer
     require "./lib/obj_renderer"
     util = require "util"
     ParticleSystem = require "./particles"
+    eventHandlers = require "./event_handlers"
     load = require "./loader"
     particles = []
 
@@ -12,8 +13,6 @@ Renderer
     {Vector3} = THREE
 
     CUBE_SIZE = 10
-
-    mouseX = mouseY = 0
 
     windowHalfX = window.innerWidth / 2
     windowHalfY = window.innerHeight / 2
@@ -71,26 +70,12 @@ Renderer
         number: 100
         position: new Vector3(0, 0, 0)
 
-      document.addEventListener "mousemove", onDocumentMouseMove, false
-      window.addEventListener "resize", onWindowResize, false
+      eventHandlers.initialize()
 
     generateGrid = (size) ->
       [0...size].forEach (x) ->
         [0...size].forEach (z) ->
           addCube scene, new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
-
-    onWindowResize = ->
-    	windowHalfX = window.innerWidth / 2
-    	windowHalfY = window.innerHeight / 2
-
-    	camera.aspect = window.innerWidth / window.innerHeight
-    	camera.updateProjectionMatrix()
-
-    	renderer.setSize window.innerWidth, window.innerHeight
-
-    onDocumentMouseMove = (event) ->
-      mouseX = (event.clientX - windowHalfX) / 2
-      mouseY = (event.clientY - windowHalfY) / 2
 
     animate = ->
       requestAnimationFrame animate
@@ -115,6 +100,8 @@ Renderer
       scene.add cube
 
     render = ->
+      {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
+      
       camera.position.x += (mouseX - camera.position.x) * .05
       camera.position.y += (-mouseY - camera.position.y) * .05
 
