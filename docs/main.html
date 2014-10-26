@@ -37,6 +37,7 @@
             <div class="content"><pre><code class="lang-coffeescript">require <span class="string">"./lib/obj_renderer"</span>
 util = require <span class="string">"util"</span>
 ParticleSystem = require <span class="string">"./particles"</span>
+eventHandlers = require <span class="string">"./event_handlers"</span>
 load = require <span class="string">"./loader"</span>
 particles = []
 
@@ -45,8 +46,6 @@ util.applyStylesheet(require(<span class="string">"./style"</span>))
 {Vector3} = THREE
 
 CUBE_SIZE = <span class="number">10</span>
-
-mouseX = mouseY = <span class="number">0</span>
 
 windowHalfX = window.innerWidth / <span class="number">2</span>
 windowHalfY = window.innerHeight / <span class="number">2</span>
@@ -104,26 +103,12 @@ camera.position.z = <span class="number">100</span>
     number: <span class="number">100</span>
     position: <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
 
-  document.addEventListener <span class="string">"mousemove"</span>, onDocumentMouseMove, <span class="literal">false</span>
-  window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
+  eventHandlers.initialize()
 
 <span class="function"><span class="title">generateGrid</span></span> = (size) -&gt;
   [<span class="number">0.</span>..size].forEach (x) -&gt;
     [<span class="number">0.</span>..size].forEach (z) -&gt;
       addCube scene, <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
-
-<span class="function"><span class="title">onWindowResize</span></span> = -&gt;
-    windowHalfX = window.innerWidth / <span class="number">2</span>
-    windowHalfY = window.innerHeight / <span class="number">2</span>
-
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-
-    renderer.setSize window.innerWidth, window.innerHeight
-
-<span class="function"><span class="title">onDocumentMouseMove</span></span> = (event) -&gt;
-  mouseX = (event.clientX - windowHalfX) / <span class="number">2</span>
-  mouseY = (event.clientY - windowHalfY) / <span class="number">2</span>
 
 <span class="function"><span class="title">animate</span></span> = -&gt;
   requestAnimationFrame animate
@@ -148,6 +133,8 @@ camera.position.z = <span class="number">100</span>
   scene.add cube
 
 <span class="function"><span class="title">render</span></span> = -&gt;
+  {x:mouseX, y:mouseY} = eventHandlers.mousePosition()
+
   camera.position.x += (mouseX - camera.position.x) * <span class="number">.05</span>
   camera.position.y += (-mouseY - camera.position.y) * <span class="number">.05</span>
 
