@@ -5,7 +5,6 @@ Renderer
     
     ParticleSystem = require "./particles"
     eventHandlers = require "./event_handlers"
-    load = require "./loader"
     
     util = require "util"
     util.applyStylesheet(require("./style"))

@@ -3,6 +3,8 @@ Map
 
 Generate a simple map, populating it with a cube floor and characters.
 
+    load = require "./loader"
+
     CUBE_SIZE = 10
     
     addCube = (position) ->
@@ -18,7 +20,7 @@ Generate a simple map, populating it with a cube floor and characters.
 Create a basic floor of dimension `size`
 
     module.exports = ->
-
+    
       generateGrid: (size) ->
         [0...size].forEach (x) ->
           [0...size].forEach (z) ->
