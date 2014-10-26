@@ -45,35 +45,24 @@ util.applyStylesheet(require(<span class="string">"./style"</span>))
 
 CUBE_SIZE = <span class="number">10</span>
 
-camera =
-scene =
-renderer =
-container = <span class="literal">null</span>
-
 mouseX = mouseY = <span class="number">0</span>
-
-manager = <span class="keyword">new</span> THREE.LoadingManager()
-manager.<span class="function"><span class="title">onProgress</span></span> = (item, loaded, total) -&gt;
-  console.log item, loaded, total
 
 windowHalfX = window.innerWidth / <span class="number">2</span>
 windowHalfY = window.innerHeight / <span class="number">2</span>
 aspectRatio = window.innerWidth / window.innerHeight
 
+window.renderer = <span class="literal">null</span>
+window.scene = <span class="keyword">new</span> THREE.Scene()
+window.camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, aspectRatio, <span class="number">1</span>, <span class="number">2000</span>)
+camera.position.z = <span class="number">100</span>
+
 <span class="function"><span class="title">init</span></span> = -&gt;
   container = document.createElement <span class="string">"div"</span>
   document.body.appendChild container
 
-  camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">45</span>, aspectRatio, <span class="number">1</span>, <span class="number">2000</span>)
-  camera.position.z = <span class="number">100</span>
-
-  scene = <span class="keyword">new</span> THREE.Scene()
-
   addLights scene
 
   generateGrid(<span class="number">10</span>)
-
-  texture = <span class="keyword">new</span> THREE.Texture()
 
   loadPalette <span class="string">"bartender"</span>, texture
   loadObj <span class="string">"bartender"</span>,
@@ -169,42 +158,6 @@ aspectRatio = window.innerWidth / window.innerHeight
   cube = <span class="keyword">new</span> THREE.Mesh geometry, material
   cube.position.set position.x, position.y, position.z
   scene.add cube
-
-<span class="function"><span class="title">loadPalette</span></span> = (name, texture) -&gt;
-  loader = <span class="keyword">new</span> THREE.ImageLoader(manager)
-  loader.crossOrigin = <span class="literal">true</span>
-
-  loader.load <span class="string">"https://s3.amazonaws.com/distri-tactics/bartender.png?doot2"</span>, (image) -&gt;
-    texture.image = image
-    texture.needsUpdate = <span class="literal">true</span>
-
-<span class="function"><span class="title">loadObj</span></span> = (name, opts={}) -&gt;
-  texture = opts.texture
-  position = opts.position
-
-  <span class="function"><span class="title">onProgress</span></span> = (xhr) -&gt;
-    <span class="keyword">if</span>  xhr.lengthComputable
-      percentComplete = xhr.loaded / xhr.total * <span class="number">100</span>
-      console.log <span class="string">"<span class="subst">#{Math.round(percentComplete, <span class="number">2</span>)}</span>% downloaded"</span>
-
-  <span class="function"><span class="title">onError</span></span> = (xhr) -&gt;
-    console.error xhr
-
-  loader = <span class="keyword">new</span> THREE.OBJLoader(manager)
-  loader.crossOrigin = <span class="literal">true</span>
-  loader.load <span class="string">"https://s3.amazonaws.com/distri-tactics/<span class="subst">#{name}</span>.obj?doot2"</span>, (object) -&gt;
-    object.traverse (child) -&gt;
-      <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh
-        child.material.map = texture
-
-        object.position.x = position.x
-        object.position.y = position.y
-        object.position.z = position.z
-
-        scene.add object
-
-    , onProgress
-    , onError
 
 <span class="function"><span class="title">render</span></span> = -&gt;
   camera.position.x += (mouseX - camera.position.x) * <span class="number">.05</span>
