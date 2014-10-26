@@ -79,9 +79,8 @@ For both methods you pass the camera you&#39;re viewing the scene through.  </p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.sub(camera.position)
-  raycastDirection.normalize()
 
-  raycaster.set camera.position, raycastDirection</code></pre>
+  raycaster.set camera.position, raycastDirection.normalize()</code></pre>
 </div>
         </li>
         
@@ -94,9 +93,20 @@ For both methods you pass the camera you&#39;re viewing the scene through.  </p>
               <p>TODO: restrict this to only selectable nodes such as characters</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">  intersects = raycaster.intersectObjects scene.children  
+            <div class="content"><pre><code class="lang-coffeescript">  intersects = raycaster.intersectObjects scene.children</code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>TODO: sort intersections by closest and stop after the first one</p>
 
-  intersects.forEach (intersection) -&gt;        
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">  intersects.forEach (intersection) -&gt;        
     scene.remove intersection.object
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
