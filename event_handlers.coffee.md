@@ -67,7 +67,7 @@ We need to call `parent` to get the right object
               
         position = intersection.object.parent.position
         
-        camera.position.set position.x, position.y + 100, position.z
+        camera.position.set position.x, position.y + 100, position.z + 200
         window.lookingAt.position.set position.x, position.y, position.z
         camera.lookAt intersection.object.parent.position
 
