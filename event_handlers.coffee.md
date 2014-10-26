@@ -38,12 +38,12 @@ TODO: restrict this to only selectable nodes such as characters
 Need to pass the recursive flag for our .obj models
 http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
 
-      intersects = raycaster.intersectObjects scene.children, true
+      intersects = raycaster.intersectObjects window.characters, true
 
 TODO: sort intersections by closest and stop after the first one
 
       intersects.forEach (intersection) ->
-        scene.remove intersection.object
+        scene.remove intersection.object.parent
 
     window.addEventListener "resize", onWindowResize, false
     window.addEventListener "click", onClick, false

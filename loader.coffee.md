@@ -3,6 +3,7 @@ Loader
 
 Loads voxel models from .obj files
 
+    window.characters = []
     manager = new THREE.LoadingManager()
     texture = new THREE.Texture()
 
@@ -46,8 +47,9 @@ Apply the color palette texture we loaded above
 
             child.material.map = texture
 
-        object.position.set position.x, position.y, position.z
-        scene.add object
+          object.position.set position.x, position.y, position.z
+          window.characters.push object
+          scene.add object
 
         , onProgress
         , onError
