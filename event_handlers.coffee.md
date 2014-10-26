@@ -8,9 +8,9 @@
 
     	renderer.setSize window.innerWidth, window.innerHeight
 
-    onDocumentMouseMove = (e) ->
-      mouseX = (e.clientX - halfWidth) / 2
-      mouseY = (e.clientY - halfHeight) / 2
+    onDocumentMouseMove = (event) ->
+      mouseX = (event.clientX - halfWidth) / 2
+      mouseY = (event.clientY - halfHeight) / 2
       
     exports.initialize = ->
       document.addEventListener "mousemove", onDocumentMouseMove, false

@@ -17,12 +17,9 @@ Renderer
     container = document.createElement "div"
     document.body.appendChild container
     
-    window.renderer = new THREE.WebGLRenderer()    
     container.appendChild renderer.domElement    
     renderer.setSize window.innerWidth, window.innerHeight
     
-    window.scene = new THREE.Scene()
-    window.camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000)
     camera.position.z = 100
     
     init = ->
