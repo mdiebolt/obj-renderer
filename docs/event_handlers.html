@@ -32,8 +32,7 @@ raycastDirection = <span class="keyword">new</span> THREE.Vector3()
 
     renderer.setSize window.innerWidth, window.innerHeight
 
-<span class="function"><span class="title">onClick</span></span> = (e) -&gt;
-  <span class="keyword">debugger</span></code></pre>
+<span class="function"><span class="title">onClick</span></span> = (e) -&gt;</code></pre>
 </div>
         </li>
         
@@ -50,11 +49,42 @@ and <code>x ==  1 &amp;&amp; y ==  1</code> means bottom right</p>
             </div>
             <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.x = (e.clientX / window.innerWidth) * <span class="number">2</span> - <span class="number">1</span>
   raycastDirection.y = -(e.clientY / window.innerHeight) * <span class="number">2</span> + <span class="number">1</span>
-  raycastDirection.z = <span class="number">0.5</span>
+  raycastDirection.z = <span class="number">0.5</span></code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p><a href="http://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects">http://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects</a>
+Renderers use Vector#project for translating 3D points to the 2D screen. 
+Vector#unproject is basically for doing the inverse, unprojecting 2D points into the 3D world. 
+For both methods you pass the camera you&#39;re viewing the scene through.  </p>
 
-  ray = <span class="keyword">new</span> THREE.Ray(camera.position, raycastDirection)
-  intersects = ray.intersectObjects scene.children  
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.unproject(camera)</code></pre>
+</div>
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Subtract the vector representing the camera position</p>
 
+            </div>
+            <div class="content"><pre><code class="lang-coffeescript">  raycastDirection.sub(camera.position)
+  raycastDirection.normalize()
+
+  raycaster.set camera.position, raycastDirection
+  intersects = raycaster.intersectObjects scene.children  
+
+  console.log intersects
   [<span class="number">0.</span>..intersects.length].forEach (i) -&gt;
       intersection = intersects[i]
       obj = intersection.object
