@@ -12,11 +12,7 @@ Pick a random float between `-max / 2` and `max / 2`
         transparent: true
 
       cube = new THREE.Mesh geometry, material
-      position = position
-
-      cube.position.x = position.x + Math.random() * 5
-      cube.position.y = position.y + Math.random() * 5
-      cube.position.z = position.z + Math.random() * 5
+      cube.position.set position.x, position.y, position.z
 
       scene.add cube
 
