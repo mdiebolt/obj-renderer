@@ -42,9 +42,9 @@ eventHandlers = require <span class="string">"./event_handlers"</span>
 util = require <span class="string">"util"</span>
 util.applyStylesheet(require(<span class="string">"./style"</span>))
 
-particles = []
+map = require(<span class="string">"./map"</span>)()
 
-{Vector3} = THREE
+particles = []
 
 width = window.innerWidth
 height = window.innerHeight
@@ -70,7 +70,7 @@ camera.position.z = <span class="number">100</span>
 
   particles.generate
     number: <span class="number">100</span>
-    position: <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
+    position: <span class="keyword">new</span> THREE.Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   eventHandlers.initialize()
 
