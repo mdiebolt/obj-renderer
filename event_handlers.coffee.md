@@ -28,20 +28,19 @@ For both methods you pass the camera you're viewing the scene through.
   
       raycastDirection.unproject(camera)
       
-Subtract the vector representing the camera position
+Move ray to the camera
 
       raycastDirection.sub(camera.position)
       raycastDirection.normalize()
   
       raycaster.set camera.position, raycastDirection
+
+TODO: restrict this to only selectable nodes such as characters
+      
       intersects = raycaster.intersectObjects scene.children  
 
-      console.log intersects
-      [0...intersects.length].forEach (i) ->
-      	intersection = intersects[i]
-      	obj = intersection.object
-  
-      	obj.material.color.setRGB(1 - i / intersects.length, 0, 0)
+      intersects.forEach (intersection) ->        
+        scene.remove intersection.object
 
     window.addEventListener "resize", onWindowResize, false
     window.addEventListener "click", onClick, false
