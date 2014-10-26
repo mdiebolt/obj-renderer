@@ -22,6 +22,15 @@ Renderer
 
     camera.position.z = 100
 
+Return 1 if `probability` percent of the time.
+Return -1 otherwise
+
+    randomSign = (probability) ->
+      if Math.random() <= probability
+        1
+      else
+        -1
+
     init = ->
       addLights()
 
@@ -62,19 +71,9 @@ Renderer
 
         p.material.opacity = p.material.opacity - 0.01
         scene.remove(p) if p.age > 100
-
-        if Math.random() > 0.5
-          x = 1
-        else
-          x = -1
-
-        if Math.random() > 0.5
-          z = 1
-        else
-          z = -1
-
-        p.position.x += x * 1
-        p.position.z += z * 1
+        
+        p.position.x += randomSign(0.5)
+        p.position.z += randomSign(0.5)
 
       renderer.render scene, camera
 
