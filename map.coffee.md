@@ -9,16 +9,6 @@ Generate a simple map, populating it with a cube floor and characters.
 
     CUBE_SIZE = 10
     
-    window.lookingAt = null
-
-    geometry = new THREE.BoxGeometry(5, 5, 5)
-    material = new THREE.MeshBasicMaterial
-      color: 0xff0000
-
-    cube = new THREE.Mesh geometry, material
-    lookingAt = cube
-    scene.add cube
-
     addCube = (position) ->
       geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
       material = new THREE.MeshBasicMaterial

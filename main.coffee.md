@@ -22,9 +22,7 @@ Renderer
 
     camera.position.set 50, 100, 200
     camera.up = new THREE.Vector3(0, 1, 0)
-    lookAt = new THREE.Vector3(50, 0, 50)
-    window.lookingAt?.position.set lookAt.x, lookAt.y, lookAt.z
-    camera.lookAt lookAt
+    camera.lookAt new THREE.Vector3(50, 0, 50)
 
 Return 1 if `probability` percent of the time.
 Return -1 otherwise
