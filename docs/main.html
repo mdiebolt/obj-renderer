@@ -97,7 +97,6 @@ camera.position.z = <span class="number">100</span>
     position: <span class="keyword">new</span> Vector3(<span class="number">90</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   particles = ParticleSystem
-    scene: scene
 
   particles.generate
     number: <span class="number">100</span>
@@ -108,7 +107,7 @@ camera.position.z = <span class="number">100</span>
 <span class="function"><span class="title">generateGrid</span></span> = (size) -&gt;
   [<span class="number">0.</span>..size].forEach (x) -&gt;
     [<span class="number">0.</span>..size].forEach (z) -&gt;
-      addCube scene, <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
+      addCube <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
 
 <span class="function"><span class="title">animate</span></span> = -&gt;
   requestAnimationFrame animate
@@ -122,7 +121,7 @@ camera.position.z = <span class="number">100</span>
   directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>
   scene.add directionalLight
 
-<span class="function"><span class="title">addCube</span></span> = (scene, position) -&gt;
+<span class="function"><span class="title">addCube</span></span> = (position) -&gt;
   geometry = <span class="keyword">new</span> THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)
   material = <span class="keyword">new</span> THREE.MeshBasicMaterial
     color: <span class="number">0xfffff</span>
