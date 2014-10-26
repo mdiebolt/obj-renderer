@@ -37,7 +37,9 @@
             </div>
             <div class="content"><pre><code class="lang-coffeescript">window.characters = []
 manager = <span class="keyword">new</span> THREE.LoadingManager()
-texture = <span class="keyword">new</span> THREE.Texture()</code></pre>
+texture = <span class="keyword">new</span> THREE.Texture()
+
+glow = require(<span class="string">"./glow_material"</span>)()</code></pre>
 </div>
         </li>
         
@@ -123,6 +125,8 @@ Load up one from an arbitrary model we use.</p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">        child.material.map = texture
+
+        object.add(<span class="keyword">new</span> THREE.Mesh child.geometry, glow)
 
       object.position.set position.x, position.y, position.z</code></pre>
 </div>
