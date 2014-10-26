@@ -41,16 +41,13 @@ require <span class="string">"./event_handlers"</span>
 ParticleSystem = require <span class="string">"./particles"</span>
 
 util = require <span class="string">"util"</span>
-util.applyStylesheet(require(<span class="string">"./style"</span>))
+util.applyStylesheet require(<span class="string">"./style"</span>)
 
 map = require(<span class="string">"./map"</span>)()
 
 particles = []
 
-container = document.createElement <span class="string">"div"</span>
-document.body.appendChild container
-
-container.appendChild renderer.domElement
+document.body.appendChild renderer.domElement
 renderer.setSize window.innerWidth, window.innerHeight
 
 camera.position.set <span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>
@@ -65,7 +62,7 @@ camera.lookAt <span class="keyword">new</span> THREE.Vector3(<span class="number
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Return 1 if <code>probability</code> percent of the time.
+              <p>Return 1 <code>probability</code> percent of the time.
 Return -1 otherwise</p>
 
             </div>
