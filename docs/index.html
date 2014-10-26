@@ -73,8 +73,13 @@ aspectRatio = window.innerWidth / window.innerHeight
   texture = <span class="keyword">new</span> THREE.Texture()
 
   loadPalette <span class="string">"bartender"</span>, texture
-  <span class="comment">#loadObj "bartender", texture</span>
-  loadObj <span class="string">"robo_sheriff"</span>, texture
+  loadObj <span class="string">"bartender"</span>,
+    texture: texture
+    position: <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
+
+  loadObj <span class="string">"robo_sheriff"</span>, 
+    texture: texture
+    position: <span class="keyword">new</span> Vector3(<span class="number">90</span>, <span class="number">0</span>, <span class="number">90</span>)
 
   particles = ParticleSystem
     scene: scene
@@ -141,7 +146,10 @@ aspectRatio = window.innerWidth / window.innerHeight
     texture.image = image
     texture.needsUpdate = <span class="literal">true</span>
 
-<span class="function"><span class="title">loadObj</span></span> = (name, texture) -&gt;
+<span class="function"><span class="title">loadObj</span></span> = (name, opts={}) -&gt;
+  texture = opts.texture
+  position = opts.position
+
   <span class="function"><span class="title">onProgress</span></span> = (xhr) -&gt;
     <span class="keyword">if</span>  xhr.lengthComputable
       percentComplete = xhr.loaded / xhr.total * <span class="number">100</span>
@@ -157,7 +165,10 @@ aspectRatio = window.innerWidth / window.innerHeight
       <span class="keyword">if</span> child <span class="keyword">instanceof</span> THREE.Mesh
         child.material.map = texture
 
-        object.position.y = <span class="number">0</span>
+        object.position.x = position.x
+        object.position.y = position.y
+        object.position.z = position.z
+
         scene.add object
 
     , onProgress
