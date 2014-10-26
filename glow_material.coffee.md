@@ -1,6 +1,8 @@
 Glow Material
 =============
 
+The Glow Pt. 2
+
     module.exports = ->
       new THREE.ShaderMaterial 
         uniforms:  
