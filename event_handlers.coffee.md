@@ -45,10 +45,14 @@ TODO: sort intersections by closest and stop after the first one
       intersects.forEach (intersection) ->
       
 We're expecting to click on a .obj model. 
-Our raycaster intersects the underlying Mesh, so we need to call `parent` to
-get the right object to remove from the scene
+Our raycaster intersects the underlying Mesh. 
+We need to call `parent` to get the right object
       
-        scene.remove intersection.object.parent
+        camera.lookAt intersection.object.parent
+        
+        position = intersection.object.parent.position
+        
+        camera.position.set position.x, position.y + 100, position.z
 
     window.addEventListener "resize", onWindowResize, false
     window.addEventListener "click", onClick, false
