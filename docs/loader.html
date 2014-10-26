@@ -118,14 +118,13 @@ Load up one from an arbitrary model we use.</p>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Apply the color palette texture we loaded above  </p>
+              <p>Apply the color palette texture we loaded above</p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">        child.material.map = texture
 
-        object.position.set position.x, position.y, position.z
-
-        scene.add object
+    object.position.set position.x, position.y, position.z
+    scene.add object
 
     , onProgress
     , onError</code></pre>
