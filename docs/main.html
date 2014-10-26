@@ -54,7 +54,10 @@ container.appendChild renderer.domElement
 renderer.setSize window.innerWidth, window.innerHeight
 
 camera.position.set <span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>
-camera.up = <span class="keyword">new</span> THREE.Vector3(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</code></pre>
+camera.up = <span class="keyword">new</span> THREE.Vector3(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)
+lookAt = <span class="keyword">new</span> THREE.Vector3(<span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>)
+window.lookingAt?.position.set lookAt.x, lookAt.y, lookAt.z
+camera.lookAt lookAt</code></pre>
 </div>
         </li>
         
@@ -99,10 +102,6 @@ Return -1 otherwise</p>
   scene.add directionalLight
 
 <span class="function"><span class="title">render</span></span> = -&gt;
-  lookAt = <span class="keyword">new</span> THREE.Vector3(<span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>)
-  window.lookingAt?.position.set lookAt.x, lookAt.y, lookAt.z
-  camera.lookAt lookAt
-
   particles.update (p) -&gt;
     p.age ||= <span class="number">0</span>
     p.age += <span class="number">1</span>
