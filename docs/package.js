@@ -207,6 +207,11 @@
       "content": "require \"../main\"\n\ndescribe \"renderer\", ->\n  it \"should have THREE\", ->\n    assert THREE.OBJLoader\n",
       "mode": "100644",
       "type": "blob"
+    },
+    "style.styl": {
+      "path": "style.styl",
+      "content": "body\n  margin: 0",
+      "mode": "100644"
     }
   },
   "distribution": {
@@ -233,6 +238,11 @@
     "test/test": {
       "path": "test/test",
       "content": "(function() {\n  require(\"../main\");\n\n  describe(\"renderer\", function() {\n    return it(\"should have THREE\", function() {\n      return assert(THREE.OBJLoader);\n    });\n  });\n\n}).call(this);\n",
+      "type": "blob"
+    },
+    "style": {
+      "path": "style",
+      "content": "module.exports = \"body {\\n  margin: 0;\\n}\";",
       "type": "blob"
     }
   },
