@@ -2,8 +2,11 @@ Renderer
 ========
 
     require "./lib/obj_renderer"
+    util = require "util"
     ParticleSystem = require "./particles"
     particles = []
+
+    util.applyStylesheet(require("./style"))
 
     {Vector3} = THREE
 
@@ -43,15 +46,15 @@ Renderer
       loadObj "bartender",
         texture: texture
         position: new Vector3(0, 0, 0)
-      
-      loadObj "robo_sheriff", 
+
+      loadObj "robo_sheriff",
         texture: texture
         position: new Vector3(90, 0, 90)
-        
+
       loadObj "cactus",
         texture: texture
         position: new Vector3(50, 0, 0)
-      
+
       loadObj "arrow",
         texture: texture
         position: new Vector3(40, 0, 10)
@@ -59,7 +62,7 @@ Renderer
       loadObj "beam_sword",
         texture: texture
         position: new Vector3(40, 0, 30)
-  
+
       loadObj "branding_iron",
         texture: texture
         position: new Vector3(40, 0, 50)
@@ -67,15 +70,15 @@ Renderer
       loadObj "character",
         texture: texture
         position: new Vector3(60, 0, 10)
-        
+
       loadObj "gun",
         texture: texture
         position: new Vector3(60, 0, 30)
-        
+
       loadObj "hoverboard",
         texture: texture
         position: new Vector3(60, 0, 50)
-  
+
       loadObj "jetpack_bandit",
         texture: texture
         position: new Vector3(60, 0, 70)
@@ -148,7 +151,7 @@ Renderer
     loadObj = (name, opts={}) ->
       texture = opts.texture
       position = opts.position
-      
+
       onProgress = (xhr) ->
         if  xhr.lengthComputable
           percentComplete = xhr.loaded / xhr.total * 100
@@ -163,11 +166,11 @@ Renderer
         object.traverse (child) ->
           if child instanceof THREE.Mesh
             child.material.map = texture
-            
+
             object.position.x = position.x
             object.position.y = position.y
             object.position.z = position.z
-            
+
             scene.add object
 
         , onProgress
