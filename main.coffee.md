@@ -8,23 +8,20 @@ Renderer
     ParticleSystem = require "./particles"
 
     util = require "util"
-    util.applyStylesheet(require("./style"))
+    util.applyStylesheet require("./style")
 
     map = require("./map")()
 
     particles = []
 
-    container = document.createElement "div"
-    document.body.appendChild container
-
-    container.appendChild renderer.domElement
+    document.body.appendChild renderer.domElement
     renderer.setSize window.innerWidth, window.innerHeight
 
     camera.position.set 50, 100, 200
     camera.up = new THREE.Vector3(0, 1, 0)
     camera.lookAt new THREE.Vector3(50, 0, 50)
 
-Return 1 if `probability` percent of the time.
+Return 1 `probability` percent of the time.
 Return -1 otherwise
 
     randomSign = (probability) ->
