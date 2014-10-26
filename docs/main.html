@@ -82,46 +82,46 @@ aspectRatio = window.innerWidth / window.innerHeight
 
   loadObj <span class="string">"robo_sheriff"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">90</span>, <span class="number">0</span>, <span class="number">90</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"cactus"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">50</span>, <span class="number">0</span>, <span class="number">0</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">20</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"arrow"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">40</span>, <span class="number">0</span>, <span class="number">10</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">30</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"beam_sword"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">40</span>, <span class="number">0</span>, <span class="number">30</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">40</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"branding_iron"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">40</span>, <span class="number">0</span>, <span class="number">50</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">50</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"character"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">60</span>, <span class="number">0</span>, <span class="number">10</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">60</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"gun"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">60</span>, <span class="number">0</span>, <span class="number">30</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">70</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"hoverboard"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">60</span>, <span class="number">0</span>, <span class="number">50</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">80</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   loadObj <span class="string">"jetpack_bandit"</span>,
     texture: texture
-    position: <span class="keyword">new</span> Vector3(<span class="number">60</span>, <span class="number">0</span>, <span class="number">70</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">90</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   particles = ParticleSystem
     scene: scene
 
   particles.generate
     number: <span class="number">100</span>
-    position: <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
+    position: <span class="keyword">new</span> Vector3(<span class="number">90</span>, <span class="number">0</span>, <span class="number">0</span>)
 
   renderer = <span class="keyword">new</span> THREE.WebGLRenderer()
   renderer.setSize window.innerWidth, window.innerHeight
@@ -157,7 +157,7 @@ aspectRatio = window.innerWidth / window.innerHeight
   scene.add ambient
 
   directionalLight = <span class="keyword">new</span> THREE.DirectionalLight <span class="number">0xffeedd</span>
-  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>
+  directionalLight.position.set <span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>
   scene.add directionalLight
 
 <span class="function"><span class="title">addCube</span></span> = (scene, position) -&gt;
@@ -167,10 +167,7 @@ aspectRatio = window.innerWidth / window.innerHeight
     wireframe: <span class="literal">true</span>
 
   cube = <span class="keyword">new</span> THREE.Mesh geometry, material
-  cube.position.x = position.x
-  cube.position.y = position.y
-  cube.position.z = position.z
-
+  cube.position.set position.x, position.y, position.z
   scene.add cube
 
 <span class="function"><span class="title">loadPalette</span></span> = (name, texture) -&gt;
