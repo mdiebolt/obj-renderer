@@ -154,7 +154,6 @@ We need to call <code>parent</code> to get the right object</p>
             <div class="content"><pre><code class="lang-coffeescript">    position = intersection.object.parent.position
 
     camera.position.set position.x, position.y + <span class="number">100</span>, position.z + <span class="number">200</span>
-    window.lookingAt.position.set position.x, position.y, position.z
     camera.lookAt intersection.object.parent.position
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
