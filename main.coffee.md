@@ -1,6 +1,7 @@
 Renderer
 ========
 
+    require "./globals"
     require "./lib/obj_renderer"
     
     ParticleSystem = require "./particles"
@@ -13,15 +14,12 @@ Renderer
 
     particles = []
     
-    width = window.innerWidth
-    height = window.innerHeight
-
     container = document.createElement "div"
     document.body.appendChild container
     
     window.renderer = new THREE.WebGLRenderer()    
     container.appendChild renderer.domElement    
-    renderer.setSize width, height
+    renderer.setSize window.innerWidth, window.innerHeight
     
     window.scene = new THREE.Scene()
     window.camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000)
