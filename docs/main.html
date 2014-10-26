@@ -47,10 +47,10 @@ map = require(<span class="string">"./map"</span>)()
 
 particles = []
 
-document.body.appendChild renderer.domElement
 renderer.setSize window.innerWidth, window.innerHeight
+document.body.appendChild renderer.domElement
 
-camera.position.set <span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>
+camera.position.set(<span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>)
 camera.up = <span class="keyword">new</span> THREE.Vector3(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)
 camera.lookAt <span class="keyword">new</span> THREE.Vector3(<span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>)</code></pre>
 </div>
