@@ -53,7 +53,7 @@ Return -1 otherwise
       ambient = new THREE.AmbientLight 0x101030
       scene.add ambient
 
-      directionalLight = new THREE.DirectionalLight 0xffeedd
+      directionalLight = new THREE.DirectionalLight 0xffffff
       directionalLight.position.set 50, 100, 50
       scene.add directionalLight
 
