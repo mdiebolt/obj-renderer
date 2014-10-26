@@ -3,7 +3,7 @@ Particles
 
 Emit voxel particles
 
-    addCube = (scene, position) ->
+    addCube = (position) ->
       geometry = new THREE.BoxGeometry(1, 1, 1)
       material = new THREE.MeshBasicMaterial
         color: 0xfffff
@@ -21,17 +21,15 @@ Emit voxel particles
       position = opts.position
 
       [0...number].map ->
-        addCube(scene, position)
+        addCube(position)
 
     module.exports = (opts={}) ->
-      scene = opts.scene
       particles = null
 
       generate: (opts={}) ->
         particles = createParticles
           number: opts.number
           position: opts.position
-          scene: scene
 
       update: (cb) ->
         particles?.forEach cb
