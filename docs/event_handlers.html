@@ -130,11 +130,15 @@ For both methods you pass the camera you&#39;re viewing the scene through.</p>
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>We&#39;re expecting to click on a .obj model. 
-Our raycaster intersects the underlying Mesh, so we need to call <code>parent</code> to
-get the right object to remove from the scene</p>
+Our raycaster intersects the underlying Mesh. 
+We need to call <code>parent</code> to get the right object</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">    scene.remove intersection.object.parent
+            <div class="content"><pre><code class="lang-coffeescript">    camera.lookAt intersection.object.parent
+
+    position = intersection.object.parent.position
+
+    camera.position.set position.x, position.y + <span class="number">100</span>, position.z
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span></code></pre>
