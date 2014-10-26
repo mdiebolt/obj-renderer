@@ -31,13 +31,14 @@ For both methods you pass the camera you're viewing the scene through.
 Move ray to the camera
 
       raycastDirection.sub(camera.position)
-      raycastDirection.normalize()
   
-      raycaster.set camera.position, raycastDirection
+      raycaster.set camera.position, raycastDirection.normalize()
 
 TODO: restrict this to only selectable nodes such as characters
       
       intersects = raycaster.intersectObjects scene.children  
+
+TODO: sort intersections by closest and stop after the first one
 
       intersects.forEach (intersection) ->        
         scene.remove intersection.object
