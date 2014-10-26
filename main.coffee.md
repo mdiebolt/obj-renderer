@@ -67,7 +67,7 @@ Renderer
       load "jetpack_bandit",
         position: new Vector3(90, 0, 0)
 
-      particles = ParticleSystem
+      particles = ParticleSystem()
 
       particles.generate
         number: 100

@@ -17,4 +17,4 @@
       window.addEventListener "resize", onWindowResize, false
         
     exports.mousePosition = ->
-      new Vector2(mouseX, mouseY)
+      new THREE.Vector2(mouseX, mouseY)
