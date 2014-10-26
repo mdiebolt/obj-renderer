@@ -20,7 +20,7 @@ Renderer
     container.appendChild renderer.domElement
     renderer.setSize window.innerWidth, window.innerHeight
 
-    camera.position.set 0, 100, 200
+    camera.position.set 50, 100, 200
 
 Return 1 if `probability` percent of the time.
 Return -1 otherwise
@@ -56,7 +56,7 @@ Return -1 otherwise
       scene.add directionalLight
 
     render = ->
-      camera.lookAt scene.position
+      camera.lookAt new THREE.Vector3(50, 0, 50)
 
       particles.update (p) ->
         p.age ||= 0
