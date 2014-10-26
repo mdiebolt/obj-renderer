@@ -1,5 +1,5 @@
-Isolate all our user interactions to here. 
-Eventually we'll remove this as the game takes control of the camera.
+Event Handlers
+==============
     
     raycaster = new THREE.Raycaster()
     projector = new THREE.Projector()
@@ -13,9 +13,9 @@ Eventually we'll remove this as the game takes control of the camera.
 
     onClick = (e) ->
     
-Translate mouse coordinates into a number ranging from -1 to 1, 
-where `x == -1 && y == -1` means top-left, 
-and `x ==  1 && y ==  1` means bottom right
+Translate mouse coordinates into a number ranging from -1 to 1.
+`x == -1 && y == -1` is top left. 
+`x ==  1 && y ==  1` is bottom right.
 
       raycastDirection.x = (e.clientX / window.innerWidth) * 2 - 1
       raycastDirection.y = -(e.clientY / window.innerHeight) * 2 + 1
