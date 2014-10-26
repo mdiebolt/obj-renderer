@@ -34,13 +34,12 @@ mouseX = mouseY = <span class="number">0</span>
   mouseX = (e.clientX - halfWidth) / <span class="number">2</span>
   mouseY = (e.clientY - halfHeight) / <span class="number">2</span>
 
-module.<span class="function"><span class="title">exports</span></span> = -&gt;
-  initialize: -&gt;
-    document.addEventListener <span class="string">"mousemove"</span>, onDocumentMouseMove, <span class="literal">false</span>
-    window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
+exports.<span class="function"><span class="title">initialize</span></span> = -&gt;
+  document.addEventListener <span class="string">"mousemove"</span>, onDocumentMouseMove, <span class="literal">false</span>
+  window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 
-  mousePosition: -&gt;
-    <span class="keyword">new</span> Vector2(mouseX, mouseY)</code></pre>
+exports.<span class="function"><span class="title">mousePosition</span></span> = -&gt;
+  <span class="keyword">new</span> Vector2(mouseX, mouseY)</code></pre>
 </div>
         </li>
         
