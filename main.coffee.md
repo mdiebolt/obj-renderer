@@ -40,8 +40,13 @@ Renderer
       texture = new THREE.Texture()
 
       loadPalette "bartender", texture
-      #loadObj "bartender", texture
-      loadObj "robo_sheriff", texture
+      loadObj "bartender",
+        texture: texture
+        position: new Vector3(0, 0, 0)
+      
+      loadObj "robo_sheriff", 
+        texture: texture
+        position: new Vector3(90, 0, 90)
 
       particles = ParticleSystem
         scene: scene
@@ -108,7 +113,10 @@ Renderer
         texture.image = image
         texture.needsUpdate = true
 
-    loadObj = (name, texture) ->
+    loadObj = (name, opts={}) ->
+      texture = opts.texture
+      position = opts.position
+      
       onProgress = (xhr) ->
         if  xhr.lengthComputable
           percentComplete = xhr.loaded / xhr.total * 100
@@ -123,8 +131,11 @@ Renderer
         object.traverse (child) ->
           if child instanceof THREE.Mesh
             child.material.map = texture
-
-            object.position.y = 0
+            
+            object.position.x = position.x
+            object.position.y = position.y
+            object.position.z = position.z
+            
             scene.add object
 
         , onProgress
