@@ -70,6 +70,10 @@ We need to call `parent` to get the right object
         camera.position.set position.x, position.y + 100, position.z + 200
         camera.lookAt intersection.object.parent.position
         debugger
+        scene.traverse (child) ->
+          if child instanceof THREE.ShaderMaterial
+            child.visible = true
+        , true
 
     window.addEventListener "resize", onWindowResize, false
     window.addEventListener "click", onClick, false
