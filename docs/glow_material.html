@@ -36,18 +36,18 @@
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">module.<span class="function"><span class="title">exports</span></span> = -&gt;
-  <span class="keyword">new</span> THREE.ShaderMaterial 
-    uniforms:  
-      c:   
+  <span class="keyword">new</span> THREE.ShaderMaterial
+    uniforms:
+      c:
         type: <span class="string">"f"</span>
         value: <span class="number">1.0</span>
-      p:   
+      p:
         type: <span class="string">"f"</span>
-        value: <span class="number">1.4</span> 
-      glowColor: 
+        value: <span class="number">1.4</span>
+      glowColor:
         type: <span class="string">"c"</span>
         value: <span class="keyword">new</span> THREE.Color(<span class="number">0xffff00</span>)
-      viewVector: 
+      viewVector:
         type: <span class="string">"v3"</span>
         value: camera.position
     vertexShader: <span class="string">"""
@@ -62,7 +62,7 @@
         intensity = pow( c - dot(vNormal, vNormel), p );
 
         gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-      }        
+      }
     """</span>
     fragmentShader: <span class="string">"""
       uniform vec3 glowColor;
@@ -72,7 +72,7 @@
       void main() {
         vec3 glow = glowColor * intensity;
         gl_FragColor = vec4( glow, 1.0 );
-      }        
+      }
     """</span>
     side: THREE.FrontSide
     blending: THREE.AdditiveBlending
