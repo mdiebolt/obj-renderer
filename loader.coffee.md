@@ -3,6 +3,8 @@ Loader
 
 Loads voxel models from .obj files
 
+    glow = require("./glow_material")()
+
     window.characters = []
     manager = new THREE.LoadingManager()
     texture = new THREE.Texture()
@@ -46,10 +48,14 @@ Load a model by name, passing in an optional position.
 Apply the color palette texture we loaded above
 
             child.material.map = texture
-            
+
           object.position.set position.x, position.y, position.z
-          
-HAX: remove this global characters array. 
+          glowMesh = new THREE.Mesh child.geometry, glow
+          glowMesh.visible = false
+
+          object.add(glowMesh)
+
+HAX: remove this global characters array.
 It's used so that the raycaster doesn't have to traverse `scene.children`
 
           window.characters.push object

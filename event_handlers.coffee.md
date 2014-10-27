@@ -1,8 +1,6 @@
 Event Handlers
 ==============
 
-    glow = require("./glow_material")()
-
     raycaster = new THREE.Raycaster()
     projector = new THREE.Projector()
     raycastDirection = new THREE.Vector3()
@@ -15,7 +13,7 @@ Event Handlers
 
     onKeydown = (e) ->
       e.preventDefault()
-      
+
       switch e.keyCode
         when 81 # q
           camera.position.x -= 1
@@ -62,20 +60,16 @@ http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
 TODO: sort intersections by closest and stop after the first one
 
       intersects.forEach (intersection) ->
-      
-We're expecting to click on a .obj model. 
-Our raycaster intersects the underlying Mesh. 
+
+We're expecting to click on a .obj model.
+Our raycaster intersects the underlying Mesh.
 We need to call `parent` to get the right object
-              
+
         position = intersection.object.parent.position
 
         camera.position.set position.x, position.y + 100, position.z + 200
         camera.lookAt intersection.object.parent.position
-                          
-        glowMesh = new THREE.Mesh intersection.object.geometry, glow
-                
-        intersection.object.parent.add(glowMesh)
-              
+
     window.addEventListener "resize", onWindowResize, false
     window.addEventListener "click", onClick, false
     window.addEventListener "keydown", onKeydown, false
