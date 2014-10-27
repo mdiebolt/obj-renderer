@@ -58,7 +58,6 @@ It's used so that the raycaster doesn't have to traverse `scene.children`
     
             glowMesh = new THREE.Mesh child.geometry, glow
             glowMesh.visible = false
-            glowMesh.name = "glow"
     
             object.add(glowMesh)
     
