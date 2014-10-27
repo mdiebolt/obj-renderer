@@ -49,18 +49,20 @@ Apply the color palette texture we loaded above
 
             child.material.map = texture
 
-          object.position.set position.x, position.y, position.z
-          glowMesh = new THREE.Mesh child.geometry, glow
-          glowMesh.visible = false
-
-          object.add(glowMesh)
+            object.position.set position.x, position.y, position.z
 
 HAX: remove this global characters array.
 It's used so that the raycaster doesn't have to traverse `scene.children`
 
-          window.characters.push object
-
-          scene.add object
+            window.characters.push object
+    
+            glowMesh = new THREE.Mesh child.geometry, glow
+            glowMesh.visible = false
+            glowMesh.name = "glow"
+    
+            object.add(glowMesh)
+    
+            scene.add object
 
         , onProgress
         , onError
