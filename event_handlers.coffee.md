@@ -69,6 +69,11 @@ We need to call `parent` to get the right object
 
         camera.position.set position.x, position.y + 100, position.z + 200
         camera.lookAt intersection.object.parent.position
+        
+        scene.traverse (c) ->
+          if c.material instanceof THREE.ShaderMaterial
+            c.visible = false
+        
         intersection.object.traverse (c) ->
           if c.material instanceof THREE.ShaderMaterial
             c.visible = true
