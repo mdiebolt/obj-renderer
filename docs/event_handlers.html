@@ -155,6 +155,11 @@ We need to call <code>parent</code> to get the right object</p>
 
     camera.position.set position.x, position.y + <span class="number">100</span>, position.z + <span class="number">200</span>
     camera.lookAt intersection.object.parent.position
+
+    scene.traverse (c) -&gt;
+      <span class="keyword">if</span> c.material <span class="keyword">instanceof</span> THREE.ShaderMaterial
+        c.visible = <span class="literal">false</span>
+
     intersection.object.traverse (c) -&gt;
       <span class="keyword">if</span> c.material <span class="keyword">instanceof</span> THREE.ShaderMaterial
         c.visible = <span class="literal">true</span>
