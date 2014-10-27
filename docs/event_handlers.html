@@ -34,9 +34,7 @@
               </div>
               
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">glow = require(<span class="string">"./glow_material"</span>)()
-
-raycaster = <span class="keyword">new</span> THREE.Raycaster()
+            <div class="content"><pre><code class="lang-coffeescript">raycaster = <span class="keyword">new</span> THREE.Raycaster()
 projector = <span class="keyword">new</span> THREE.Projector()
 raycastDirection = <span class="keyword">new</span> THREE.Vector3()
 
@@ -148,8 +146,8 @@ For both methods you pass the camera you&#39;re viewing the scene through.</p>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>We&#39;re expecting to click on a .obj model. 
-Our raycaster intersects the underlying Mesh. 
+              <p>We&#39;re expecting to click on a .obj model.
+Our raycaster intersects the underlying Mesh.
 We need to call <code>parent</code> to get the right object</p>
 
             </div>
@@ -157,10 +155,6 @@ We need to call <code>parent</code> to get the right object</p>
 
     camera.position.set position.x, position.y + <span class="number">100</span>, position.z + <span class="number">200</span>
     camera.lookAt intersection.object.parent.position
-
-    glowMesh = <span class="keyword">new</span> THREE.Mesh intersection.object.geometry, glow
-
-    intersection.object.parent.add(glowMesh)
 
 window.addEventListener <span class="string">"resize"</span>, onWindowResize, <span class="literal">false</span>
 window.addEventListener <span class="string">"click"</span>, onClick, <span class="literal">false</span>

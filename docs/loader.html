@@ -35,7 +35,9 @@
               <p>Loads voxel models from .obj files</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">window.characters = []
+            <div class="content"><pre><code class="lang-coffeescript">glow = require(<span class="string">"./glow_material"</span>)()
+
+window.characters = []
 manager = <span class="keyword">new</span> THREE.LoadingManager()
 texture = <span class="keyword">new</span> THREE.Texture()</code></pre>
 </div>
@@ -124,7 +126,11 @@ Load up one from an arbitrary model we use.</p>
             </div>
             <div class="content"><pre><code class="lang-coffeescript">        child.material.map = texture
 
-      object.position.set position.x, position.y, position.z</code></pre>
+      object.position.set position.x, position.y, position.z
+      glowMesh = <span class="keyword">new</span> THREE.Mesh child.geometry, glow
+      glowMesh.visible = <span class="literal">false</span>
+
+      object.add(glowMesh)</code></pre>
 </div>
         </li>
         
@@ -134,7 +140,7 @@ Load up one from an arbitrary model we use.</p>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>HAX: remove this global characters array. 
+              <p>HAX: remove this global characters array.
 It&#39;s used so that the raycaster doesn&#39;t have to traverse <code>scene.children</code></p>
 
             </div>
