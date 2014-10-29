@@ -81,7 +81,7 @@ module.<span class="function"><span class="title">exports</span></span> = -&gt;<
             <div class="content"><pre><code class="lang-coffeescript">  generateGrid: (size) -&gt;
     [<span class="number">0.</span>..size].forEach (x) -&gt;
       [<span class="number">0.</span>..size].forEach (z) -&gt;
-        addCube <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
+        addCube <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -CUBE_SIZE / <span class="number">2</span>, z * CUBE_SIZE)
 
   populateCharacters: -&gt;
     <span class="keyword">for</span> name, position <span class="keyword">of</span> characterPositions
