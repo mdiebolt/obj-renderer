@@ -21,8 +21,6 @@ Generate a simple map, populating it with a cube floor and characters.
       cube.position.set x, y, z
       scene.add cube
 
-Create a basic floor of dimension `size`
-
     characterPositions =
       bartender: [0, 0, 0]
       robo_sheriff: [10, 0, 0]
@@ -36,6 +34,8 @@ Create a basic floor of dimension `size`
       jetpack_bandit: [90, 0, 0]
 
     module.exports = ->
+
+Create a basic floor of dimension `size`
 
       generateGrid: (size) ->
         [0...size].forEach (x) ->
