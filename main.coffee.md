@@ -12,7 +12,7 @@ Renderer
 
     map = require("./map")()
 
-    particles = []
+    particles = ParticleSystem()
 
     renderer.setSize window.innerWidth, window.innerHeight
     document.body.appendChild renderer.domElement
@@ -34,8 +34,6 @@ Return 1 `probability` percent of the time, -1 otherwise
 
       map.generateGrid(10)
       map.populateCharacters()
-
-      particles = ParticleSystem()
 
       particles.generate
         number: 100
