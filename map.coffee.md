@@ -40,7 +40,7 @@ Create a basic floor of dimension `size`
       generateGrid: (size) ->
         [0...size].forEach (x) ->
           [0...size].forEach (z) ->
-            addCube new Vector3(x * CUBE_SIZE, -5, z * CUBE_SIZE)
+            addCube new Vector3(x * CUBE_SIZE, -CUBE_SIZE / 2, z * CUBE_SIZE)
 
       populateCharacters: ->
         for name, position of characterPositions
