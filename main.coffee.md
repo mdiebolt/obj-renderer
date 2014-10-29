@@ -21,8 +21,7 @@ Renderer
     camera.up = new THREE.Vector3(0, 1, 0)
     camera.lookAt new THREE.Vector3(50, 0, 50)
 
-Return 1 `probability` percent of the time.
-Return -1 otherwise
+Return 1 `probability` percent of the time, -1 otherwise
 
     randomSign = (probability) ->
       if Math.random() <= probability

@@ -55,12 +55,12 @@ HAX: remove this global characters array.
 It's used so that the raycaster doesn't have to traverse `scene.children`
 
             window.characters.push object
-    
+
             glowMesh = new THREE.Mesh child.geometry, glow
             glowMesh.visible = false
-    
+
             object.add(glowMesh)
-    
+
             scene.add object
 
         , onProgress
