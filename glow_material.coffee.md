@@ -2,6 +2,8 @@ Glow Material
 =============
 
 The Glow Pt. 2
+This is a shader that you can apply to a mesh in order to make it glow.
+In the future this could be parameterized by color and intensity to make it more robust.
 
     module.exports = ->
       new THREE.ShaderMaterial
@@ -9,9 +11,15 @@ The Glow Pt. 2
           c:
             type: "f"
             value: 1.0
+            
+Lowering p makes the object glow brighter
+            
           p:
             type: "f"
             value: 0.7
+            
+Change the glob color here. It's defaulted to yellow
+            
           glowColor:
             type: "c"
             value: new THREE.Color(0xffff00)
