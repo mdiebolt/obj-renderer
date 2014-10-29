@@ -45,7 +45,7 @@ util.applyStylesheet require(<span class="string">"./style"</span>)
 
 map = require(<span class="string">"./map"</span>)()
 
-particles = []
+particles = ParticleSystem()
 
 renderer.setSize window.innerWidth, window.innerHeight
 document.body.appendChild renderer.domElement
@@ -76,8 +76,6 @@ camera.lookAt <span class="keyword">new</span> THREE.Vector3(<span class="number
 
   map.generateGrid(<span class="number">10</span>)
   map.populateCharacters()
-
-  particles = ParticleSystem()
 
   particles.generate
     number: <span class="number">100</span>
