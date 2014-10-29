@@ -16,7 +16,9 @@ Generate a simple map, populating it with a cube floor and characters.
         wireframe: true
 
       cube = new THREE.Mesh geometry, material
-      cube.position.set position.x, position.y, position.z
+      
+      {x, y, z} = position
+      cube.position.set x, y, z
       scene.add cube
 
 Create a basic floor of dimension `size`
