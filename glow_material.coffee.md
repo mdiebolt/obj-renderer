@@ -11,7 +11,7 @@ The Glow Pt. 2
             value: 1.0
           p:
             type: "f"
-            value: 1.4
+            value: 0.7
           glowColor:
             type: "c"
             value: new THREE.Color(0xffff00)
