@@ -51,7 +51,21 @@ CUBE_SIZE = <span class="number">10</span>
 
   {x, y, z} = position
   cube.position.set x, y, z
-  scene.add cube</code></pre>
+  scene.add cube
+
+characterPositions =
+  bartender: [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]
+  robo_sheriff: [<span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>]
+  cactus: [<span class="number">20</span>, <span class="number">0</span>, <span class="number">0</span>]
+  arrow: [<span class="number">30</span>, <span class="number">0</span>, <span class="number">0</span>]
+  beam_sword: [<span class="number">40</span>, <span class="number">0</span>, <span class="number">0</span>]
+  branding_iron: [<span class="number">50</span>, <span class="number">0</span>, <span class="number">0</span>]
+  character: [<span class="number">60</span>, <span class="number">0</span>, <span class="number">0</span>]
+  gun: [<span class="number">70</span>, <span class="number">0</span>, <span class="number">0</span>]
+  hoverboard: [<span class="number">80</span>, <span class="number">0</span>, <span class="number">0</span>]
+  jetpack_bandit: [<span class="number">90</span>, <span class="number">0</span>, <span class="number">0</span>]
+
+module.<span class="function"><span class="title">exports</span></span> = -&gt;</code></pre>
 </div>
         </li>
         
@@ -64,21 +78,7 @@ CUBE_SIZE = <span class="number">10</span>
               <p>Create a basic floor of dimension <code>size</code></p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">characterPositions =
-  bartender: [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]
-  robo_sheriff: [<span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>]
-  cactus: [<span class="number">20</span>, <span class="number">0</span>, <span class="number">0</span>]
-  arrow: [<span class="number">30</span>, <span class="number">0</span>, <span class="number">0</span>]
-  beam_sword: [<span class="number">40</span>, <span class="number">0</span>, <span class="number">0</span>]
-  branding_iron: [<span class="number">50</span>, <span class="number">0</span>, <span class="number">0</span>]
-  character: [<span class="number">60</span>, <span class="number">0</span>, <span class="number">0</span>]
-  gun: [<span class="number">70</span>, <span class="number">0</span>, <span class="number">0</span>]
-  hoverboard: [<span class="number">80</span>, <span class="number">0</span>, <span class="number">0</span>]
-  jetpack_bandit: [<span class="number">90</span>, <span class="number">0</span>, <span class="number">0</span>]
-
-module.<span class="function"><span class="title">exports</span></span> = -&gt;
-
-  generateGrid: (size) -&gt;
+            <div class="content"><pre><code class="lang-coffeescript">  generateGrid: (size) -&gt;
     [<span class="number">0.</span>..size].forEach (x) -&gt;
       [<span class="number">0.</span>..size].forEach (z) -&gt;
         addCube <span class="keyword">new</span> Vector3(x * CUBE_SIZE, -<span class="number">5</span>, z * CUBE_SIZE)
